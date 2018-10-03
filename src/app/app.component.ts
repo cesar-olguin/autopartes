@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -7,6 +7,9 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { VentasPage } from '../pages/ventas/ventas';
 import { PedidosPage } from '../pages/pedidos/pedidos';
+import { FavoritosPage } from '../pages/favoritos/favoritos';
+import { UsuarioPage } from '../pages/usuario/usuario';
+import { MisVentasPage } from '../pages/mis-ventas/mis-ventas';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,7 +21,7 @@ export class MyApp {
 
   pages: Array<{ title: string, component: any, icon: string }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public events: Events) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -28,6 +31,26 @@ export class MyApp {
       { title: 'Pedidos', component: PedidosPage, icon: 'search' },
       { title: 'Articulos', component: VentasPage, icon: 'cart' }
     ];
+
+    events.subscribe('user:loggedin',() => {
+      this.pages = [
+        //{ title: 'Cuenta', component: AccountPage, icon: 'paper' },
+        { title: 'Home', component: HomePage, icon: 'home' },
+        { title: 'Favoritos', component: FavoritosPage, icon: 'star' },
+        { title: 'Articulos en Venta', component: VentasPage, icon: 'cart' },
+        { title: 'Usuario', component: UsuarioPage, icon: 'person' },
+        { title: 'Mis Ventas', component: MisVentasPage, icon: 'cart' }
+      ];
+    });
+
+    events.subscribe('user:loggedout',() => {
+      this.pages = [
+        { title: 'Cuenta', component: LoginPage, icon: 'log-in' },
+        { title: 'Home', component: HomePage, icon: 'home' },
+        { title: 'Articulos en Venta', component: VentasPage, icon: 'cart' },
+      
+      ];
+    });
 
   }
 
