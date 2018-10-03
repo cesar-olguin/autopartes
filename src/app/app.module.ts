@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { CuentaPage } from '../pages/cuenta/cuenta';
 import { FavoritosPage } from '../pages/favoritos/favoritos';
 import { HacerPedidoPage } from '../pages/hacer-pedido/hacer-pedido';
+import { HacerVentaPage } from '../pages/hacer-venta/hacer-venta';
 import { LoginPage } from '../pages/login/login';
 import { MiPedidoPage } from '../pages/mi-pedido/mi-pedido';
 import { MiVentaPage } from '../pages/mi-venta/mi-venta';
@@ -18,7 +19,6 @@ import { PedidoPage } from '../pages/pedido/pedido';
 import { PedidosPage } from '../pages/pedidos/pedidos';
 import { PreguntaPage } from '../pages/pregunta/pregunta';
 import { PreguntasPage } from '../pages/preguntas/preguntas';
-import { RealizarVentaPage } from '../pages/realizar-venta/realizar-venta';
 import { RegistrarsePage } from '../pages/registrarse/registrarse';
 import { ResponderPage } from '../pages/responder/responder';
 import { UsuarioPage } from '../pages/usuario/usuario';
@@ -38,6 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
     CuentaPage,
     FavoritosPage,
     HacerPedidoPage,
+    HacerVentaPage,
     LoginPage,
     MiPedidoPage,
     MiVentaPage,
@@ -49,7 +50,6 @@ import { HttpClientModule } from '@angular/common/http';
     PedidosPage,
     PreguntaPage,
     PreguntasPage,
-    RealizarVentaPage,
     RegistrarsePage,
     ResponderPage,
     UsuarioPage,
@@ -74,6 +74,7 @@ import { HttpClientModule } from '@angular/common/http';
     CuentaPage,
     FavoritosPage,
     HacerPedidoPage,
+    HacerVentaPage,
     LoginPage,
     MiPedidoPage,
     MiVentaPage,
@@ -85,7 +86,6 @@ import { HttpClientModule } from '@angular/common/http';
     PedidosPage,
     PreguntaPage,
     PreguntasPage,
-    RealizarVentaPage,
     RegistrarsePage,
     ResponderPage,
     UsuarioPage,
