@@ -1,18 +1,67 @@
-<!--
-  Generated template for the MiVentaPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Mi-Venta</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title></ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
 
+
+<ion-content padding>
+  <ion-content *ngFor="let artId of articuloId">
+    <img src="{{artId.Foto_Principal}}">
+
+    <h1>{{ artId.Titulo }}</h1>
+    <h3>$ {{ artId.Precio }}</h3>
+
+    <!--button ion-button clear item-end>View</button-->
+
+    <button ion-button block>Comprar</button>
+    <button ion-button block outline>agregar al carrito </button>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          Icono 1
+        </ion-col>
+        <ion-col>
+          Icono 2
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <h5>DESCRIPCION</h5>
+    <p>{{ artId.Descripcion }}</p>
+
+
+    <h5>Comentarios</h5>
+    <ion-list> 
+      <ion-item *ngFor="let coment of comentarios">
+        <h2>{{coment.Titulo}}</h2>
+        <p>{{coment.Comentario}}</p>
+      </ion-item>
+    </ion-list>
+
+    <!-- <h5>Comentarios</h5>
+    <ion-list no-lines [virtualScroll]="comentarios" approxItemHeight="40px">
+      <ion-item *virtualItem="let coment">
+        <h2>{{coment.Titulo}}</h2>
+        <p>{{coment.Comentario}}</p>
+      </ion-item>
+    </ion-list> -->
+
+  </ion-content>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item (click)="hacerPregunta()">
+      <ion-input type="text" placeholder="Escribe una pregunta"></ion-input>
+      <button ion-button clear icon-only item-right>
+        <ion-icon name="send"> </ion-icon>
+      </button>
+    </ion-item>
+
+  </ion-toolbar>
+</ion-footer>

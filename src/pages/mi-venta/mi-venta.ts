@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { PreguntasPage } from '../preguntas/preguntas';
 
 /**
  * Generated class for the MiVentaPage page.
@@ -15,11 +18,65 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MiVentaPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  articuloId: any;
+  idSelected: any[] = [];
+  comentarios: any;
+  idArticulo;
+  idUsuario;
+  Comentario;
+  IdUser;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public restService: UserServiceProvider) {
+    this.idSelected = navParams.get("art");
+    this.idArticulo = this.idSelected;
+    this.loadArt();
+    this.loadChat();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MiVentaPage');
+    this.loadChat();
+  }
+
+  hacerPregunta(){
+    this.navCtrl.push(PreguntasPage);
+  }
+
+  // postChat() {
+  //   this.storage.get('idUser').then((data) => {
+  //     this.IdUser = data;
+  //     if (this.IdUser == null){
+  //       this.IdUser = "0";
+  //       console.log('Usuario: ', this.IdUser);
+  //     }
+      
+  //       let body = {
+  //         idArticulo: this.idSelected,
+  //         idUsuario: this.IdUser,
+  //         Comentario: this.Comentario,
+  //       }
+
+  //       console.log('Usuario: ', this.IdUser);
+  //       console.log(JSON.stringify(body));
+  //       this.restService.postComentario(body).then((result) => {
+  //         console.log(result);
+  //         this.ionViewDidLoad();
+  //         window.location.reload;
+  //       }, (err) => {
+  //         console.log(err);
+  //       });
+  //   });
+  // }
+
+  loadArt(){
+    this.restService.getArticuloById(this.idArticulo).then(data => {
+      this.articuloId = data;
+    });
+  }
+
+  loadChat(){
+    this.restService.getComentarios(this.idArticulo).then(data => {
+      this.comentarios = data;
+    });
   }
 
 }

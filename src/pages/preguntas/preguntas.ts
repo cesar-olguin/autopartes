@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { PreguntaPage } from '../pregunta/pregunta';
 
 /**
  * Generated class for the PreguntasPage page.
@@ -20,6 +21,10 @@ export class PreguntasPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PreguntasPage');
+  }
+
+  hacerPregunta(){
+    this.navCtrl.push(PreguntaPage);
   }
 
 }
