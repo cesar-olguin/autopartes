@@ -1,18 +1,41 @@
-<!--
-  Generated template for the LoginPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Login</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
+
+  <ion-list>
+    <!--ion-item>
+        <ion-label fixed>Usuario</ion-label>
+        <ion-input type="text" value=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Contraseña</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item-->
+  
+    <ion-item>
+        <ion-icon item-start name="person"></ion-icon>
+        <ion-label color="primary" autocomplete="on" autocorrect="on" floating>Correo</ion-label>
+        <ion-input type="email" [(ngModel)]="Usuario" id="input"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+          <ion-icon item-start name="key"></ion-icon>
+        <ion-label color="primary" autocomplete="on" autocorrect="on" floating>Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="Password" id="input"></ion-input>
+      </ion-item>
+      <ion-item>
+          <button ion-button block (click)="login()">
+            <ion-icon item-start name="person"></ion-icon>
+              Iniciar Sesión
+            </button>
+        </ion-item> 
+  </ion-list>
 
 </ion-content>
