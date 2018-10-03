@@ -30,6 +30,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { HttpClientModule } from '@angular/common/http';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    UserServiceProvider
+    UserServiceProvider,
+    Camera
   ]
 })
 export class AppModule { }
