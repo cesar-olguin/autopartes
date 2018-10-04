@@ -47,7 +47,7 @@
       <ion-col *ngFor="let art of articulos" col-6 no-padding>
         <ion-card (click)="itemTapped(art);">
           <ion-card-header>
-            <img [src]="art.Foto_Principal">
+            <img [src]="art.Foto_Principal" width="50%" height="100px">
           </ion-card-header>
           <ion-card-content>
             <h1>${{ art.Precio }}</h1>

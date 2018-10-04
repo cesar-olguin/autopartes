@@ -4,6 +4,12 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title></ion-title>
+    <ion-buttons end *ngFor="let artId of articuloId">
+        <button ion-button icon-only (click)="editArt(artId);">
+          <!--button ion-button icon-only (click)="openModal()"></button-->
+          <ion-icon name="build"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 

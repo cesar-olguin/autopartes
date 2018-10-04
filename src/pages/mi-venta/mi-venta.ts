@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { PreguntasPage } from '../preguntas/preguntas';
+import { ModificarVentaPage } from '../modificar-venta/modificar-venta';
 
 /**
  * Generated class for the MiVentaPage page.
@@ -29,6 +30,7 @@ export class MiVentaPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public restService: UserServiceProvider) {
     this.idSelected = navParams.get("art");
     this.idArticulo = this.idSelected;
+    this.storage.set('idArt', this.idArticulo);
     this.loadArt();
     this.loadChat();
   }
@@ -76,6 +78,12 @@ export class MiVentaPage {
   loadChat(){
     this.restService.getComentarios(this.idArticulo).then(data => {
       this.comentarios = data;
+    });
+  }
+
+  editArt(artId) {
+    this.navCtrl.push(ModificarVentaPage, {
+      art: artId.idArticulo
     });
   }
 
