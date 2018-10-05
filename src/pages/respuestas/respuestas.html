@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Conversaciones</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  
+  <ion-content padding>
+  
+      <h5></h5>
+      <ion-list> 
+        <ion-item *ngFor="let coment of comentarios" (click)="verConversacion(coment)">
+          <p>{{coment.Conversacion}}</p>
+        </ion-item>
+      </ion-list>
+  
+  </ion-content>
+  
+  <ion-footer>
+    <ion-toolbar>
+      <ion-item (click)="hacerPregunta()">
+        <ion-input type="text" placeholder="Escribe tu Pregunta..." disabled></ion-input>
+        <button ion-button clear icon-only item-right>
+          <ion-icon name="send"> </ion-icon>
+        </button>
+      </ion-item>
+  
+    </ion-toolbar>
+  </ion-footer>

@@ -6,7 +6,7 @@ import { EscribirPage } from '../escribir/escribir';
 import { ConversacionVendedorPage } from '../conversacion-vendedor/conversacion-vendedor';
 
 /**
- * Generated class for the ResponderPage page.
+ * Generated class for the RespuestasPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -14,10 +14,10 @@ import { ConversacionVendedorPage } from '../conversacion-vendedor/conversacion-
 
 @IonicPage()
 @Component({
-  selector: 'page-responder',
-  templateUrl: 'responder.html',
+  selector: 'page-respuestas',
+  templateUrl: 'respuestas.html',
 })
-export class ResponderPage {
+export class RespuestasPage {
 
   idSelected: any[] = [];
   idArticulo;
