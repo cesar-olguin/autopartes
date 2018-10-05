@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { PreguntasPage } from '../preguntas/preguntas';
 import { ModificarVentaPage } from '../modificar-venta/modificar-venta';
+import { RespuestasPage } from '../respuestas/respuestas';
 
 /**
  * Generated class for the MiVentaPage page.
@@ -40,7 +40,7 @@ export class MiVentaPage {
   }
 
   hacerPregunta(){
-    this.navCtrl.push(PreguntasPage);
+    this.navCtrl.push(RespuestasPage);
   }
 
   // postChat() {
@@ -76,7 +76,7 @@ export class MiVentaPage {
   }
 
   loadChat(){
-    this.restService.getComentarios(this.idArticulo).then(data => {
+    this.restService.getComentarioUsuario(this.idArticulo).then(data => {
       this.comentarios = data;
     });
   }

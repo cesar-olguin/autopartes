@@ -39,8 +39,7 @@ export class UsuarioPage {
           let obj = JSON.parse(JSON.stringify(data));
           this.user = obj[0];
           //alert("JSON Parse -> " + this.user.idUsuario);
-          this.storage.set('idUser', this.user.idUsuario);
-
+          this.storage.set('idUser', this.user.idUsuario);          
         });
       });
     });
@@ -52,6 +51,7 @@ export class UsuarioPage {
 
   close() {
     window.localStorage.clear();
+    this.storage.clear();
     this.events.publish('user:loggedout');
     this.appCtrl.getRootNav().setRoot(HomePage);
   }

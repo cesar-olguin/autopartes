@@ -11,7 +11,7 @@
   
   
   <ion-content padding>
-    <ion-content *ngFor="let artId of articuloId">
+    <div *ngFor="let artId of articuloId">
       <img src="{{artId.Foto_Principal}}">
   
       <h1>{{ artId.Titulo }}</h1>
@@ -34,14 +34,15 @@
       <h5>DESCRIPCION</h5>
       <p>{{ artId.Descripcion }}</p>
   
-  
-      <h5>Comentarios</h5>
+      <button ion-button (click)="hacerPregunta()">Preguntas</button>
+
+      <!-- <h5>Comentarios</h5>
       <ion-list> 
         <ion-item *ngFor="let coment of comentarios">
           <h2>{{coment.Titulo}}</h2>
           <p>{{coment.Comentario}}</p>
         </ion-item>
-      </ion-list>
+      </ion-list> -->
   
       <!-- <h5>Comentarios</h5>
       <ion-list no-lines [virtualScroll]="comentarios" approxItemHeight="40px">
@@ -51,10 +52,10 @@
         </ion-item>
       </ion-list> -->
   
-    </ion-content>
+    </div>
   </ion-content>
   
-  <ion-footer>
+  <!-- <ion-footer>
     <ion-toolbar>
       <ion-item (click)="hacerPregunta()">
         <ion-input type="text" placeholder="Escribe una pregunta"></ion-input>
@@ -65,4 +66,4 @@
   
     </ion-toolbar>
   </ion-footer>
-  
+   -->

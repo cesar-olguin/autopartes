@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Storage } from '@ionic/storage';
-import { PreguntaPage } from '../pregunta/pregunta';
+import { PreguntasPage } from '../preguntas/preguntas';
 
 /**
  * Generated class for the VentaPage page.
@@ -39,7 +39,7 @@ export class VentaPage {
   }
 
   hacerPregunta(){
-    this.navCtrl.push(PreguntaPage);
+    this.navCtrl.push(PreguntasPage);
   }
 
   loadArt(){
