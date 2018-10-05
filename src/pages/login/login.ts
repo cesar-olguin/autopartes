@@ -4,7 +4,7 @@ import { UserServiceProvider } from './../../providers/user-service/user-service
 import { empty } from 'rxjs/Observer';
 import { Storage } from '@ionic/storage';
 import { Md5 } from 'ts-md5';
-import { HomePage } from '../home/home';
+import { UsuarioPage } from '../usuario/usuario';
 /**
  * Generated class for the LoginPage page.
  *
@@ -49,7 +49,7 @@ export class LoginPage {
           window.localStorage.setItem('pass',this.Password);
 
           this.events.publish('user:loggedin');
-          this.appCtrl.getRootNav().setRoot(HomePage);
+          this.appCtrl.getRootNav().setRoot(UsuarioPage);
         }
       });
     }

@@ -4,7 +4,10 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { ConversacionClientePage } from '../pages/conversacion-cliente/conversacion-cliente';
+import { ConversacionVendedorPage } from '../pages/conversacion-vendedor/conversacion-vendedor';
 import { CuentaPage } from '../pages/cuenta/cuenta';
+import { EscribirPage } from '../pages/escribir/escribir';
 import { FavoritosPage } from '../pages/favoritos/favoritos';
 import { HacerPedidoPage } from '../pages/hacer-pedido/hacer-pedido';
 import { HacerVentaPage } from '../pages/hacer-venta/hacer-venta';
@@ -17,10 +20,9 @@ import { ModificarPedidoPage } from '../pages/modificar-pedido/modificar-pedido'
 import { ModificarVentaPage } from '../pages/modificar-venta/modificar-venta';
 import { PedidoPage } from '../pages/pedido/pedido';
 import { PedidosPage } from '../pages/pedidos/pedidos';
-import { PreguntaPage } from '../pages/pregunta/pregunta';
 import { PreguntasPage } from '../pages/preguntas/preguntas';
 import { RegistrarsePage } from '../pages/registrarse/registrarse';
-import { ResponderPage } from '../pages/responder/responder';
+import { RespuestasPage } from '../pages/respuestas/respuestas';
 import { UsuarioPage } from '../pages/usuario/usuario';
 import { VentaPage } from '../pages/venta/venta';
 import { VentasPage } from '../pages/ventas/ventas';
@@ -32,11 +34,15 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
 
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    ConversacionClientePage,
+    ConversacionVendedorPage,
     CuentaPage,
+    EscribirPage,
     FavoritosPage,
     HacerPedidoPage,
     HacerVentaPage,
@@ -49,10 +55,9 @@ import { Camera } from '@ionic-native/camera';
     ModificarVentaPage,
     PedidoPage,
     PedidosPage,
-    PreguntaPage,
     PreguntasPage,
     RegistrarsePage,
-    ResponderPage,
+    RespuestasPage,
     UsuarioPage,
     VentaPage,
     VentasPage
@@ -72,7 +77,10 @@ import { Camera } from '@ionic-native/camera';
   entryComponents: [
     MyApp,
     HomePage,
+    ConversacionClientePage,
+    ConversacionVendedorPage,
     CuentaPage,
+    EscribirPage,
     FavoritosPage,
     HacerPedidoPage,
     HacerVentaPage,
@@ -85,10 +93,9 @@ import { Camera } from '@ionic-native/camera';
     ModificarVentaPage,
     PedidoPage,
     PedidosPage,
-    PreguntaPage,
     PreguntasPage,
     RegistrarsePage,
-    ResponderPage,
+    RespuestasPage,
     UsuarioPage,
     VentaPage,
     VentasPage

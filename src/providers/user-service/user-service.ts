@@ -47,6 +47,17 @@ export class UserServiceProvider {
       });
     });
   }
+
+  getArticulosDiferentes(id) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + '/articulo/diferente/' + id).subscribe(data => {
+        resolve(data)
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
   getArticuloByUser(id) {
     return new Promise(resolve => {
       this.http.get(this.baseUrl + '/articulo/usuario/' + id).subscribe(data => {
@@ -148,6 +159,26 @@ export class UserServiceProvider {
 
   getPedidos() {
     return this.http.get(this.baseUrl + '/pedido/');
+  }
+
+  getComentarioUsuario(idArticulo) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + '/articulo/comentario/'+ idArticulo).subscribe(data => {
+        resolve(data)
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  getComentarioUsuarioVendedor(idArticulo,idUsuario) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + '/articulo/comentario/' + idArticulo + '/' + idUsuario).subscribe(data => {
+        resolve(data)
+      }, err => {
+        console.log(err);
+      });
+    });
   }
 
 }

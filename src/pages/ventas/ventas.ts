@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { VentaPage } from '../venta/venta';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the VentasPage page.
@@ -18,7 +19,7 @@ import { VentaPage } from '../venta/venta';
 export class VentasPage {
 
   selectedItem: any;
-  articulos: any[] = [];
+  articulos: any;
   modelos: any;
   marcas: any[] = [];
   selectModelo: any;
@@ -28,19 +29,31 @@ export class VentasPage {
   public marcaName;
   public modeloName;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, public storage: Storage) {
   }
 
   ionViewDidLoad() {
-    this.restService.getArticulos()
-    .subscribe(
-      (data) => { // Success
-        this.articulos = data['records'];
-      },
-      (error) => {
-        console.error(error);
+    this.storage.get('idUser').then((idval) => {
+      console.log(idval);
+      if(idval == null){
+        this.restService.getArticulos()
+        .subscribe(
+          (data) => { // Success
+            this.articulos = data;
+          },
+          (error) => {
+            console.error(error);
+          }
+        )
       }
-    )
+      else{
+        this.restService.getArticulosDiferentes(idval).then(data => {
+          this.articulos = data;
+        });
+      }
+    });
+
+    
 
   this.restService.getMarcas()
     .subscribe(
