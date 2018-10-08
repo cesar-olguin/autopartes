@@ -15,6 +15,7 @@ import { EscribirPage } from '../escribir/escribir';
   selector: 'page-conversacion-vendedor',
   templateUrl: 'conversacion-vendedor.html',
 })
+
 export class ConversacionVendedorPage {
 
   idUsuario;
@@ -30,8 +31,14 @@ export class ConversacionVendedorPage {
   }
 
   ionViewDidLoad() {
-  
+    this.loadChat();
   }
+
+  ionViewCanLoad(){
+
+  }
+
+  
 
   loadChat(){
     this.restService.getComentarioUsuarioVendedor(this.idArticulo,this.idUsuario).then(data => {
@@ -39,9 +46,10 @@ export class ConversacionVendedorPage {
       
       let obj = JSON.parse(JSON.stringify(data));
       this.User = obj[0];
-
-      console.log("ID Vendedor -> " + this.User.Vendedor);
-      console.log("Cliente -> "+ this.User.Cliente);
+      console.log(JSON.stringify(data));
+      
+      console.log("ID Vendedor -> ", this.User.Vendedor);
+      console.log("Cliente -> ", this.User.Cliente);
       
 
 
@@ -62,7 +70,9 @@ export class ConversacionVendedorPage {
   }
 
   responder(){
-    this.navCtrl.push(EscribirPage);
+    this.navCtrl.push(EscribirPage,{
+      idCli: this.User.Cliente
+    });
   }
 
 }

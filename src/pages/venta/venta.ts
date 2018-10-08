@@ -25,6 +25,7 @@ export class VentaPage {
   idUsuario;
   Comentario;
   IdUser;
+  vendedor;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public restService: UserServiceProvider) {
     this.idSelected = navParams.get("art");
@@ -43,8 +44,13 @@ export class VentaPage {
   }
 
   loadArt(){
+    this.storage.remove('vend');
     this.restService.getArticuloById(this.idArticulo).then(data => {
       this.articuloId = data;
+      let obj = JSON.parse(JSON.stringify(data));
+      this.vendedor = obj[0];
+      console.log("ID vendedor -> ",this.vendedor.idUsuario);
+      this.storage.set('vend', this.vendedor.idUsuario); 
     });
   }
 

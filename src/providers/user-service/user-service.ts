@@ -78,9 +78,9 @@ export class UserServiceProvider {
     });
   }
 
-  postComentario(data) {
+  postConversacion(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + '/articulo/comentario/', data)
+      this.http.post(this.baseUrl + '/articulo/conversacion/', data)
         .subscribe(res => {
           resolve(res);
           console.log(data);
