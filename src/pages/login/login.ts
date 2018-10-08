@@ -5,6 +5,7 @@ import { empty } from 'rxjs/Observer';
 import { Storage } from '@ionic/storage';
 import { Md5 } from 'ts-md5';
 import { UsuarioPage } from '../usuario/usuario';
+import { RegistrarsePage } from '../registrarse/registrarse';
 /**
  * Generated class for the LoginPage page.
  *
@@ -53,6 +54,10 @@ export class LoginPage {
         }
       });
     }
+  }
+
+  registrate(){
+    this.appCtrl.getRootNav().push(RegistrarsePage);
   }
 
   sinDatos() {

@@ -62,8 +62,11 @@ export class ConversacionClientePage {
     });
   }
 
-  responder(){
-    this.navCtrl.push(EscribirPage);
+  preguntar(){
+    this.navCtrl.push(EscribirPage,{
+      idCli: this.User.Cliente,
+      idVen: this.User.Vendedor
+    });
   }
 
 }

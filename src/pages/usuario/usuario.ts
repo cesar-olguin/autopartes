@@ -19,6 +19,7 @@ import { Md5 } from 'ts-md5';
 })
 export class UsuarioPage {
 
+  espacio = " ";
   public Correo;
   public Password;
   Usuario: any;

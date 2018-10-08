@@ -71,7 +71,8 @@ export class ConversacionVendedorPage {
 
   responder(){
     this.navCtrl.push(EscribirPage,{
-      idCli: this.User.Cliente
+      idCli: this.User.Cliente,
+      idVen: this.User.Vendedor
     });
   }
 

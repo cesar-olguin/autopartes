@@ -25,9 +25,11 @@ export class EscribirPage {
   Conversacion: string;
   Fecha: string;
   idCliente;
+  idVendedor;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, public restService: UserServiceProvider) {
     this.idCliente = navParams.get('idCli');
+    this.idVendedor = navParams.get('idVen');
   }
 
   ionViewDidLoad() {
@@ -36,13 +38,12 @@ export class EscribirPage {
 
   escribir() {
     this.storage.get('idUser').then((idLog) => {
-      this.storage.get('vend').then((idVend) => {
         this.storage.get('idArt').then((idArt) => {
 
           let body = {
             idArticulo: idArt,
             idUsuario: idLog,
-            Vendedor: idVend,
+            Vendedor: this.idVendedor,
             Cliente: this.idCliente,
             Conversacion: this.Escrito,
             Fecha: this.Fecha = new Date().toLocaleDateString('en-GB')
@@ -50,7 +51,6 @@ export class EscribirPage {
           this.restService.postConversacion(body);
           console.log(body);
         });
-      });
     });
   }
 

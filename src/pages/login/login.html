@@ -18,24 +18,30 @@
         <ion-label fixed>Contraseña</ion-label>
         <ion-input type="password"></ion-input>
       </ion-item-->
-  
+
     <ion-item>
-        <ion-icon item-start name="person"></ion-icon>
-        <ion-label color="primary" autocomplete="on" autocorrect="on" floating>Correo</ion-label>
-        <ion-input type="email" [(ngModel)]="Usuario" id="input"></ion-input>
-      </ion-item>
-    
-      <ion-item>
-          <ion-icon item-start name="key"></ion-icon>
-        <ion-label color="primary" autocomplete="on" autocorrect="on" floating>Contraseña</ion-label>
-        <ion-input type="password" [(ngModel)]="Password" id="input"></ion-input>
-      </ion-item>
-      <ion-item>
-          <button ion-button block (click)="login()">
-            <ion-icon item-start name="person"></ion-icon>
-              Iniciar Sesión
-            </button>
-        </ion-item> 
+      <ion-icon item-start name="person"></ion-icon>
+      <ion-label color="primary" autocomplete="on" autocorrect="on" floating>Correo</ion-label>
+      <ion-input type="email" [(ngModel)]="Usuario" id="input"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon item-start name="key"></ion-icon>
+      <ion-label color="primary" autocomplete="on" autocorrect="on" floating>Contraseña</ion-label>
+      <ion-input type="password" [(ngModel)]="Password" id="input"></ion-input>
+    </ion-item>
+
+    <button ion-button block (click)="login()">
+      <ion-icon item-start name="person"></ion-icon>
+      Iniciar Sesión
+    </button>
+
   </ion-list>
+
+  <button ion-button round outline color="cavaliers-secondary" (click)="registrate()">
+    <ion-icon></ion-icon>
+    No tienes Cuenta?<br>
+    ¡REGISTRATE!
+  </button>
 
 </ion-content>
