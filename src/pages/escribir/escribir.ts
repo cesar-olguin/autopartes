@@ -33,17 +33,17 @@ export class EscribirPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EscribirPage');
+
   }
 
   escribir() {
     this.storage.get('idUser').then((idLog) => {
-        this.storage.get('idArt').then((idArt) => {
-
+      this.storage.get('idArt').then((idArt) => {
+        this.storage.get('miID').then((idVen) => {
           let body = {
             idArticulo: idArt,
             idUsuario: idLog,
-            Vendedor: this.idVendedor,
+            Vendedor: idVen,
             Cliente: this.idCliente,
             Conversacion: this.Escrito,
             Fecha: this.Fecha = new Date().toLocaleDateString('en-GB')
@@ -52,6 +52,7 @@ export class EscribirPage {
           console.log(body);
           this.navCtrl.pop();
         });
+      });
     });
   }
 

@@ -26,6 +26,7 @@ export class MiVentaPage {
   idUsuario;
   Comentario;
   IdUser;
+  MiID;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public restService: UserServiceProvider) {
     this.idSelected = navParams.get("art");
@@ -43,35 +44,12 @@ export class MiVentaPage {
     this.navCtrl.push(RespuestasPage);
   }
 
-  // postChat() {
-  //   this.storage.get('idUser').then((data) => {
-  //     this.IdUser = data;
-  //     if (this.IdUser == null){
-  //       this.IdUser = "0";
-  //       console.log('Usuario: ', this.IdUser);
-  //     }
-      
-  //       let body = {
-  //         idArticulo: this.idSelected,
-  //         idUsuario: this.IdUser,
-  //         Comentario: this.Comentario,
-  //       }
-
-  //       console.log('Usuario: ', this.IdUser);
-  //       console.log(JSON.stringify(body));
-  //       this.restService.postComentario(body).then((result) => {
-  //         console.log(result);
-  //         this.ionViewDidLoad();
-  //         window.location.reload;
-  //       }, (err) => {
-  //         console.log(err);
-  //       });
-  //   });
-  // }
-
   loadArt(){
     this.restService.getArticuloById(this.idArticulo).then(data => {
       this.articuloId = data;
+      let obj = JSON.parse(JSON.stringify(data));
+      this.MiID = obj[0];
+      this.storage.set('miID', this.MiID.idUsuario);
     });
   }
 

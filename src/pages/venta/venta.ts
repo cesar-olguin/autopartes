@@ -50,7 +50,7 @@ export class VentaPage {
       let obj = JSON.parse(JSON.stringify(data));
       this.vendedor = obj[0];
       console.log("ID vendedor -> ",this.vendedor.idUsuario);
-      this.storage.set('vend', this.vendedor.idUsuario); 
+      this.storage.set('miID', this.vendedor.idUsuario); 
     });
   }
 
