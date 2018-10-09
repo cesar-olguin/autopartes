@@ -35,12 +35,15 @@ export class ConversacionVendedorPage {
   }
 
   ionViewCanLoad(){
-
+    this.loadChat();
+  } 
+  
+  ionViewWillEnter(){
+    this.loadChat();
   }
 
-  
 
-  loadChat(){
+ async loadChat(){
     this.restService.getComentarioUsuarioVendedor(this.idArticulo,this.idUsuario).then(data => {
       
       

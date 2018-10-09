@@ -1,38 +1,32 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Responder</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <ion-list *ngFor="let conver of conversacion">
+    <div *ngIf="conver.Cliente == conver.idUsuario" class="box3 sb13">
+      <p>{{conver.Conversacion}}</p>
+    </div>
+    <div *ngIf="conver.Vendedor == conver.idUsuario" class="box3 sb14">
+      <p>{{conver.Conversacion}}</p>
+    </div>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item (click)="responder()">
+      <ion-input type="text" placeholder="Escribir..." disabled></ion-input>
+      <button ion-button clear icon-only item-right>
+        <ion-icon name="send"> </ion-icon>
       </button>
-      <ion-title>Responder</ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  
-  
-  <ion-content padding>
-  
-    <h5></h5>
-    <ion-list *ngFor="let conver of conversacion">
-      <div *ngIf="conver.Cliente == conver.idUsuario" class="box3 sb13">
-        <p>{{conver.Conversacion}}</p>
-      </div>
-      <div *ngIf="conver.Vendedor == conver.idUsuario" class="box3 sb14">
-        <p>{{conver.Conversacion}}</p>
-      </div>
-    </ion-list>
-  
-  
-  </ion-content>
-  
-  <ion-footer>
-    <ion-toolbar>
-      <ion-item (click)="responder()">
-        <ion-input type="text" placeholder="Escribir..." disabled></ion-input>
-        <button ion-button clear icon-only item-right>
-          <ion-icon name="send"> </ion-icon>
-        </button>
-      </ion-item>
-  
-    </ion-toolbar>
-  </ion-footer>
-  
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

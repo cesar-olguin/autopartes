@@ -31,10 +31,17 @@ export class ConversacionClientePage {
   }
 
   ionViewDidLoad() {
-  
+    this.loadChat();
   }
 
-  loadChat(){
+  ionViewCanLoad(){
+    this.loadChat();
+  } 
+  ionViewWillEnter(){
+    this.loadChat();
+  }
+
+ async loadChat(){
     this.restService.getComentarioUsuarioVendedor(this.idArticulo,this.idUsuario).then(data => {
       
       

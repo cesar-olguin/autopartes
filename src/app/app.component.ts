@@ -36,7 +36,7 @@ export class MyApp {
       this.pages = [
         //{ title: 'Cuenta', component: AccountPage, icon: 'paper' },
         { title: 'Home', component: HomePage, icon: 'home' },
-        { title: 'Favoritos', component: FavoritosPage, icon: 'star' },
+        //{ title: 'Favoritos', component: FavoritosPage, icon: 'star' },
         { title: 'Articulos en Venta', component: VentasPage, icon: 'cart' },
         { title: 'Usuario', component: UsuarioPage, icon: 'person' },
         { title: 'Mis Ventas', component: MisVentasPage, icon: 'cart' }

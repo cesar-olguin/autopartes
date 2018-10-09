@@ -50,6 +50,7 @@ export class EscribirPage {
           }
           this.restService.postConversacion(body);
           console.log(body);
+          this.navCtrl.pop();
         });
     });
   }
