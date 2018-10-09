@@ -47,23 +47,6 @@ export class ConversacionClientePage {
       
       let obj = JSON.parse(JSON.stringify(data));
       this.User = obj[0];
-
-      console.log("ID Vendedor -> " + this.User.Vendedor);
-      console.log("Cliente -> "+ this.User.Cliente);
-      
-
-
-      // if(this.User.Cliente == this.idUsuario)
-      // {
-      //   console.log("Pregunta");
-      //   this.className = "pregunta-bubble";
-      //   this.conversacion = data;
-      // }
-      // else if (this.User.idVendedor == this.idUsuario){
-      //   console.log("Respuesta");
-      //   this.className = "respuesta-bubble";
-      //   this.conversacion = data;
-      // }
       this.conversacion = data;
      
     });

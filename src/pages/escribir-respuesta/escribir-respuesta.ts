@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 /**
- * Generated class for the EscribirPage page.
+ * Generated class for the EscribirRespuestaPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,11 +12,12 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 @IonicPage()
 @Component({
-  selector: 'page-escribir',
-  templateUrl: 'escribir.html',
+  selector: 'page-escribir-respuesta',
+  templateUrl: 'escribir-respuesta.html',
 })
-export class EscribirPage {
+export class EscribirRespuestaPage {
 
+  
   Escrito;
   idArticulo: string;
   idUsuario: string;
@@ -29,11 +30,11 @@ export class EscribirPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, public restService: UserServiceProvider) {
     this.idCliente = navParams.get('idCli');
-    this.idVendedor = navParams.get('idVen');
+    this.idVendedor = navParams.get('idVen')
   }
 
   ionViewDidLoad() {
-
+    document.getElementById("respuestaInp").focus();
   }
 
   escribir() {
@@ -44,8 +45,8 @@ export class EscribirPage {
           let body = {
             idArticulo: idArt,
             idUsuario: idLog,
-            Vendedor: idVen,
-            Cliente: idLog,
+            Vendedor: this.idVendedor,
+            Cliente: this.idCliente,
             Conversacion: this.Escrito,
             Fecha: this.Fecha = new Date().toLocaleDateString('en-GB')
           }
@@ -58,3 +59,4 @@ export class EscribirPage {
   }
 
 }
+

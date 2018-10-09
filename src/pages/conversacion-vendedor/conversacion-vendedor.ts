@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Storage } from '@ionic/storage';
-import { EscribirPage } from '../escribir/escribir';
+import { EscribirRespuestaPage } from '../escribir-respuesta/escribir-respuesta';
 /**
  * Generated class for the ConversacionVendedorPage page.
  *
@@ -49,17 +49,13 @@ export class ConversacionVendedorPage {
       
       let obj = JSON.parse(JSON.stringify(data));
       this.User = obj[0];
-      
-      console.log("ID Vendedor -> ", this.User.Vendedor);
-      console.log("Cliente -> ", this.User.Cliente);
-    
       this.conversacion = data;
      
     });
   }
 
   responder(){
-    this.navCtrl.push(EscribirPage,{
+    this.navCtrl.push(EscribirRespuestaPage,{
       idCli: this.User.Cliente,
       idVen: this.User.Vendedor
     });

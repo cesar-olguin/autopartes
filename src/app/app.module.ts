@@ -8,6 +8,7 @@ import { ConversacionClientePage } from '../pages/conversacion-cliente/conversac
 import { ConversacionVendedorPage } from '../pages/conversacion-vendedor/conversacion-vendedor';
 import { CuentaPage } from '../pages/cuenta/cuenta';
 import { EscribirPage } from '../pages/escribir/escribir';
+import { EscribirRespuestaPage } from '../pages/escribir-respuesta/escribir-respuesta';
 import { FavoritosPage } from '../pages/favoritos/favoritos';
 import { HacerPedidoPage } from '../pages/hacer-pedido/hacer-pedido';
 import { HacerVentaPage } from '../pages/hacer-venta/hacer-venta';
@@ -34,7 +35,6 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
 
-
 @NgModule({
   declarations: [
     MyApp,
@@ -43,6 +43,7 @@ import { Camera } from '@ionic-native/camera';
     ConversacionVendedorPage,
     CuentaPage,
     EscribirPage,
+    EscribirRespuestaPage,
     FavoritosPage,
     HacerPedidoPage,
     HacerVentaPage,
@@ -81,6 +82,7 @@ import { Camera } from '@ionic-native/camera';
     ConversacionVendedorPage,
     CuentaPage,
     EscribirPage,
+    EscribirRespuestaPage,
     FavoritosPage,
     HacerPedidoPage,
     HacerVentaPage,

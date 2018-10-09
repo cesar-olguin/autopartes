@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Storage } from '@ionic/storage';
-import { EscribirPage } from '../escribir/escribir';
 import { ConversacionVendedorPage } from '../conversacion-vendedor/conversacion-vendedor';
+import { EscribirRespuestaPage } from '../escribir-respuesta/escribir-respuesta';
 
 /**
  * Generated class for the RespuestasPage page.
@@ -53,7 +53,7 @@ export class RespuestasPage {
 
         }
         else if (uval != null && pval != null){
-          this.navCtrl.push(EscribirPage);
+          this.navCtrl.push(EscribirRespuestaPage);
         }
       });
     });
