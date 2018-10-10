@@ -1,18 +1,22 @@
-<!--
-  Generated template for the PedidosPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Pedidos</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title></ion-title>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content>
 
-<ion-content padding>
+  <img src="../../assets/imgs/slide1.jpg">
+
+  <button ion-button block (click)="pushPage();">Pedir AutoParte</button>
+  <ion-list no-lines [virtualScroll]="items" approxItemHeight="40px">
+    <button ion-item *virtualItem="let item">
+      Busco -> {{ item.Titulo }}
+      <ion-badge color="secondary">{{ item.idPedido }}</ion-badge>
+    </button>
+  </ion-list>
 
 </ion-content>

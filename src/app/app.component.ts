@@ -34,9 +34,9 @@ export class MyApp {
 
     events.subscribe('user:loggedin',() => {
       this.pages = [
-        //{ title: 'Cuenta', component: AccountPage, icon: 'paper' },
         { title: 'Home', component: HomePage, icon: 'home' },
-        //{ title: 'Favoritos', component: FavoritosPage, icon: 'star' },
+        { title: 'Favoritos', component: FavoritosPage, icon: 'star' },
+        { title: 'Pedidos', component: PedidosPage, icon: 'search' },
         { title: 'Articulos en Venta', component: VentasPage, icon: 'cart' },
         { title: 'Usuario', component: UsuarioPage, icon: 'person' },
         { title: 'Mis Ventas', component: MisVentasPage, icon: 'cart' }
@@ -45,10 +45,10 @@ export class MyApp {
 
     events.subscribe('user:loggedout',() => {
       this.pages = [
-        { title: 'Cuenta', component: LoginPage, icon: 'log-in' },
-        { title: 'Home', component: HomePage, icon: 'home' },
-        { title: 'Articulos en Venta', component: VentasPage, icon: 'cart' },
-      
+        { title: 'Login', component: LoginPage, icon: 'log-in' },
+        { title: 'Inicio', component: HomePage, icon: 'home' },
+        { title: 'Pedidos', component: PedidosPage, icon: 'search' },
+        { title: 'Articulos', component: VentasPage, icon: 'cart' }
       ];
     });
 
