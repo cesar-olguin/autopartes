@@ -1,16 +1,18 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-title></ion-title>
-    </ion-navbar>
-  </ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
   <ion-list *ngFor="let artId of articuloId">
+    <ion-label color="primary" stacked>Imagen</ion-label>
+    <img [src]="artId.Foto_Principal">
     <ion-item>
       <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Titulo</ion-label>
       <ion-input [(ngModel)]="artId.Titulo" type="text"></ion-input>
@@ -26,9 +28,13 @@
       <ion-input type="number" [(ngModel)]="artId.Precio"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label color="primary" stacked>Imagen</ion-label>
-      <input type="text" [(ngModel)]="artId.Foto_Principal">
+      <ion-label id="profile_image" color="primary" stacked>Añadir Fotos</ion-label>
+      <ion-input type="file" accept="image/*" multiple></ion-input>
     </ion-item>
   </ion-list>
+  <button ion-button color="cavaliers-primary" round icon-start>
+    <ion-icon name="star"></ion-icon>
+    Modificar Articulo
+  </button>
 
 </ion-content>

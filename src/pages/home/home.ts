@@ -12,7 +12,6 @@ export class HomePage {
   selectedItem: any;
   pedidos;
   items;
-  displayedImages;
   
   constructor(public navCtrl: NavController, public restService: UserServiceProvider, public events: Events) {
 

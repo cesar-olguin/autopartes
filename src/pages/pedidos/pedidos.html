@@ -13,7 +13,7 @@
 
   <button ion-button block (click)="pushPage();">Pedir AutoParte</button>
   <ion-list no-lines [virtualScroll]="items" approxItemHeight="40px">
-    <button ion-item *virtualItem="let item">
+    <button ion-item *virtualItem="let item" (click)="pedidoN(item)">
       Busco -> {{ item.Titulo }}
       <ion-badge color="secondary">{{ item.idPedido }}</ion-badge>
     </button>

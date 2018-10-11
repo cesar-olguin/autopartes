@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 /**
  * Generated class for the PedidoPage page.
@@ -15,11 +16,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PedidoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  idPedido;
+  PedidoDatos;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider) {
+    this.idPedido = navParams.get('idPed');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PedidoPage');
+    this.loadPedido();
+  }
+
+  loadPedido(){
+    this.restService.getPedidoById(this.idPedido).then(data => {
+      this.PedidoDatos = data;
+      console.log(JSON.stringify(data));
+    })
   }
 
 }

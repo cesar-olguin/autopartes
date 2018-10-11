@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { VentaPage } from '../venta/venta';
 import { Storage } from '@ionic/storage';
@@ -28,42 +28,54 @@ export class VentasPage {
   public modeloId;
   public marcaName;
   public modeloName;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, public storage: Storage) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, public storage: Storage, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
-    this.storage.get('idUser').then((idval) => {
-      console.log(idval);
-      if(idval == null){
-        this.restService.getArticulos()
-        .subscribe(
-          (data) => { // Success
+    let loader = this.loadingCtrl.create({
+      //spinner: 'hide',
+      //content: `<img src="assets/imgs/llanta1.png" />`,
+    });
+    loader.present().then(() => {
+
+
+      this.storage.get('idUser').then((idval) => {
+        console.log(idval);
+        if (idval == null) {
+          this.restService.getArticulos()
+            .subscribe(
+              (data) => { // Success
+                this.articulos = data;
+                loader.dismiss();
+              },
+              (error) => {
+                console.error(error);
+              }
+            )
+        }
+        else {
+          this.restService.getArticulosDiferentes(idval).then(data => {
             this.articulos = data;
-          },
-          (error) => {
-            console.error(error);
-          }
-        )
-      }
-      else{
-        this.restService.getArticulosDiferentes(idval).then(data => {
-          this.articulos = data;
-        });
-      }
+            loader.dismiss();
+          });
+        }
+      });
     });
 
-    
 
-  this.restService.getMarcas()
-    .subscribe(
-      (data) => {
-        this.marcas = data['records'];
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
+
+
+
+    this.restService.getMarcas()
+      .subscribe(
+        (data) => {
+          this.marcas = data['records'];
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
   }
 
   itemTapped(artId) {
@@ -72,7 +84,7 @@ export class VentasPage {
     });
   }
 
-  marcaTapped(idMarca,Marca) {
+  marcaTapped(idMarca, Marca) {
     this.marcaId = idMarca;
     this.marcaName = Marca;
     this.restService.getModelo(idMarca).then(data => {
@@ -80,9 +92,9 @@ export class VentasPage {
     });
   }
 
-  modeloTapped(idMarca,Modelo) {
-   this.modeloId = idMarca;
-   this.modeloName = Modelo;
+  modeloTapped(idMarca, Modelo) {
+    this.modeloId = idMarca;
+    this.modeloName = Modelo;
   }
 
   // buscarModeloMarca(/*marcaId,modeloId*/) {

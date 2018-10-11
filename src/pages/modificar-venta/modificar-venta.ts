@@ -24,6 +24,8 @@ export class ModificarVentaPage {
   Descripcion;
   Precio;
 
+  Foto_Principal;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, public storage: Storage ) {
     this.idSelected = navParams.get("art");
     this.idArticulo = this.idSelected;

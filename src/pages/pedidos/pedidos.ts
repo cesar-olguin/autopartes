@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, Events } from 'ionic-angular';
+import { IonicPage, NavController, Events, LoadingController } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { HacerPedidoPage } from '../hacer-pedido/hacer-pedido';
+import { PedidoPage } from '../pedido/pedido';
 
 /**
  * Generated class for the PedidosPage page.
@@ -22,29 +23,18 @@ export class PedidosPage {
   items;
   displayedImages;
 
-  constructor(public navCtrl: NavController, public restService: UserServiceProvider, public events: Events) {
+  constructor(public navCtrl: NavController, public restService: UserServiceProvider, public events: Events, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
-
-    if (window.localStorage.getItem("user") != null && window.localStorage.getItem("pass") != null) {
-      //Hay una sesión iniciada
-      //Dirige a la pantalla principal ya logueada.
-      this.events.publish('user:loggedin');
-    } else {
-      //Manda la pantalla de inicio de sesión o autentificación
-      this.events.publish('user:loggedout');
-    }
     this.load();
   }
   
   ionViewCanEnter() {
-    window.location.reload;
     this.load();
   }
 
   ionViewWillEnter() {
-    window.location.reload;
     this.load();
   }
 
@@ -53,17 +43,27 @@ export class PedidosPage {
   }
 
   load() {
-    this.restService.getPedidos().subscribe(
-      data => {
-        // Success
-        this.pedidos = data;
-        //this.items = data;
-        // console.log(data);
-        this.items = data;
-      },
-      error => {
-        console.error(error);
-      }
-    );
+    let loader = this.loadingCtrl.create({
+      //spinner: 'hide',
+      //content: `<img src="assets/imgs/llanta1.png" />`,
+    });
+    loader.present().then(() => {
+      this.restService.getPedidos().subscribe(
+        data => {
+          this.pedidos = data;
+          this.items = data;
+          loader.dismiss();
+        },
+        error => {
+          console.error(error);
+        }
+      );
+    });
+  }
+
+  pedidoN(item){
+    this.navCtrl.push(PedidoPage,{
+      idPed: item.idPedido
+    });
   }
 }

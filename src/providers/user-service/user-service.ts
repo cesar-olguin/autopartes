@@ -19,7 +19,7 @@ export class UserServiceProvider {
   getUsers() {
     return this.http.get('https://randomuser.me/api/?results=25');
   }
-  
+
   getArticulos() {
     return this.http.get(this.baseUrl + '/articulo/');
   }
@@ -135,7 +135,7 @@ export class UserServiceProvider {
     });
   }
 
-  checkEmail(email){
+  checkEmail(email) {
     return new Promise(resolve => {
       this.http.get(this.baseUrl + '/registro/' + email).subscribe(data => {
         resolve(data)
@@ -163,7 +163,7 @@ export class UserServiceProvider {
 
   getComentarioUsuario(idArticulo) {
     return new Promise(resolve => {
-      this.http.get(this.baseUrl + '/articulo/comentario/'+ idArticulo).subscribe(data => {
+      this.http.get(this.baseUrl + '/articulo/comentario/' + idArticulo).subscribe(data => {
         resolve(data)
       }, err => {
         console.log(err);
@@ -171,9 +171,19 @@ export class UserServiceProvider {
     });
   }
 
-  getComentarioUsuarioVendedor(idArticulo,idUsuario) {
+  getComentarioUsuarioVendedor(idArticulo, idUsuario) {
     return new Promise(resolve => {
       this.http.get(this.baseUrl + '/articulo/comentario/' + idArticulo + '/' + idUsuario).subscribe(data => {
+        resolve(data)
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  getPedidoById(idPedido) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + '/pedido/' + idPedido).subscribe(data => {
         resolve(data)
       }, err => {
         console.log(err);
