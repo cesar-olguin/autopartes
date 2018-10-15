@@ -1,8 +1,8 @@
 {
   "name": "autopartes",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "version": "0.9.1",
+  "author": "César Armando Olguín Morales",
+  "homepage": "https://github.com/cesar-olguin",
   "private": true,
   "scripts": {
     "start": "ionic-app-scripts serve",
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.0",
+    "@ionic/lab": "1.0.11",
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",
