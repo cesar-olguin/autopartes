@@ -37,7 +37,7 @@ export class VentasPage {
       //spinner: 'hide',
       //content: `<img src="assets/imgs/llanta1.png" />`,
     });
-    loader.present().then(() => {
+    //loader.present().then(() => {
 
 
       this.storage.get('idUser').then((idval) => {
@@ -60,7 +60,7 @@ export class VentasPage {
             loader.dismiss();
           });
         }
-      });
+      //});
     });
 
 

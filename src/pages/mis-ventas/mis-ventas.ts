@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Events } from 'ionic-angular';
 import { MiVentaPage } from '../mi-venta/mi-venta';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Storage } from '@ionic/storage';
@@ -23,15 +23,24 @@ export class MisVentasPage {
   articulos: any;
   Usuario;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public restService: UserServiceProvider, public loadingCtrl: LoadingController) {
-    window.location.reload;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public restService: UserServiceProvider, public loadingCtrl: LoadingController, public events: Events) {
     this.load();
   }
 
   ionViewDidLoad() {
-    window.location.reload;
+    this.events.subscribe('reload', () => {
+      this.load();
+    });
+  }
+
+  ionViewCanLoad() {
     this.load();
   }
+
+  ionViewWillEnter() {
+    this.load();
+  }
+
 
 
   // ionViewCanEnter() {
@@ -49,15 +58,15 @@ export class MisVentasPage {
       //spinner: 'hide',
       //content: `<img src="assets/imgs/llanta1.png" />`,
     });
-    loader.present().then(() => {
-      this.storage.get("idUser").then(val => {
-        this.Usuario = val;
-        this.restService.getArticuloByUser(this.Usuario).then(data => {
-          this.articulos = data;
-          loader.dismiss();
-        });
+    //loader.present().then(() => {
+    this.storage.get("idUser").then(val => {
+      this.Usuario = val;
+      this.restService.getArticuloByUser(this.Usuario).then(data => {
+        this.articulos = data;
+        loader.dismiss();
       });
     });
+    //});
   }
 
   itemTapped(artId) {

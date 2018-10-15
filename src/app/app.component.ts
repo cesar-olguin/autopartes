@@ -24,6 +24,18 @@ export class MyApp {
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public events: Events) {
     this.initializeApp();
 
+    // let status bar overlay webview
+    this.statusBar.overlaysWebView(false);
+
+  
+    this.statusBar.styleDefault();
+    this.statusBar.styleBlackOpaque();
+    this.statusBar.styleBlackTranslucent();
+      // set status bar to white
+    this.statusBar.backgroundColorByHexString('#ffffff');
+    
+
+
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Login', component: LoginPage, icon: 'log-in' },
@@ -32,18 +44,18 @@ export class MyApp {
       { title: 'Articulos', component: VentasPage, icon: 'cart' }
     ];
 
-    events.subscribe('user:loggedin',() => {
+    events.subscribe('user:loggedin', () => {
       this.pages = [
         { title: 'Home', component: HomePage, icon: 'home' },
         { title: 'Favoritos', component: FavoritosPage, icon: 'star' },
         { title: 'Pedidos', component: PedidosPage, icon: 'search' },
-        { title: 'Articulos en Venta', component: VentasPage, icon: 'cart' },
+        //{ title: 'Articulos en Venta', component: VentasPage, icon: 'cart' },
         { title: 'Usuario', component: UsuarioPage, icon: 'person' },
         { title: 'Mis Ventas', component: MisVentasPage, icon: 'cart' }
       ];
     });
 
-    events.subscribe('user:loggedout',() => {
+    events.subscribe('user:loggedout', () => {
       this.pages = [
         { title: 'Login', component: LoginPage, icon: 'log-in' },
         { title: 'Inicio', component: HomePage, icon: 'home' },

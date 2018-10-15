@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
@@ -27,7 +27,7 @@ export class EscribirPage {
   idCliente;
   idVendedor;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, public restService: UserServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, public restService: UserServiceProvider, public events: Events) {
     this.idCliente = navParams.get('idCli');
     this.idVendedor = navParams.get('idVen');
   }
@@ -51,6 +51,7 @@ export class EscribirPage {
           }
           this.restService.postConversacion(body);
           console.log(body);
+          this.events.publish('reload');
           this.navCtrl.pop();
         });
       });

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Storage } from '@ionic/storage';
@@ -28,7 +28,7 @@ export class HacerVentaPage {
   foto;
   Usuario;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, private camera: Camera, private storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, private camera: Camera, private storage: Storage, public events: Events) {
   }
 
   getPicture() {
@@ -74,7 +74,7 @@ export class HacerVentaPage {
       }, (err) => {
         console.log(err);
       });
-  
+      this.events.publish('reload');
       this.navCtrl.pop();
     });
   }

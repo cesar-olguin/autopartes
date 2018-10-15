@@ -29,14 +29,14 @@ export class PedidosPage {
   ionViewDidLoad() {
     this.load();
   }
-  
+
   ionViewCanEnter() {
     this.load();
   }
 
-  ionViewWillEnter() {
-    this.load();
-  }
+  // ionViewWillEnter() {
+  //   this.load();
+  // }
 
   pushPage() {
     this.navCtrl.push(HacerPedidoPage);
@@ -47,7 +47,7 @@ export class PedidosPage {
       //spinner: 'hide',
       //content: `<img src="assets/imgs/llanta1.png" />`,
     });
-    loader.present().then(() => {
+    //loader.present().then(() => {
       this.restService.getPedidos().subscribe(
         data => {
           this.pedidos = data;
@@ -58,11 +58,11 @@ export class PedidosPage {
           console.error(error);
         }
       );
-    });
+    //});
   }
 
-  pedidoN(item){
-    this.navCtrl.push(PedidoPage,{
+  pedidoN(item) {
+    this.navCtrl.push(PedidoPage, {
       idPed: item.idPedido
     });
   }

@@ -8,18 +8,64 @@
 </ion-header>
 
 <ion-content>
+  <div align='center'>
+      <img src="../../assets/imgs/slide1.jpg">
+      <br>
+    
+  </div>
+  
+  <ion-list>
+    <ion-item>
+      <ion-label>Marca del Auto</ion-label>
+      <ion-select ngModel="marcas" interface="action-sheet">
+        <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaTapped(mar.idMarca,mar.Marca);" [value]="mar.idMarca">{{
+          mar.Marca }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Modelo del Auto</ion-label>
+      <ion-select ngModel="modelos" interface="action-sheet">
+        <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloTapped(mod.idMarca,mod.Marca)" [value]="mod.idMarca">{{
+          mod.Marca }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <button ion-button block (click)="buscarModeloMarca()">Buscar Auto.</button>
+  </ion-list>
 
-  <img src="../../assets/imgs/slide1.jpg">
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let art of articulos" col-6 no-padding>
+        <ion-card (click)="itemTapped(art);">
+          <ion-card-header>
+            <img [src]="art.Foto_Principal" width="50%" height="100px">
+          </ion-card-header>
+          <ion-card-content>
+            <h1>${{ art.Precio }}</h1>
+            <p>{{ art.Titulo }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
 
+  <!-- <ion-list [virtualScroll]="users">
+    <ion-item *virtualItem="let user">
+      <ion-avatar item-start>
+        <img [src]="user.picture.medium">
+      </ion-avatar>
+      <h2>{{ user.name.first | uppercase }}</h2>
+      <p>{{ user.email }}</p>
+    </ion-item>
+  </ion-list> -->
 
-
-  <button ion-button block (click)="pushPage();">Pedir AutoParte</button>
+  <!-- <button ion-button block (click)="pushPage();">Pedir AutoParte</button>
   <ion-list inset no-lines>
     <button ion-item *ngFor="let ped of pedidos">
       Busco -> {{ ped.Titulo }}
       <ion-badge color="secondary">{{ ped.idPedido }}</ion-badge>
     </button>
-  </ion-list>
+  </ion-list> -->
 
 
   <!-- <button ion-button block (click)="pushPage();">Pedir AutoParte</button>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Storage } from '@ionic/storage';
 import { EscribirPage } from '../escribir/escribir';
@@ -25,49 +25,55 @@ export class PreguntasPage {
   Correo;
   Password;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, public storage: Storage, public events: Events) {  }
+
+  ionViewDidLoad() {
+    this.events.subscribe('reload',() => {
+      this.loadChat();
+    });
+  }
+
+  ionViewCanLoad(){
+    this.loadChat();
+  } 
+  ionViewWillEnter(){
+    this.loadChat();
+  }
+
+  loadChat() {
     this.storage.get('idArt').then((val) => {
       this.idArticulo = val;
       console.log(this.idArticulo);
-      this.loadChat();
-    });
-  
-  }
-
-  ionViewDidLoad() {
-    
-  }
-
-  loadChat(){
-    this.restService.getComentarioUsuario(this.idArticulo).then(data => {
-      this.comentarios = data;
+      this.restService.getComentarioUsuario(this.idArticulo).then(data => {
+        this.comentarios = data;
+      });
     });
   }
 
-  hacerPregunta(){
+  hacerPregunta() {
     this.storage.get('user').then((uval) => {
       this.storage.get('pass').then((pval) => {
         this.Correo = uval;
         this.Password = pval;
-        if(uval == null && pval == null){
+        if (uval == null && pval == null) {
 
         }
-        else if (uval != null && pval != null){
+        else if (uval != null && pval != null) {
           this.navCtrl.push(EscribirPage);
         }
       });
     });
   }
 
-  verConversacion(preg){
+  verConversacion(preg) {
     this.storage.get('user').then((uval) => {
       this.storage.get('pass').then((pval) => {
         this.Correo = uval;
         this.Password = pval;
-        if(uval == null && pval == null){
+        if (uval == null && pval == null) {
 
         }
-        else if (uval != null && pval != null){
+        else if (uval != null && pval != null) {
           this.navCtrl.push(ConversacionClientePage, {
             idUsr: preg.idUsuario,
             idArt: preg.idArticulo

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Storage } from '@ionic/storage';
 import { EscribirRespuestaPage } from '../escribir-respuesta/escribir-respuesta';
@@ -24,14 +24,15 @@ export class ConversacionVendedorPage {
   User;
   className: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, public storage: Storage, public events: Events) {
     this.idUsuario = navParams.get("idUsr");
     this.idArticulo = navParams.get("idArt");
-    this.loadChat();
   }
 
   ionViewDidLoad() {
-    this.loadChat();
+    this.events.subscribe('reload',() => {
+      this.loadChat();
+    });
   }
 
   ionViewCanLoad(){
@@ -42,15 +43,11 @@ export class ConversacionVendedorPage {
     this.loadChat();
   }
 
-
- async loadChat(){
+  loadChat(){
     this.restService.getComentarioUsuarioVendedor(this.idArticulo,this.idUsuario).then(data => {
-      
-      
       let obj = JSON.parse(JSON.stringify(data));
       this.User = obj[0];
       this.conversacion = data;
-     
     });
   }
 

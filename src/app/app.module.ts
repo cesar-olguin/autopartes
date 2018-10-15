@@ -108,7 +108,6 @@ import { Camera } from '@ionic-native/camera';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     UserServiceProvider,
     Camera,
-    StatusBar
   ]
 })
 export class AppModule { }
