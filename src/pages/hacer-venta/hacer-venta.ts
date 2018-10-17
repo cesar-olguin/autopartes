@@ -33,7 +33,7 @@ export class HacerVentaPage {
   modelos;
   NombreMarca;
   NombreModelo;
-  articuloAgregado;
+  idArticuloAgregado;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, private camera: Camera, private storage: Storage, public events: Events) {
@@ -53,18 +53,18 @@ export class HacerVentaPage {
   getPicture() {
     let options: CameraOptions = {
       destinationType: this.camera.DestinationType.DATA_URL,
-      //targetWidth: 600,
-      //targetHeight: 600,
-      quality: 80,
-      sourceType: 1
+      targetWidth: 600,
+      targetHeight: 1000,
+      quality: 100
     }
-    this.camera.getPicture(options).then(imageData => {
-      this.image = `data:image/jpeg;base64,${imageData}`;
-      this.foto = this.image;
-    }).catch(error => {
-      console.error(error);
-    });
-
+    this.camera.getPicture(options)
+      .then(imageData => {
+        this.image = `data:image/jpeg;base64,${imageData}`;
+        this.foto = this.image;
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   addArticle() {
@@ -87,24 +87,27 @@ export class HacerVentaPage {
         Marca: this.NombreMarca,
         Modelo: this.NombreModelo
       }
-
+      
       this.restService.postArticulo(body).then((result) => {
-        console.log("ID Articulo -> " + result);
-        this.articuloAgregado = result;
+        console.log("ID Articulo -> "+result);
+
+        this.idArticuloAgregado = result;
+
         let foto = {
           idArticulo: result,
-          idUsuario: this.Usuario,
           Foto: this.foto
         }
+
         this.restService.postFoto(foto);
+
       }, (err) => {
         //console.log(err);
       });
-      this.navCtrl.push(CamaraVentasPage, {
-        art: this.articuloAgregado
+      this.navCtrl.push(CamaraVentasPage,{
+        art: this.idArticuloAgregado
       });
-      // this.events.publish('reload');
-      // this.navCtrl.pop();
+      //this.events.publish('reload');
+      //this.navCtrl.pop();
     });
   }
 
