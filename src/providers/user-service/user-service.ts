@@ -95,7 +95,7 @@ export class UserServiceProvider {
       this.http.post(this.baseUrl + '/articulo/', data)
         .subscribe(res => {
           resolve(res);
-          console.log(data);
+         // console.log(data);
         }, err => {
           console.log(err);
         });
@@ -176,7 +176,7 @@ export class UserServiceProvider {
       this.http.get(this.baseUrl + '/articulo/comentario/' + idArticulo + '/' + idUsuario).subscribe(data => {
         resolve(data)
       }, err => {
-        console.log(err);
+        //console.log(err);
       });
     });
   }

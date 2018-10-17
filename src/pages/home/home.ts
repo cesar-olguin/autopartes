@@ -4,6 +4,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { HacerPedidoPage } from '../hacer-pedido/hacer-pedido';
 import { Storage } from '@ionic/storage';
 import { VentaPage } from '../venta/venta';
+import { PedidoPage } from '../pedido/pedido';
 
 @Component({
   selector: 'page-home',
@@ -141,4 +142,11 @@ export class HomePage {
       }
     );
   }
+
+  pedidoN(item) {
+    this.navCtrl.push(PedidoPage, {
+      idPed: item.idPedido
+    });
+  }
+
 }

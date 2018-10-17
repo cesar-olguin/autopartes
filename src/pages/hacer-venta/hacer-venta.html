@@ -8,8 +8,22 @@
 </ion-header>
 
 <ion-content padding>
-
   <ion-list>
+    <ion-item>
+      <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Marca del Auto</ion-label>
+      <ion-select ngModel="marcas" interface="action-sheet">
+        <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaSeleccionada(mar.idMarca,mar.Marca);" [value]="mar.idMarca">{{
+          mar.Marca }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Modelo del Auto</ion-label>
+      <ion-select ngModel="modelos" interface="action-sheet">
+        <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idMarca">
+          {{mod.Marca }}
+        </ion-option>
+      </ion-select>
+    </ion-item>
     <ion-item>
       <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Titulo</ion-label>
       <ion-input [(ngModel)]="Titulo" type="text"></ion-input>
@@ -24,22 +38,21 @@
       <ion-label color="primary" stacked>Precio</ion-label>
       <ion-input type="number" [(ngModel)]="Precio"></ion-input>
     </ion-item>
-  </ion-list>
-  <ion-item-divider>
-    Adjuntar Foto
-  </ion-item-divider>
-  <ion-item>
-    <button ion-button block (click)="getPicture()">Toma una foto</button>
-  </ion-item>
-  <ion-item>
-    <img [(ngModel)]="Foto_Principal" [src]="image" *ngIf="image" />
-  </ion-item>
-  <ion-item-divider>
-  </ion-item-divider>
-  <button ion-button block (click)="addArticle()">Agregar Articulo</button>
-  <!--ion-list>
+    <ion-item-divider>
+      Adjuntar Foto
+    </ion-item-divider>
     <ion-item>
-      <button ion-button block (click)="addArticle()">Agregar Articulo</button>
+      <button ion-button block (click)="getPicture()">Toma una foto</button>
     </ion-item>
-  </ion-list-->
+    <ion-item>
+      <img [(ngModel)]="Foto_Principal" [src]="image" *ngIf="image" width="150" height="300" />
+    </ion-item>
+    <ion-item>
+      <ion-label id="profile_image" color="primary" stacked>Añadir Fotos</ion-label>
+      <ion-input type="file" accept="image/*" multiple></ion-input>
+    </ion-item>
+    <ion-item-divider>
+    </ion-item-divider>
+    <button ion-button block (click)="addArticle()">Agregar Articulo</button>
+  </ion-list>
 </ion-content>

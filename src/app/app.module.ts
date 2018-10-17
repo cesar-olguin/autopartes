@@ -34,11 +34,14 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { CamaraVentasPage } from '../pages/camara-ventas/camara-ventas';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    CamaraVentasPage,
     ConversacionClientePage,
     ConversacionVendedorPage,
     CuentaPage,
@@ -61,7 +64,7 @@ import { Camera } from '@ionic-native/camera';
     RespuestasPage,
     UsuarioPage,
     VentaPage,
-    VentasPage
+    VentasPage,
   ],
   imports: [
     BrowserModule,
@@ -72,12 +75,14 @@ import { Camera } from '@ionic-native/camera';
       dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
       dayShortNames: ['dom', 'lun', 'mar', 'mie', 'jue', 'vie', 'sab'],
     }),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
+    CamaraVentasPage,
     ConversacionClientePage,
     ConversacionVendedorPage,
     CuentaPage,

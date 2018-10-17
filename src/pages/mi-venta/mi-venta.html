@@ -5,45 +5,45 @@
     </button>
     <ion-title></ion-title>
     <ion-buttons end *ngFor="let artId of articuloId">
-        <button ion-button icon-only (click)="editArt(artId);">
-          <!--button ion-button icon-only (click)="openModal()"></button-->
-          <ion-icon name="build"></ion-icon>
-        </button>
-      </ion-buttons>
+      <button ion-button icon-only (click)="editArt(artId);">
+        <!--button ion-button icon-only (click)="openModal()"></button-->
+        <ion-icon name="build"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
 
 
-<ion-content padding>
+<ion-content>
   <div *ngFor="let artId of articuloId">
-    <img src="{{artId.Foto_Principal}}">
+    <img src="{{artId.Foto_Principal}}" imageViewer>
+    <div padding>
+      <h1>{{ artId.Titulo }}</h1>
+      <h3>$ {{ artId.Precio }}</h3>
 
-    <h1>{{ artId.Titulo }}</h1>
-    <h3>$ {{ artId.Precio }}</h3>
+      <!--button ion-button clear item-end>View</button-->
 
-    <!--button ion-button clear item-end>View</button-->
-
-    <button ion-button block>Comprar</button>
-    <button ion-button block outline>agregar al carrito </button>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          Icono 1
-        </ion-col>
-        <ion-col>
-          Icono 2
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <h5>DESCRIPCION</h5>
-    <p>{{ artId.Descripcion }}</p>
+      <button ion-button block>Comprar</button>
+      <button ion-button block outline>agregar al carrito </button>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            Icono 1
+          </ion-col>
+          <ion-col>
+            Icono 2
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <h5>DESCRIPCION</h5>
+      <p>{{ artId.Descripcion }}</p>
 
 
-    <button ion-button (click)="hacerPregunta()">Preguntas</button>
+      <button ion-button (click)="hacerPregunta()">Preguntas</button>
 
-    <!-- <h5>Preguntas</h5>
+      <!-- <h5>Preguntas</h5>
     <ion-list> 
       <ion-item *ngFor="let coment of comentarios">
         <h2>{{coment.Titulo}}</h2>
@@ -51,14 +51,14 @@
       </ion-item>
     </ion-list> -->
 
-    <!-- <h5>Comentarios</h5>
+      <!-- <h5>Comentarios</h5>
     <ion-list no-lines [virtualScroll]="comentarios" approxItemHeight="40px">
       <ion-item *virtualItem="let coment">
         <h2>{{coment.Titulo}}</h2>
         <p>{{coment.Comentario}}</p>
       </ion-item>
     </ion-list> -->
-
+    </div>
   </div>
 </ion-content>
 

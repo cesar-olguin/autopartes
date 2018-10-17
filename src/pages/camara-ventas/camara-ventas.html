@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item-divider>
+      Adjuntar Foto
+    </ion-item-divider>
+    <ion-item>
+      <button ion-button block (click)="getPicture()">Toma una foto</button>
+    </ion-item>
+    <ion-item>
+      <img [(ngModel)]="Foto_Principal" [src]="image" *ngIf="image" width="300" height="150" />
+    </ion-item>
+    <ion-item>
+      <ion-label id="profile_image" color="primary" stacked>Añadir Fotos</ion-label>
+      <ion-input type="file" accept="image/*" multiple></ion-input>
+    </ion-item>
+    <ion-item-divider>
+    </ion-item-divider>
+    <button ion-button block (click)="addArticle()">Agregar Articulo</button>
+  </ion-list>
+</ion-content>

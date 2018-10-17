@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Storage } from '@ionic/storage';
+import { CamaraVentasPage } from '../camara-ventas/camara-ventas';
 
 /**
  * Generated class for the HacerVentaPage page.
@@ -27,25 +28,43 @@ export class HacerVentaPage {
   Foto_Principal: string;
   foto;
   Usuario;
+  marcas: any[] = [];
+  marcaId;
+  modelos;
+  NombreMarca;
+  NombreModelo;
+  articuloAgregado;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, private camera: Camera, private storage: Storage, public events: Events) {
+
+    this.restService.getMarcas()
+      .subscribe(
+        (data) => {
+          this.marcas = data['records'];
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+
   }
 
   getPicture() {
     let options: CameraOptions = {
       destinationType: this.camera.DestinationType.DATA_URL,
-      targetWidth: 1000,
-      targetHeight: 1000,
-      quality: 100
+      //targetWidth: 600,
+      //targetHeight: 600,
+      quality: 80,
+      sourceType: 1
     }
-    this.camera.getPicture(options)
-      .then(imageData => {
-        this.image = `data:image/jpeg;base64,${imageData}`;
-        this.foto = this.image;
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    this.camera.getPicture(options).then(imageData => {
+      this.image = `data:image/jpeg;base64,${imageData}`;
+      this.foto = this.image;
+    }).catch(error => {
+      console.error(error);
+    });
+
   }
 
   addArticle() {
@@ -54,7 +73,7 @@ export class HacerVentaPage {
       if (this.foto == null) {
         this.foto = '../../assets/imgs/sin-foto.png'
       }
-  
+
       let body = {
         Titulo: this.Titulo,
         Descripcion: this.Descripcion,
@@ -65,18 +84,40 @@ export class HacerVentaPage {
         Fecha_alta: this.date = new Date().toLocaleDateString('en-GB'),
         Fecha_modificacion: this.date = new Date().toLocaleDateString('en-GB'),
         Foto_Principal: this.foto,
+        Marca: this.NombreMarca,
+        Modelo: this.NombreModelo
       }
-  
-      console.log(JSON.stringify(body));
-      console.log(this.foto);
+
       this.restService.postArticulo(body).then((result) => {
-        console.log(result);
+        console.log("ID Articulo -> " + result);
+        this.articuloAgregado = result;
+        let foto = {
+          idArticulo: result,
+          idUsuario: this.Usuario,
+          Foto: this.foto
+        }
+        this.restService.postFoto(foto);
       }, (err) => {
-        console.log(err);
+        //console.log(err);
       });
-      this.events.publish('reload');
-      this.navCtrl.pop();
+      this.navCtrl.push(CamaraVentasPage, {
+        art: this.articuloAgregado
+      });
+      // this.events.publish('reload');
+      // this.navCtrl.pop();
     });
+  }
+
+  marcaSeleccionada(idMarca, Marca) {
+    this.marcaId = idMarca;
+    this.NombreMarca = Marca;
+    this.restService.getModelo(idMarca).then(data => {
+      this.modelos = data
+    });
+  }
+
+  modeloSelccionado(Modelo) {
+    this.NombreModelo = Modelo;
   }
 
 }

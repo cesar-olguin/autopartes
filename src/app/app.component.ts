@@ -49,7 +49,7 @@ export class MyApp {
         { title: 'Home', component: HomePage, icon: 'home' },
         { title: 'Favoritos', component: FavoritosPage, icon: 'star' },
         { title: 'Pedidos', component: PedidosPage, icon: 'search' },
-        //{ title: 'Articulos en Venta', component: VentasPage, icon: 'cart' },
+        { title: 'Articulos en Venta', component: VentasPage, icon: 'cart' },
         { title: 'Usuario', component: UsuarioPage, icon: 'person' },
         { title: 'Mis Ventas', component: MisVentasPage, icon: 'cart' }
       ];
