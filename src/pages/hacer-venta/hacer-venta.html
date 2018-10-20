@@ -42,17 +42,19 @@
       Adjuntar Foto
     </ion-item-divider>
     <ion-item>
-      <button ion-button block (click)="getPicture()">Toma una foto</button>
+      <button ion-button block (click)="abrirGaleria()">Subir Foto</button>
+      <button ion-button block (click)="tomarFoto()">Tomar Fotos</button>
     </ion-item>
+    <!-- <ion-item *ngFor="let img of arrayImagenes">
+      <img [(ngModel)]="Foto_Principal" [src]="img" width="150" height="300" />
+    </ion-item>
+    <ion-item> -->
     <ion-item>
-      <img [(ngModel)]="Foto_Principal" [src]="image" *ngIf="image" width="150" height="300" />
+      <ion-card *ngFor="let photo of photos">
+        <img src="{{photo}}" width="150" height="300" imageViewer  />
+      </ion-card>
     </ion-item>
-    <ion-item>
-      <ion-label id="profile_image" color="primary" stacked>Añadir Fotos</ion-label>
-      <ion-input type="file" accept="image/*" multiple></ion-input>
-    </ion-item>
-    <ion-item-divider>
-    </ion-item-divider>
+
     <button ion-button block (click)="addArticle()">Agregar Articulo</button>
   </ion-list>
 </ion-content>

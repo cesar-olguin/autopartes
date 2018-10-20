@@ -26,6 +26,7 @@ export class VentaPage {
   Comentario;
   IdUser;
   vendedor;
+  fotosArt;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public restService: UserServiceProvider) {
     this.idSelected = navParams.get("art");
@@ -33,6 +34,7 @@ export class VentaPage {
     this.storage.set('idArt', this.idArticulo);
     this.loadArt();
     this.loadChat();
+    this.cargarFotos();
   }
 
   ionViewDidLoad() {
@@ -58,6 +60,13 @@ export class VentaPage {
     this.restService.getComentarios(this.idArticulo).then(data => {
       this.comentarios = data;
     })
+  }
+
+  
+  cargarFotos(){
+    this.restService.getFotosIdArticulo(this.idArticulo).then(data =>{
+      this.fotosArt = data;
+    });
   }
 
 }

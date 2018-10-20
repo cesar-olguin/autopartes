@@ -95,10 +95,21 @@ export class UserServiceProvider {
       this.http.post(this.baseUrl + '/articulo/', data)
         .subscribe(res => {
           resolve(res);
-         // console.log(data);
+          // console.log(data);
         }, err => {
           console.log(err);
         });
+    });
+  }
+
+  putArticulo(id,data) {
+    return new Promise((resolve, reject) => {
+      this.http.put(this.baseUrl + '/articulo/'+id, data).subscribe(res => {
+        resolve(res);
+        // console.log(data);
+      }, err => {
+        console.log(err);
+      });
     });
   }
 
@@ -184,6 +195,26 @@ export class UserServiceProvider {
   getPedidoById(idPedido) {
     return new Promise(resolve => {
       this.http.get(this.baseUrl + '/pedido/' + idPedido).subscribe(data => {
+        resolve(data)
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  getFotosIdArticulo(idArticulo) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + '/articulo/fotos/' + idArticulo).subscribe(data => {
+        resolve(data)
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  getFotos() {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + '/articulo/fotos/').subscribe(data => {
         resolve(data)
       }, err => {
         console.log(err);

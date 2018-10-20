@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { CamaraVentasPage } from '../pages/camara-ventas/camara-ventas';
 import { ConversacionClientePage } from '../pages/conversacion-cliente/conversacion-cliente';
 import { ConversacionVendedorPage } from '../pages/conversacion-vendedor/conversacion-vendedor';
 import { CuentaPage } from '../pages/cuenta/cuenta';
@@ -35,7 +36,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
-import { CamaraVentasPage } from '../pages/camara-ventas/camara-ventas';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { Crop } from '@ionic-native/crop';
 
 @NgModule({
   declarations: [
@@ -113,6 +115,8 @@ import { CamaraVentasPage } from '../pages/camara-ventas/camara-ventas';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     UserServiceProvider,
     Camera,
+    Crop,
+    ImagePicker
   ]
 })
 export class AppModule { }

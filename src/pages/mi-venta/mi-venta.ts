@@ -27,6 +27,7 @@ export class MiVentaPage {
   Comentario;
   IdUser;
   MiID;
+  fotosArt;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public restService: UserServiceProvider) {
     this.idSelected = navParams.get("art");
@@ -34,17 +35,18 @@ export class MiVentaPage {
     this.storage.set('idArt', this.idArticulo);
     this.loadArt();
     this.loadChat();
+    this.cargarFotos();
   }
 
   ionViewDidLoad() {
     this.loadChat();
   }
 
-  hacerPregunta(){
+  hacerPregunta() {
     this.navCtrl.push(RespuestasPage);
   }
 
-  loadArt(){
+  loadArt() {
     this.restService.getArticuloById(this.idArticulo).then(data => {
       this.articuloId = data;
       let obj = JSON.parse(JSON.stringify(data));
@@ -53,7 +55,7 @@ export class MiVentaPage {
     });
   }
 
-  loadChat(){
+  loadChat() {
     this.restService.getComentarioUsuario(this.idArticulo).then(data => {
       this.comentarios = data;
     });
@@ -62,6 +64,12 @@ export class MiVentaPage {
   editArt(artId) {
     this.navCtrl.push(ModificarVentaPage, {
       art: artId.idArticulo
+    });
+  }
+
+  cargarFotos() {
+    this.restService.getFotosIdArticulo(this.idArticulo).then(data => {
+      this.fotosArt = data;
     });
   }
 

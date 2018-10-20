@@ -11,9 +11,14 @@
 
 
 <ion-content>
-  <div *ngFor="let artId of articuloId">
-    <img src="{{artId.Foto_Principal}}" imageViewer>
-    <div padding>
+  <div>
+    <!-- <img src="{{artId.Foto_Principal}}" imageViewer> -->
+    <ion-slides loop="true" style="background-color: black">
+      <ion-slide *ngFor="let f of fotosArt">
+        <img src="{{f.Foto}}" imageViewer />
+      </ion-slide>
+    </ion-slides>
+    <div *ngFor="let artId of articuloId" padding>
       <h1>{{ artId.Titulo }}</h1>
       <h3>$ {{ artId.Precio }}</h3>
 
