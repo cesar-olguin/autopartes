@@ -50,9 +50,16 @@
     </ion-item>
     <ion-item> -->
     <ion-item>
-      <ion-card *ngFor="let photo of photos">
-        <img src="{{photo}}" width="150" height="300" imageViewer  />
-      </ion-card>
+      <ion-grid>
+        <ion-row>
+          <ion-col *ngFor="let photo of photos" col-6 no-padding> 
+            <ion-card >
+              <img [src]="photo" (click)="eliminarFoto(photo)" />
+              <!-- {{photo}} imageViewer -->
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-item>
 
     <button ion-button block (click)="addArticle()">Agregar Articulo</button>

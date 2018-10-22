@@ -38,6 +38,7 @@ import { Camera } from '@ionic-native/camera';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
+import { Base64 } from '@ionic-native/base64';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { Crop } from '@ionic-native/crop';
     UserServiceProvider,
     Camera,
     Crop,
-    ImagePicker
+    ImagePicker,
+    Base64
   ]
 })
 export class AppModule { }

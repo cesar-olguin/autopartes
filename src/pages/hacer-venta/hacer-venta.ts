@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Storage } from '@ionic/storage';
 import { CamaraVentasPage } from '../camara-ventas/camara-ventas';
 import { ImagePicker } from '@ionic-native/image-picker';
+import { Base64 } from '@ionic-native/base64';
 
 /**
  * Generated class for the HacerVentaPage page.
@@ -40,7 +41,7 @@ export class HacerVentaPage {
   photos: any[];
   cropService;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, private camera: Camera, private storage: Storage, public events: Events, public imagePicker: ImagePicker) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, private camera: Camera, private storage: Storage, public events: Events, public imagePicker: ImagePicker, public base64: Base64, public alertCtrl: AlertController) {
 
     this.restService.getMarcas()
       .subscribe(
@@ -52,26 +53,50 @@ export class HacerVentaPage {
         }
       )
     this.photos = new Array<string>();
+    this.camera.cleanup();
   }
 
   abrirGaleria() {
-    let options = {
-      maximumImagesCount: 5,
-    }
+    // let options = {
+    //   outputType: 1,
+    //   maximumImagesCount: 5,
+    // }
     // this.photos = new Array<string>();
-    this.imagePicker.getPictures(options).then((results) => {
-      for (var i = 0; i < results.length; i++) {
-        console.log('Image URI: ' + results[i]);
-        this.photos.push(results[i]);
-      }
-    }, (err) => {
-      console.log(err);
+    // this.imagePicker.getPictures(options).then((results) => {
+    //   for (var i = 0; i < results.length; i++) {
+    //     this.photos.push(results[i]);
+    //     this.base64.encodeFile(results[i]).then((base64File: string) => {
+    //      // this.photos.push(base64File[i]);
+    //     }, (err) => {
+    //       console.log(err);
+    //     });
+    //   }
+    // }, (err) => {
+    //   console.log(err);
+    // });
+
+    let options: CameraOptions = {
+      destinationType: this.camera.DestinationType.DATA_URL,
+      correctOrientation: true,
+      sourceType: 2,
+      mediaType: 0,
+    }
+    //this.photos = new Array<string>();
+    this.camera.getPicture(options).then(imageData => {
+      this.image = `data:image/jpeg;base64,${imageData}`;
+      this.photos.push(this.image);
+      this.foto = this.photos;
+    }).catch(error => {
+      console.error(error);
     });
+    
   }
 
   tomarFoto() {
     let options: CameraOptions = {
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
       targetWidth: 400,
       targetHeight: 600,
       quality: 100,
@@ -85,8 +110,10 @@ export class HacerVentaPage {
     }).catch(error => {
       console.error(error);
     });
+  }
 
-
+  vistaCamara(){
+    this.navCtrl.push(CamaraVentasPage);
   }
 
 
@@ -136,18 +163,20 @@ export class HacerVentaPage {
       this.restService.postArticulo(body).then((result) => {
         console.log("ID Articulo -> " + result);
 
-        let array = ['https://developer.android.com/guide/practices/ui_guidelines/images/NB_Icon_Mask_Shapes_Ext_02.gif',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6XWZyRXNLb8t5_cp9aBpp_Z5jlL1rhfNC1zSv5YjhjFnETY-1',
-        'https://is3-ssl.mzstatic.com/image/thumb/Purple128/v4/c8/a2/1f/c8a21ffb-301d-92e7-de0d-ce1eb580e1e5/Icon.png/246x0w.png'];
+        // let array = ['https://developer.android.com/guide/practices/ui_guidelines/images/NB_Icon_Mask_Shapes_Ext_02.gif',
+        // 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6XWZyRXNLb8t5_cp9aBpp_Z5jlL1rhfNC1zSv5YjhjFnETY-1',
+        // 'https://is3-ssl.mzstatic.com/image/thumb/Purple128/v4/c8/a2/1f/c8a21ffb-301d-92e7-de0d-ce1eb580e1e5/Icon.png/246x0w.png'];
 
         this.idArticuloAgregado = result;
 
         for (var i = 0; i < this.photos.length; i++) {
+          this.foto.slice(0,5);
           let foto = {
             idArticulo: this.idArticuloAgregado,
             idUsuario: this.Usuario,
             Foto: this.foto[i]
           }
+          
           this.restService.postFoto(foto);
         }
 
@@ -172,6 +201,30 @@ export class HacerVentaPage {
 
   modeloSelccionado(Modelo) {
     this.NombreModelo = Modelo;
+  }
+
+
+  eliminarFoto(foto) {
+    let alert = this.alertCtrl.create({
+      title: 'Borrar Foto',
+      message: 'Deseas borrar esta Foto?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Borrar Foto',
+          handler: () => {
+           this.photos.splice(foto,1); // foto = foto a eliminar -------- 1 = cantidad de elementos a borrar desde la posicion de la foto
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
