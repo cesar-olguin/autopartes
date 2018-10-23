@@ -219,7 +219,11 @@ export class HacerVentaPage {
         {
           text: 'Borrar Foto',
           handler: () => {
-           this.photos.splice(foto,1); // foto = foto a eliminar -------- 1 = cantidad de elementos a borrar desde la posicion de la foto
+            for (var i = 0; i < this.photos.length; i++) {
+              if(foto == this.photos[i]){
+                this.photos.splice(i,1); // i = foto a eliminar -------- 1 = cantidad de elementos a borrar desde la posicion de la foto
+              }
+            }
           }
         }
       ]
