@@ -24,18 +24,6 @@ export class MyApp {
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public events: Events) {
     this.initializeApp();
 
-    // let status bar overlay webview
-    this.statusBar.overlaysWebView(true);
-
-  
-    // this.statusBar.styleDefault();
-    // this.statusBar.styleBlackOpaque();
-    // this.statusBar.styleBlackTranslucent();
-      // set status bar to white
-    this.statusBar.backgroundColorByHexString('#f00');
-    
-
-
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Login', component: LoginPage, icon: 'log-in' },
@@ -71,6 +59,11 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
+      // let status bar overlay webview
+      this.statusBar.overlaysWebView(false);
+
+      // set status bar to white
+      //this.statusBar.backgroundColorByHexString('#000');
       this.splashScreen.hide();
     });
   }
