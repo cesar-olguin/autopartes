@@ -57,7 +57,7 @@ export class VentasPage {
         else {
           this.restService.getArticulosDiferentes(idval).then(data => {
             this.articulos = data;
-            loader.dismiss();
+            //loader.dismiss();
           });
         }
       //});

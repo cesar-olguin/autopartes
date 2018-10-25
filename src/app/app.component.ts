@@ -25,14 +25,14 @@ export class MyApp {
     this.initializeApp();
 
     // let status bar overlay webview
-    this.statusBar.overlaysWebView(false);
+    this.statusBar.overlaysWebView(true);
 
   
-    this.statusBar.styleDefault();
-    this.statusBar.styleBlackOpaque();
-    this.statusBar.styleBlackTranslucent();
+    // this.statusBar.styleDefault();
+    // this.statusBar.styleBlackOpaque();
+    // this.statusBar.styleBlackTranslucent();
       // set status bar to white
-    this.statusBar.backgroundColorByHexString('#ffffff');
+    this.statusBar.backgroundColorByHexString('#f00');
     
 
 

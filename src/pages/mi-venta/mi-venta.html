@@ -18,7 +18,7 @@
 
 <ion-content>
   <div>
-    <ion-slides loop="true" style="background-color: black">
+    <ion-slides pager style="background-color: black">
       <ion-slide *ngFor="let f of fotosArt">
         <img src="{{f.Foto}}" imageViewer/>
       </ion-slide>
@@ -28,7 +28,7 @@
       <h3>$ {{ artId.Precio }}</h3>
 
       <!--button ion-button clear item-end>View</button-->
-
+<!-- 
       <button ion-button block>Comprar</button>
       <button ion-button block outline>agregar al carrito </button>
       <ion-grid>
@@ -40,7 +40,7 @@
             Icono 2
           </ion-col>
         </ion-row>
-      </ion-grid>
+      </ion-grid> -->
       <h5>DESCRIPCION</h5>
       <p>{{ artId.Descripcion }}</p>
 

@@ -94,13 +94,15 @@ export class HacerVentaPage {
 
   tomarFoto() {
     let options: CameraOptions = {
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      targetWidth: 720,
+      targetHeight: 1280,
+      quality: 100,
+      sourceType: 1,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      targetWidth: 400,
-      targetHeight: 600,
-      quality: 100,
-      correctOrientation: true
+      correctOrientation: true,
+      saveToPhotoAlbum: true,
     }
     //this.photos = new Array<string>();
     this.camera.getPicture(options).then(imageData => {
@@ -177,7 +179,7 @@ export class HacerVentaPage {
             Foto: this.foto[i]
           }
           
-          this.restService.postFoto(foto);
+          this.restService.postFotos(foto);
         }
 
       }, (err) => {

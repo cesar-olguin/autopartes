@@ -24,7 +24,7 @@
 
   <ion-list>
     <ion-item>
-      <ion-label>Marca del Auto</ion-label>
+      <ion-label cavaliers="primary">Marca del Auto</ion-label>
       <ion-select [(ngModel)]="marcas" interface="action-sheet">
         <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaTapped(mar.idMarca,mar.Marca);" [value]="mar.idMarca">{{
           mar.Marca }}</ion-option>

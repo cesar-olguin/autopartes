@@ -39,7 +39,17 @@ export class MiVentaPage {
   }
 
   ionViewDidLoad() {
-    this.loadChat();
+    this.loadArt();
+    this.cargarFotos();
+  }
+  ionViewWillEnter() {
+    this.loadArt();
+    this.cargarFotos();
+  }
+
+  ionViewDidEnter() {
+    this.loadArt();
+    this.cargarFotos();
   }
 
   hacerPregunta() {

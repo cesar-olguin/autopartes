@@ -11,26 +11,63 @@
 <ion-content>
 
   <ion-list *ngFor="let artId of articuloId">
-    <ion-label color="primary" stacked>Imagen</ion-label>
-    <img [src]="artId.Foto_Principal">
+    <!-- <ion-label color="primary" stacked>Imagen</ion-label>
+    <img [src]="artId.Foto_Principal"> -->
     <ion-item>
       <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Titulo</ion-label>
-      <ion-input [(ngModel)]="Titulo" type="text"></ion-input>
+      <ion-input [(ngModel)]="Titulo" type="text" placeholder="{{artId.Titulo}}"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Descripcion</ion-label>
-      <ion-textarea [(ngModel)]="Descripcion"></ion-textarea>
+      <ion-textarea [(ngModel)]="Descripcion" placeholder="{{artId.Descripcion}}"></ion-textarea>
     </ion-item>
 
     <ion-item>
       <ion-label color="primary" stacked>Precio</ion-label>
-      <ion-input type="number" [(ngModel)]="Precio"></ion-input>
+      <ion-input type="number" [(ngModel)]="Precio" placeholder="{{artId.Precio}}"></ion-input>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-label id="profile_image" color="primary" stacked>Añadir Fotos</ion-label>
       <ion-input type="file" accept="image/*" multiple></ion-input>
+    </ion-item> -->
+    <ion-item>
+      <ion-grid>
+          <ion-row>
+            <ion-col col-6>
+                <button ion-button block (click)="abrirGaleria()">Subir Foto</button>
+            </ion-col>
+            <ion-col col-6>
+                <button ion-button block (click)="tomarFoto()">Tomar Fotos</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
     </ion-item>
+    <ion-item>
+        <ion-label color="primary" stacked>Fotos Nuevas</ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngFor="let photo of photos" col-6 no-padding> 
+              <ion-card>
+                <img [src]="photo" (click)="borrarFoto(photo)" />
+                <!-- {{photo}} imageViewer -->
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    <ion-label color="primary" stacked>Fotos Antiguas</ion-label>
+    <ion-item-sliding *ngFor="let f of fotosArt">
+      <ion-item >
+        <img [src]="f.Foto" imageViewer>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="eliminarFoto(f.NumeroFoto)">
+          <ion-icon name="trash"></ion-icon>
+          Eliminar
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
   <button ion-button color="cavaliers-primary" round icon-start (click)="modificarArticulo()">
     <ion-icon name="star"></ion-icon>

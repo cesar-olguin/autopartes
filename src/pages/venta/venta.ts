@@ -62,7 +62,6 @@ export class VentaPage {
     })
   }
 
-  
   cargarFotos(){
     this.restService.getFotosIdArticulo(this.idArticulo).then(data =>{
       this.fotosArt = data;

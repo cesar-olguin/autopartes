@@ -113,7 +113,7 @@ export class UserServiceProvider {
     });
   }
 
-  postFoto(data) {
+  postFotos(data) {
     return new Promise((resolve, reject) => {
       this.http.post(this.baseUrl + '/articulo/fotos/', data)
         .subscribe(res => {
@@ -121,6 +121,28 @@ export class UserServiceProvider {
         }, err => {
           console.log(err);
         });
+    });
+  }
+
+  putFotos(id,data) {
+    return new Promise((resolve, reject) => {
+      this.http.put(this.baseUrl + '/articulo/fotos/'+id, data).subscribe(res => {
+        resolve(res);
+        // console.log(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  deleteFotos(id){
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.baseUrl + '/articulo/fotos/'+id).subscribe(res => {
+        resolve(res);
+        // console.log(data);
+      }, err => {
+        console.log(err);
+      });
     });
   }
 

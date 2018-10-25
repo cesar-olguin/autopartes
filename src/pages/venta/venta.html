@@ -13,7 +13,7 @@
 <ion-content>
   <div>
     <!-- <img src="{{artId.Foto_Principal}}" imageViewer> -->
-    <ion-slides loop="true" style="background-color: black">
+    <ion-slides pager style="background-color: black">
       <ion-slide *ngFor="let f of fotosArt">
         <img src="{{f.Foto}}" imageViewer />
       </ion-slide>
