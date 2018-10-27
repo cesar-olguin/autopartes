@@ -7,7 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { VentasPage } from '../pages/ventas/ventas';
 import { PedidosPage } from '../pages/pedidos/pedidos';
-import { FavoritosPage } from '../pages/favoritos/favoritos';
+//import { FavoritosPage } from '../pages/favoritos/favoritos';
 import { UsuarioPage } from '../pages/usuario/usuario';
 import { MisVentasPage } from '../pages/mis-ventas/mis-ventas';
 
@@ -35,10 +35,10 @@ export class MyApp {
     events.subscribe('user:loggedin', () => {
       this.pages = [
         { title: 'Home', component: HomePage, icon: 'home' },
-        { title: 'Favoritos', component: FavoritosPage, icon: 'star' },
-        { title: 'Pedidos', component: PedidosPage, icon: 'search' },
+        //{ title: 'Favoritos', component: FavoritosPage, icon: 'star' },
         { title: 'Articulos en Venta', component: VentasPage, icon: 'cart' },
         { title: 'Usuario', component: UsuarioPage, icon: 'person' },
+        { title: 'Mis Pedidos', component: PedidosPage, icon: 'search' },
         { title: 'Mis Ventas', component: MisVentasPage, icon: 'cart' }
       ];
     });

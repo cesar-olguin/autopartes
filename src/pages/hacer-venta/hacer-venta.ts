@@ -175,7 +175,7 @@ export class HacerVentaPage {
           this.foto.slice(0,5);
           let foto = {
             idArticulo: this.idArticuloAgregado,
-            idUsuario: this.Usuario,
+            photos: this.Usuario,
             Foto: this.foto[i]
           }
           

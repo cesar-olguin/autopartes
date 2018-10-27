@@ -36,11 +36,15 @@ export class ModificarVentaPage {
     this.idSelected = navParams.get("art");
     this.idArticulo = this.idSelected;
     this.Titulo = this.idArticulo.Titulo;
+    this.photos = new Array<string>();
+    this.camera.cleanup();
   }
 
   ionViewDidLoad() {
     this.loadArt();
     this.cargarFotos();
+    console.log(this.idArticulo);
+      
   }
 
   loadArt() {
@@ -66,15 +70,19 @@ export class ModificarVentaPage {
     this.restService.putArticulo(this.idSelected, body).then(data => {
       this.articuloId = data;
 
+      let obj = JSON.parse(JSON.stringify(this.fotosArt));
+      this.arrayFotos = obj[i];
 
+      
       for (var i = 0; i < this.photos.length; i++) {
         this.foto.slice(0, 5);
-        let foto = {
-          NumeroFoto: i,
-          Foto: this.foto[i]
-        }
-        let obj = JSON.parse(JSON.stringify(this.fotosArt));
-        this.arrayFotos = obj[i];
+        // let foto = {
+        //   idArticulo: this.idArticulo,
+        //   idUsuario: this.arrayFotos.idUsuario, 
+        //   NumeroFoto: i,
+        //   Foto: this.foto[i]
+        // }
+        
 
 
       }
@@ -91,25 +99,23 @@ export class ModificarVentaPage {
     });
   }
 
-
   abrirGaleria() {
-
-
     let options: CameraOptions = {
       destinationType: this.camera.DestinationType.DATA_URL,
       correctOrientation: true,
       sourceType: 2,
       mediaType: 0,
     }
-    //this.photos = new Array<string>();
+    //
     this.camera.getPicture(options).then(imageData => {
       this.image = `data:image/jpeg;base64,${imageData}`;
-      this.fotosArt.push(this.image);
-      this.foto = this.fotosArt;
+      this.photos.push(this.image);
+      this.foto = this.photos;
+      this.fotosArt = this.photos;
     }).catch(error => {
       console.error(error);
     });
-
+    
   }
 
   tomarFoto() {

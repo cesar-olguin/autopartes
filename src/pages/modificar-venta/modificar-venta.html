@@ -33,32 +33,34 @@
     </ion-item> -->
     <ion-item>
       <ion-grid>
-          <ion-row>
-            <ion-col col-6>
-                <button ion-button block (click)="abrirGaleria()">Subir Foto</button>
-            </ion-col>
-            <ion-col col-6>
-                <button ion-button block (click)="tomarFoto()">Tomar Fotos</button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button block (click)="abrirGaleria()">Subir Foto</button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button block (click)="tomarFoto()">Tomar Fotos</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-item>
     <ion-item>
-        <ion-label color="primary" stacked>Fotos Nuevas</ion-label>
-        <ion-grid>
-          <ion-row>
-            <ion-col *ngFor="let photo of photos" col-6 no-padding> 
-              <ion-card>
-                <img [src]="photo" (click)="borrarFoto(photo)" />
-                <!-- {{photo}} imageViewer -->
-              </ion-card>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-    <ion-label color="primary" stacked>Fotos Antiguas</ion-label>
+      <ion-label color="primary" stacked>Fotos Nuevas</ion-label>
+      <ion-grid>
+        <ion-row>
+          <ion-col *ngFor="let photo of photos" col-6 no-padding>
+            <ion-card>
+              <img [src]="photo" (click)="borrarFoto(photo)" />
+              <!-- {{photo}} imageViewer -->
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label color="primary" stacked>Fotos Antiguas</ion-label>
+    </ion-item>
     <ion-item-sliding *ngFor="let f of fotosArt">
-      <ion-item >
+      <ion-item>
         <img [src]="f.Foto" imageViewer>
       </ion-item>
       <ion-item-options side="right">
