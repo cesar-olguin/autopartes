@@ -26,8 +26,8 @@ export class VentasPage {
   selectMarca: any;
   public marcaId;
   public modeloId;
-  public marcaName;
-  public modeloName;
+  public NombreMarca;
+  public NombreModelo;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, public storage: Storage, public loadingCtrl: LoadingController) {
   }
@@ -84,17 +84,17 @@ export class VentasPage {
     });
   }
 
-  marcaTapped(idMarca, Marca) {
+
+  marcaSeleccionada(idMarca, Marca) {
     this.marcaId = idMarca;
-    this.marcaName = Marca;
+    this.NombreMarca = Marca;
     this.restService.getModelo(idMarca).then(data => {
-      this.modelos = data
+      this.modelos = data;
     });
   }
 
-  modeloTapped(idMarca, Modelo) {
-    this.modeloId = idMarca;
-    this.modeloName = Modelo;
+  modeloSelccionado(Modelo) {
+    this.NombreModelo = Modelo;
   }
 
   // buscarModeloMarca(/*marcaId,modeloId*/) {

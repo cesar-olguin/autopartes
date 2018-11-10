@@ -24,17 +24,18 @@
 
   <ion-list>
     <ion-item>
-      <ion-label cavaliers="primary">Marca del Auto</ion-label>
-      <ion-select [(ngModel)]="marcas" interface="action-sheet">
-        <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaTapped(mar.idMarca,mar.Marca);" [value]="mar.idMarca">{{
+      <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Marca del Auto</ion-label>
+      <ion-select ngModel="marcas" interface="action-sheet">
+        <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaSeleccionada(mar.idMarca,mar.Marca);" [value]="mar.idMarca">{{
           mar.Marca }}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Modelo del Auto</ion-label>
-      <ion-select [(ngModel)]="modelos" interface="action-sheet">
-        <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloTapped(mod.idMarca,mod.Marca)" [value]="mod.idMarca">{{
-          mod.Marca }}</ion-option>
+      <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Modelo del Auto</ion-label>
+      <ion-select ngModel="modelos" interface="action-sheet">
+        <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idMarca">
+          {{mod.Marca }}
+        </ion-option>
       </ion-select>
     </ion-item>
     <button ion-button block (click)="buscarModeloMarca()">Buscar Auto.</button>

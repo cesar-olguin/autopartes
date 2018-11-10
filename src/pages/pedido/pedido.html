@@ -10,10 +10,11 @@
 <ion-content>
   <div *ngFor="let datos of PedidoDatos">
     <img src="{{datos.Foto_Principal}}">
-    <p>
-      Busco -> {{datos.Titulo}}
-    </p>
-    {{datos.Fecha_Alta}}
+
+    <h2>Busco -> {{datos.Titulo}}</h2>
+
+    <h5>{{datos.Descripcion}}</h5>
   </div>
+
 
 </ion-content>
