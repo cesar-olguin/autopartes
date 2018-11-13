@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.ionic.starter" version="0.9.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>autopartes</name>
+    <name>Autopartes</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="develop@solucionesgp.com" href="http://solucionesgp.com">Ionic Framework Team</author>
     <content src="index.html" />
@@ -90,4 +90,5 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="7.0.0" />
+    <plugin name="com.paypal.cordova.mobilesdk" spec="3.5.0" />
 </widget>
