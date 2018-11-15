@@ -58,8 +58,9 @@ export class ChatRespuestaPage {
 
   mensaje() {
     this.navCtrl.push(EscribirPedidosPage, {
-      idCli: this.User.QuienPregunta,
-      idVen: this.User.QuienResponde
+      QuienPide: this.User.QuienPregunta,
+      QuienTiene: this.User.QuienResponde,
+      Pedido: this.User.idPedido,
     });
   }
 }
