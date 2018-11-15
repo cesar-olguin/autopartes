@@ -5,14 +5,22 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>escribir-pedidos</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title></ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="escribir()">
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
+  <ion-textarea [(ngModel)]="Escrito" placeholder="Escribe tú pregunta..." class="form-control">
 
+  </ion-textarea>
 </ion-content>

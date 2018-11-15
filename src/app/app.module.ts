@@ -39,6 +39,11 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
 import { Base64 } from '@ionic-native/base64';
+import { EscribirPedidosPage } from '../pages/escribir-pedidos/escribir-pedidos';
+import { MiPedidoChatPage } from '../pages/mi-pedido-chat/mi-pedido-chat';
+import { ChatPreguntaPage } from '../pages/chat-pregunta/chat-pregunta';
+import { ChatRespuestaPage } from '../pages/chat-respuesta/chat-respuesta';
+
 
 @NgModule({
   declarations: [
@@ -49,6 +54,7 @@ import { Base64 } from '@ionic-native/base64';
     ConversacionVendedorPage,
     CuentaPage,
     EscribirPage,
+    EscribirPedidosPage,
     EscribirRespuestaPage,
     FavoritosPage,
     HacerPedidoPage,
@@ -61,6 +67,7 @@ import { Base64 } from '@ionic-native/base64';
     ModificarPedidoPage,
     ModificarVentaPage,
     PedidoPage,
+    MiPedidoChatPage,
     PedidosPage,
     PreguntasPage,
     RegistrarsePage,
@@ -68,6 +75,8 @@ import { Base64 } from '@ionic-native/base64';
     UsuarioPage,
     VentaPage,
     VentasPage,
+    ChatPreguntaPage,
+    ChatRespuestaPage
   ],
   imports: [
     BrowserModule,
@@ -90,6 +99,7 @@ import { Base64 } from '@ionic-native/base64';
     ConversacionVendedorPage,
     CuentaPage,
     EscribirPage,
+    EscribirPedidosPage,
     EscribirRespuestaPage,
     FavoritosPage,
     HacerPedidoPage,
@@ -102,13 +112,16 @@ import { Base64 } from '@ionic-native/base64';
     ModificarPedidoPage,
     ModificarVentaPage,
     PedidoPage,
+    MiPedidoChatPage,
     PedidosPage,
     PreguntasPage,
     RegistrarsePage,
     RespuestasPage,
     UsuarioPage,
     VentaPage,
-    VentasPage
+    VentasPage,
+    ChatPreguntaPage,
+    ChatRespuestaPage
   ],
   providers: [
     StatusBar,

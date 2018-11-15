@@ -194,6 +194,70 @@ export class UserServiceProvider {
     return this.http.get(this.baseUrl + '/pedido/');
   }
 
+  getPedidosDiferentesUsuarios(idUsuario) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + "/pedido/diferente/" + idUsuario).subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    });
+  }
+
+  postPedidoChat(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.baseUrl + '/pedido/chats/', data)
+        .subscribe(res => {
+          resolve(res);
+          console.log(data);
+        }, err => {
+          console.log(err);
+        });
+    });
+  }
+
+  getPedidosUsuario(idUsuario) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + "/pedido/usuario/" + idUsuario).subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    });
+  }
+
+  getPedidosChats(idPedido) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + "/pedido/chat/" + idPedido).subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    });
+  }
+
+  getChatDePedidos(idPedido,idUsuario) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + "/pedido/chat/" + idPedido + "/" + idUsuario).subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    });
+  }
+
   getComentarioUsuario(idArticulo) {
     return new Promise(resolve => {
       this.http.get(this.baseUrl + '/articulo/comentario/' + idArticulo).subscribe(data => {

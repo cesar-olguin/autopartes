@@ -10,11 +10,22 @@
 <ion-content>
   <div *ngFor="let datos of PedidoDatos">
     <img src="{{datos.Foto_Principal}}">
-
-    <h2>Busco -> {{datos.Titulo}}</h2>
-
-    <h5>{{datos.Descripcion}}</h5>
+    <div padding>
+      <h2>Busco -> {{datos.Titulo}}</h2>
+      <h5>{{datos.Descripcion}}</h5>
+    </div>
   </div>
 
-
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item (click)="hacerPregunta()">
+      <ion-input type="text" placeholder="Escribe tu Pregunta..." disabled></ion-input>
+      <button ion-button clear icon-only item-right>
+        <ion-icon name="send"> </ion-icon>
+      </button>
+    </ion-item>
+
+  </ion-toolbar>
+</ion-footer>

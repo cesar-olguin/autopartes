@@ -1,5 +1,14 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  Events,
+  LoadingController
+} from "ionic-angular";
+import { UserServiceProvider } from "../../providers/user-service/user-service";
+import { HacerPedidoPage } from "../hacer-pedido/hacer-pedido";
+import { MiPedidoPage } from "../mi-pedido/mi-pedido";
+import { Storage } from "@ionic/storage";
 
 /**
  * Generated class for the MisPedidosPage page.
@@ -10,16 +19,53 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-mis-pedidos',
-  templateUrl: 'mis-pedidos.html',
+  selector: "page-mis-pedidos",
+  templateUrl: "mis-pedidos.html"
 })
 export class MisPedidosPage {
+  selectedItem: any;
+  pedidos;
+  items;
+  displayedImages;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public restService: UserServiceProvider,
+    public events: Events,
+    public loadingCtrl: LoadingController,
+    public storage: Storage
+  ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MisPedidosPage');
+    this.load();
   }
 
+  ionViewCanEnter() {
+    this.load();
+  }
+
+  // ionViewWillEnter() {
+  //   this.load();
+  // }
+
+  pushPage() {
+    this.navCtrl.push(HacerPedidoPage);
+  }
+
+  load() {
+    this.storage.get("idUser").then(idval => {
+      console.log(idval);
+      
+      this.restService.getPedidosUsuario(idval).then(data => {
+        this.pedidos = data;
+        this.items = data;
+      });
+    });
+  }
+
+  pedidoN(item) {
+    this.navCtrl.push(MiPedidoPage, {
+      idPed: item.idPedido
+    });
+  }
 }

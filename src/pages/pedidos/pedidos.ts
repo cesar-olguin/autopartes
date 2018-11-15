@@ -1,8 +1,13 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, Events, LoadingController } from 'ionic-angular';
-import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { HacerPedidoPage } from '../hacer-pedido/hacer-pedido';
-import { PedidoPage } from '../pedido/pedido';
+import { Component } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  Events,
+  LoadingController
+} from "ionic-angular";
+import { UserServiceProvider } from "../../providers/user-service/user-service";
+import { HacerPedidoPage } from "../hacer-pedido/hacer-pedido";
+import { PedidoPage } from "../pedido/pedido";
 
 /**
  * Generated class for the PedidosPage page.
@@ -13,18 +18,21 @@ import { PedidoPage } from '../pedido/pedido';
 
 @IonicPage()
 @Component({
-  selector: 'page-pedidos',
-  templateUrl: 'pedidos.html',
+  selector: "page-pedidos",
+  templateUrl: "pedidos.html"
 })
 export class PedidosPage {
-
   selectedItem: any;
   pedidos;
   items;
   displayedImages;
 
-  constructor(public navCtrl: NavController, public restService: UserServiceProvider, public events: Events, public loadingCtrl: LoadingController) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public restService: UserServiceProvider,
+    public events: Events,
+    public loadingCtrl: LoadingController
+  ) {}
 
   ionViewDidLoad() {
     this.load();
@@ -48,16 +56,16 @@ export class PedidosPage {
       //content: `<img src="assets/imgs/llanta1.png" />`,
     });
     //loader.present().then(() => {
-      this.restService.getPedidos().subscribe(
-        data => {
-          this.pedidos = data;
-          this.items = data;
-          loader.dismiss();
-        },
-        error => {
-          console.error(error);
-        }
-      );
+    this.restService.getPedidos().subscribe(
+      data => {
+        this.pedidos = data;
+        this.items = data;
+        loader.dismiss();
+      },
+      error => {
+        console.error(error);
+      }
+    );
     //});
   }
 

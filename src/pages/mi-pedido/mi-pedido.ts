@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { UserServiceProvider } from "../../providers/user-service/user-service";
+import { MiPedidoChatPage } from "../mi-pedido-chat/mi-pedido-chat";
 
 /**
  * Generated class for the MiPedidoPage page.
@@ -14,12 +16,31 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'mi-pedido.html',
 })
 export class MiPedidoPage {
+  idPedido;
+  PedidoDatos;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public restService: UserServiceProvider
+  ) {
+    this.idPedido = navParams.get("idPed");
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MiPedidoPage');
+    this.loadPedido();
+  }
+
+  loadPedido() {
+    this.restService.getPedidoById(this.idPedido).then(data => {
+      this.PedidoDatos = data;
+      console.log(JSON.stringify(data));
+    });
+  }
+  verChatsPedido(datos){
+    this.navCtrl.push(MiPedidoChatPage, {
+      idPed: datos.idPedido
+    });
   }
 
 }

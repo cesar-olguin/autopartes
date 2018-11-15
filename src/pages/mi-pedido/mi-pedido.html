@@ -7,26 +7,12 @@
   </ion-navbar>
 </ion-header>
 
-
-<ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Titulo</ion-label>
-      <ion-input [(ngModel)]="Titulo" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Descripcion</ion-label>
-      <ion-textarea [(ngModel)]="Descripcion"></ion-textarea>
-    </ion-item>
-    <ion-item-divider>
-      Adjuntar Foto
-    </ion-item-divider>
-    <ion-item>
-      <button ion-button block (click)="getPicture()">Toma una foto</button>
-    </ion-item>
-    <ion-item>
-      <img [(ngModel)]="Foto_Principal" [src]="image" *ngIf="image" />
-    </ion-item>
-  </ion-list>
-  <button ion-button block (click)="addAsk()">Agregar Articulo</button>
+<ion-content *ngFor="let datos of PedidoDatos">
+  <img src="{{datos.Foto_Principal}}">
+  <div padding>
+    <h2>Busco -> {{datos.Titulo}}</h2>
+    <h5>{{datos.Descripcion}}</h5>
+    {{datos.idPedido}}
+  </div>
+  <button ion-button block (click)="verChatsPedido(datos);">Ver Comentarios</button>
 </ion-content>

@@ -141,6 +141,31 @@ export class HomePage {
         console.error(error);
       }
     );
+  //   this.storage.get('idUser').then((idval) => {
+  //     console.log(idval);
+  //     if (idval == null) {
+  //       this.restService.getPedidos().subscribe(
+  //         data => {
+  //           // Success
+  //           this.pedidos = data;
+  //           //this.items = data;
+  //           // console.log(data);
+  //           this.items = data;
+  //         },
+  //         error => {
+  //           console.error(error);
+  //         }
+  //       );
+  //     }
+  //     else {
+  //       this.restService.getPedidosDiferentesUsuarios(idval).then(data => {
+  //         this.articulos = data;
+  //         //loader.dismiss();
+  //       });
+  //     }
+  //   //});
+  // });
+
   }
 
   pedidoN(item) {

@@ -10,6 +10,7 @@ import { PedidosPage } from '../pages/pedidos/pedidos';
 //import { FavoritosPage } from '../pages/favoritos/favoritos';
 import { UsuarioPage } from '../pages/usuario/usuario';
 import { MisVentasPage } from '../pages/mis-ventas/mis-ventas';
+import { MisPedidosPage } from '../pages/mis-pedidos/mis-pedidos';
 
 @Component({
   templateUrl: 'app.html'
@@ -38,7 +39,7 @@ export class MyApp {
         //{ title: 'Favoritos', component: FavoritosPage, icon: 'star' },
         { title: 'Articulos en Venta', component: VentasPage, icon: 'cart' },
         { title: 'Usuario', component: UsuarioPage, icon: 'person' },
-        { title: 'Mis Pedidos', component: PedidosPage, icon: 'search' },
+        { title: 'Mis Pedidos', component: MisPedidosPage, icon: 'search' },
         { title: 'Mis Ventas', component: MisVentasPage, icon: 'cart' }
       ];
     });
