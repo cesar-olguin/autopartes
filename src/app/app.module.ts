@@ -43,7 +43,7 @@ import { EscribirPedidosPage } from '../pages/escribir-pedidos/escribir-pedidos'
 import { MiPedidoChatPage } from '../pages/mi-pedido-chat/mi-pedido-chat';
 import { ChatPreguntaPage } from '../pages/chat-pregunta/chat-pregunta';
 import { ChatRespuestaPage } from '../pages/chat-respuesta/chat-respuesta';
-
+import { PayPal } from '@ionic-native/paypal'
 
 @NgModule({
   declarations: [
@@ -131,7 +131,8 @@ import { ChatRespuestaPage } from '../pages/chat-respuesta/chat-respuesta';
     Camera,
     Crop,
     ImagePicker,
-    Base64
+    Base64,
+    PayPal
   ]
 })
 export class AppModule { }
