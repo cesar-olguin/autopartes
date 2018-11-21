@@ -44,6 +44,7 @@ import { MiPedidoChatPage } from '../pages/mi-pedido-chat/mi-pedido-chat';
 import { ChatPreguntaPage } from '../pages/chat-pregunta/chat-pregunta';
 import { ChatRespuestaPage } from '../pages/chat-respuesta/chat-respuesta';
 import { PayPal } from '@ionic-native/paypal'
+import { Push } from '@ionic-native/push';
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { PayPal } from '@ionic-native/paypal'
     Crop,
     ImagePicker,
     Base64,
-    PayPal
+    PayPal,
+    Push
   ]
 })
 export class AppModule { }
