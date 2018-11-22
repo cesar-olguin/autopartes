@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "398680118616",
+    "firebase_url": "https://autopartes-186db.firebaseio.com",
+    "project_id": "autopartes-186db",
+    "storage_bucket": "autopartes-186db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398680118616:android:3e44403718e68d0c",
+        "android_client_info": {
+          "package_name": "com.lionstudio.autopartes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398680118616-4n36cr9j1260bpehi40n38diltlb463m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjw4X3-yhQhJ3hnBJtvyDKbVVoTIMAid8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

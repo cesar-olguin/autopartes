@@ -12,6 +12,7 @@ import { UsuarioPage } from "../pages/usuario/usuario";
 import { MisVentasPage } from "../pages/mis-ventas/mis-ventas";
 import { MisPedidosPage } from "../pages/mis-pedidos/mis-pedidos";
 import { Push, PushObject, PushOptions } from "@ionic-native/push";
+import { LocalNotifications } from "@ionic-native/local-notifications";
 
 @Component({
   templateUrl: "app.html"
@@ -28,7 +29,8 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public events: Events,
-    public push: Push
+    public push: Push,
+    public localNotifications: LocalNotifications
   ) {
     this.initializeApp();
     this.pushNotificacion();
@@ -96,20 +98,21 @@ export class MyApp {
 
     const pushObject: PushObject = this.push.init(options);
 
-    pushObject
-      .on("notification")
-      .subscribe((notification: any) =>
-        console.log("Received a notification", notification)
-      );
+    pushObject.on("notification").subscribe((notification: any) => {
+      console.log("Notificaciones Consola", notification);
+      this.localNotifications.schedule({
+        id: 1,
+        text: "Notificacion Simple",
+        data: { secret: pushObject }
+      });
+    });
 
-    pushObject
-      .on("registration")
-      .subscribe((registration: any) =>
-        console.log("Device registered", registration)
-      );
+    pushObject.on("registration").subscribe((registration: any) => {
+      console.log("Dispositivo Registrado", registration);
+    });
 
-    pushObject
-      .on("error")
-      .subscribe(error => console.error("Error with Push plugin", error));
+    pushObject.on("error").subscribe(error => {
+      console.error("Error con el Pligin Push", error);
+    });
   }
 }

@@ -45,6 +45,7 @@ import { ChatPreguntaPage } from '../pages/chat-pregunta/chat-pregunta';
 import { ChatRespuestaPage } from '../pages/chat-respuesta/chat-respuesta';
 import { PayPal } from '@ionic-native/paypal'
 import { Push } from '@ionic-native/push';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @NgModule({
   declarations: [
@@ -134,7 +135,8 @@ import { Push } from '@ionic-native/push';
     ImagePicker,
     Base64,
     PayPal,
-    Push
+    Push,
+    LocalNotifications
   ]
 })
 export class AppModule { }
