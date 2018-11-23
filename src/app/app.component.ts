@@ -95,37 +95,7 @@ export class MyApp {
         sound: "true"
       }
     };
-
-    // to check if we have permission
-    this.push.hasPermission().then((res: any) => {
-      if (res.isEnabled) {
-        console.log("Notificaciones Activadas");
-      } else {
-        console.log("Notificaciones Desactivadas");
-      }
-    });
-
-    // Create a channel (Android O and above). You'll need to provide the id, description and importance properties.
-    this.push
-      .createChannel({
-        id: "testchannel1",
-        description: "Primer Canal",
-        // The importance property goes from 1 = Lowest, 2 = Low, 3 = Normal, 4 = High and 5 = Highest.
-        importance: 3
-      })
-      .then(() => console.log("Canal Creado"));
-
-    // Delete a channel (Android O and above)
-    // this.push
-    //   .deleteChannel("testchannel1")
-    //   .then(() => console.log("Canal Eliminado"));
-
-    // Return a list of currently configured channels
-    this.push
-      .listChannels()
-      .then(channels => console.log("Lista de Canales", channels));
-
-    // to initialize push notifications
+    
     const pushObject: PushObject = this.push.init(options);
 
     pushObject.on("notification").subscribe((notification: any) => {

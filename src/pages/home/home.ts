@@ -1,17 +1,16 @@
-import { Component } from '@angular/core';
-import { NavController, Events, LoadingController } from 'ionic-angular';
-import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { HacerPedidoPage } from '../hacer-pedido/hacer-pedido';
-import { Storage } from '@ionic/storage';
-import { VentaPage } from '../venta/venta';
-import { PedidoPage } from '../pedido/pedido';
+import { Component } from "@angular/core";
+import { NavController, Events, LoadingController } from "ionic-angular";
+import { UserServiceProvider } from "../../providers/user-service/user-service";
+import { HacerPedidoPage } from "../hacer-pedido/hacer-pedido";
+import { Storage } from "@ionic/storage";
+import { VentaPage } from "../venta/venta";
+import { PedidoPage } from "../pedido/pedido";
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: "page-home",
+  templateUrl: "home.html"
 })
 export class HomePage {
-
   selectedItem: any;
   pedidos;
   items;
@@ -28,62 +27,70 @@ export class HomePage {
   public marcaName;
   public modeloName;
 
-  constructor(public navCtrl: NavController, public restService: UserServiceProvider, public events: Events, public storage: Storage, public loadingCtrl: LoadingController) {
-
-  }
+  constructor(
+    public navCtrl: NavController,
+    public restService: UserServiceProvider,
+    public events: Events,
+    public storage: Storage,
+    public loadingCtrl: LoadingController
+  ) {}
 
   ionViewDidLoad() {
-
-    if (window.localStorage.getItem("user") != null && window.localStorage.getItem("pass") != null) {
+    if (
+      window.localStorage.getItem("user") != null &&
+      window.localStorage.getItem("pass") != null
+    ) {
       //Hay una sesión iniciada
       //Dirige a la pantalla principal ya logueada.
-      this.events.publish('user:loggedin');
+      this.events.publish("user:loggedin");
     } else {
       //Manda la pantalla de inicio de sesión o autentificación
-      this.events.publish('user:loggedout');
+      this.events.publish("user:loggedout");
     }
-    this.load();
-    this.getU();
+    //this.load();
 
     let loader = this.loadingCtrl.create({
       //spinner: 'hide',
       //content: `<img src="assets/imgs/llanta1.png" />`,
     });
     //loader.present().then(() => {
-    this.storage.get('idUser').then((idval) => {
+    this.storage.get("idUser").then(idval => {
       console.log(idval);
-      if (idval == null) {
-        this.restService.getArticulos()
-          .subscribe(
-            (data) => { // Success
-              this.articulos = data;
-              loader.dismiss();
-            },
-            (error) => {
-              console.error(error);
-            }
-          )
-      }
-      else {
-        this.restService.getArticulosDiferentes(idval).then(data => {
-          this.articulos = data;
-          loader.dismiss();
+      if (idval != null) {
+        console.log("Usuario");
+
+        this.restService.getPedidosDiferentesUsuarios(idval).then(data => {
+          this.pedidos = data;
+          console.log(data);
+          this.items = data;
         });
+      } else {
+        console.log("Sin Usuario");
+        this.restService.getPedidos().subscribe(
+          data => {
+            // Success
+            //this.pedidos = data;
+            //this.items = data;
+            // console.log(data);
+            this.items = data;
+          },
+          error => {
+            console.error(error);
+          }
+        );
       }
       //});
     });
 
-    this.restService.getMarcas()
-      .subscribe(
-        (data) => {
-          this.marcas = data['records'];
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
+    this.restService.getMarcas().subscribe(
+      data => {
+        this.marcas = data["records"];
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
-
 
   itemTapped(artId) {
     this.navCtrl.push(VentaPage, {
@@ -95,7 +102,7 @@ export class HomePage {
     this.marcaId = idMarca;
     this.marcaName = Marca;
     this.restService.getModelo(idMarca).then(data => {
-      this.modelos = data
+      this.modelos = data;
     });
   }
 
@@ -104,68 +111,15 @@ export class HomePage {
     this.modeloName = Modelo;
   }
 
-  getU() {
-    this.restService.getUsers().subscribe((data) => {
-      this.users = data['results'];
-    },
-      (error) => {
-        console.error(error);
-      }
-    )
-  }
-
-  ionViewCanEnter() {
-    window.location.reload;
-    this.load();
-  }
-
-  ionViewWillEnter() {
-    window.location.reload;
-    this.load();
-  }
-
-  pushPage() {
-    this.navCtrl.push(HacerPedidoPage);
-  }
-
   load() {
-    this.restService.getPedidos().subscribe(
-      data => {
-        // Success
-        this.pedidos = data;
-        //this.items = data;
-        // console.log(data);
-        this.items = data;
-      },
-      error => {
-        console.error(error);
+    this.storage.get("idUser").then(idval => {
+      console.log(idval);
+      if (idval == null) {
+        console.log("BIEN");
+      } else {
+        console.log("MAL");
       }
-    );
-  //   this.storage.get('idUser').then((idval) => {
-  //     console.log(idval);
-  //     if (idval == null) {
-  //       this.restService.getPedidos().subscribe(
-  //         data => {
-  //           // Success
-  //           this.pedidos = data;
-  //           //this.items = data;
-  //           // console.log(data);
-  //           this.items = data;
-  //         },
-  //         error => {
-  //           console.error(error);
-  //         }
-  //       );
-  //     }
-  //     else {
-  //       this.restService.getPedidosDiferentesUsuarios(idval).then(data => {
-  //         this.articulos = data;
-  //         //loader.dismiss();
-  //       });
-  //     }
-  //   //});
-  // });
-
+    });
   }
 
   pedidoN(item) {
@@ -173,5 +127,4 @@ export class HomePage {
       idPed: item.idPedido
     });
   }
-
 }
