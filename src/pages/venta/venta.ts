@@ -1,5 +1,10 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController
+} from "ionic-angular";
 import { UserServiceProvider } from "../../providers/user-service/user-service";
 import { Storage } from "@ionic/storage";
 import { PreguntasPage } from "../preguntas/preguntas";
@@ -9,6 +14,7 @@ import {
   PayPalConfiguration,
   PayPalPaymentDetails
 } from "@ionic-native/paypal";
+import { HomePage } from "../home/home";
 /**
  * Generated class for the VentaPage page.
  *
@@ -37,7 +43,8 @@ export class VentaPage {
     public navParams: NavParams,
     public storage: Storage,
     public restService: UserServiceProvider,
-    public payPal: PayPal
+    public payPal: PayPal,
+    public alertCtrl: AlertController
   ) {
     this.idSelected = navParams.get("art");
     this.idArticulo = this.idSelected;
@@ -77,7 +84,7 @@ export class VentaPage {
       this.fotosArt = data;
     });
   }
-  
+
   ComprarPayPal(datos) {
     this.payPal
       .init({
@@ -105,7 +112,9 @@ export class VentaPage {
                   "sale"
                 );
                 this.payPal.renderSinglePaymentUI(payment).then(
-                  () => {
+                  response => {
+                    console.log(response);
+
                     // Successfully paid
                     // Example sandbox response
                     //
@@ -124,18 +133,38 @@ export class VentaPage {
                     //     "intent": "sale"
                     //   }
                     // }
+                    this.alertCtrl
+                      .create({
+                        title: "Compra Exitosa",
+                        subTitle: "Tu numero de compra es el:",
+                        message: response.response.id,
+                        buttons: [
+                          {
+                            text: "OK",
+                            handler: () => {
+                              this.navCtrl.setRoot(HomePage);
+                            }
+                          }
+                        ]
+                      })
+                      .present();
                   },
-                  () => {
+                  ErrorPay => {
+                    console.log(ErrorPay);
+
                     // Error or render dialog closed without being successful
                   }
                 );
               },
-              () => {
+              ErrorConfig => {
+                console.log(ErrorConfig);
+
                 // Error in configuration
               }
             );
         },
-        () => {
+        ErrorSup => {
+          console.log(ErrorSup);
           // Error in initialization, maybe PayPal isn't supported or something else
         }
       );
