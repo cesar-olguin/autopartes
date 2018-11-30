@@ -7,7 +7,6 @@ import {
 } from "ionic-angular";
 import { UserServiceProvider } from "../../providers/user-service/user-service";
 import { Storage } from "@ionic/storage";
-import { PreguntasPage } from "../preguntas/preguntas";
 import {
   PayPal,
   PayPalPayment,
@@ -15,6 +14,7 @@ import {
   PayPalPaymentDetails
 } from "@ionic-native/paypal";
 import { HomePage } from "../home/home";
+import { ConversacionClientePage } from "../conversacion-cliente/conversacion-cliente";
 /**
  * Generated class for the VentaPage page.
  *
@@ -37,6 +37,9 @@ export class VentaPage {
   IdUser;
   vendedor;
   fotosArt;
+  comparar;
+  Fecha;
+  Escrito = undefined;
 
   constructor(
     public navCtrl: NavController,
@@ -49,17 +52,22 @@ export class VentaPage {
     this.idSelected = navParams.get("art");
     this.idArticulo = this.idSelected;
     this.storage.set("idArt", this.idArticulo);
+  }
+  ionViewCanEnter(){
+    this.loadArt();
+    this.loadChat();
+    this.cargarFotos();
+  }
+  ionViewDidLoad() {
     this.loadArt();
     this.loadChat();
     this.cargarFotos();
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter(){
+    this.loadArt();
     this.loadChat();
-  }
-
-  hacerPregunta() {
-    this.navCtrl.push(PreguntasPage);
+    this.cargarFotos();
   }
 
   loadArt() {
@@ -70,6 +78,54 @@ export class VentaPage {
       this.vendedor = obj[0];
       console.log("ID vendedor -> ", this.vendedor.idUsuario);
       this.storage.set("miID", this.vendedor.idUsuario);
+    });
+  }
+
+  hacerPregunta() {
+    this.storage.get("idUser").then(idLog => {
+      this.restService
+        .getComentarioUsuarioVendedor(this.idArticulo, idLog)
+        .then(data => {
+          this.comparar = JSON.stringify(data);
+          console.log(data);
+
+          if (this.comparar == "[]") {
+            if (this.Escrito != undefined) {
+              this.escribir();
+            }
+          }
+          if (this.comparar != "[]") {
+            if (this.Escrito != undefined && this.Escrito != "") {
+              this.escribir();
+            }
+            if (this.Escrito != undefined || this.Escrito == "") {
+              this.navCtrl.push(ConversacionClientePage, {
+                idArt: this.vendedor.idArticulo,
+                idCli: idLog
+              });
+            }
+          }
+        });
+    });
+  }
+
+  escribir() {
+    this.storage.get("idUser").then(idLog => {
+      let body = {
+        idArticulo: this.idArticulo,
+        idUsuario: idLog,
+        Vendedor: this.vendedor.idUsuario,
+        Cliente: idLog,
+        Conversacion: this.Escrito,
+        Fecha: this.Fecha = new Date().toLocaleDateString("en-GB")
+      };
+      this.restService.postConversacion(body);
+      console.log(body);
+      this.Escrito = "";
+      this.navCtrl.push(ConversacionClientePage, {
+        idArt: this.vendedor.idArticulo,
+        idCli: idLog
+      });
     });
   }
 

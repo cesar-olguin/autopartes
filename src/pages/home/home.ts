@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { NavController, Events, LoadingController } from "ionic-angular";
 import { UserServiceProvider } from "../../providers/user-service/user-service";
-import { HacerPedidoPage } from "../hacer-pedido/hacer-pedido";
 import { Storage } from "@ionic/storage";
 import { VentaPage } from "../venta/venta";
 import { PedidoPage } from "../pedido/pedido";
@@ -49,11 +48,6 @@ export class HomePage {
     }
     //this.load();
 
-    let loader = this.loadingCtrl.create({
-      //spinner: 'hide',
-      //content: `<img src="assets/imgs/llanta1.png" />`,
-    });
-    //loader.present().then(() => {
     this.storage.get("idUser").then(idval => {
       console.log(idval);
       if (idval != null) {
@@ -79,7 +73,6 @@ export class HomePage {
           }
         );
       }
-      //});
     });
 
     this.restService.getMarcas().subscribe(
