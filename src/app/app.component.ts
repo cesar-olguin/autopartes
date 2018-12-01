@@ -6,7 +6,7 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { HomePage } from "../pages/home/home";
 import { LoginPage } from "../pages/login/login";
 import { VentasPage } from "../pages/ventas/ventas";
-import { PedidosPage } from "../pages/pedidos/pedidos";
+//import { PedidosPage } from "../pages/pedidos/pedidos";
 //import { FavoritosPage } from '../pages/favoritos/favoritos';
 import { UsuarioPage } from "../pages/usuario/usuario";
 import { MisVentasPage } from "../pages/mis-ventas/mis-ventas";
@@ -39,7 +39,7 @@ export class MyApp {
     this.pages = [
       { title: "Login", component: LoginPage, icon: "log-in" },
       { title: "Inicio", component: HomePage, icon: "home" },
-      { title: "Pedidos", component: PedidosPage, icon: "search" },
+      //{ title: "Pedidos", component: PedidosPage, icon: "search" },
       { title: "Articulos", component: VentasPage, icon: "cart" }
     ];
 
@@ -58,7 +58,7 @@ export class MyApp {
       this.pages = [
         { title: "Login", component: LoginPage, icon: "log-in" },
         { title: "Inicio", component: HomePage, icon: "home" },
-        { title: "Pedidos", component: PedidosPage, icon: "search" },
+        //{ title: "Pedidos", component: PedidosPage, icon: "search" },
         { title: "Articulos", component: VentasPage, icon: "cart" }
       ];
     });
