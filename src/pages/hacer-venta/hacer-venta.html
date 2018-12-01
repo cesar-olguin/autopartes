@@ -42,16 +42,20 @@
       Adjuntar Foto
     </ion-item-divider>
     <ion-item>
-      <button ion-button block (click)="tomarFoto()">Tomar Fotos</button>
+      <!-- <ion-col col-6>
+        <button ion-button block (click)="abrirGaleria()">Subir Foto</button>
+      </ion-col> -->
+      <ion-col col-6>
+        <button ion-button block (click)="tomarFoto()">Tomar Fotos</button>
+      </ion-col>
     </ion-item>
-    <!-- <ion-item *ngFor="let img of arrayImagenes">
+    <ion-item *ngFor="let img of arrayImagenes">
       <img [(ngModel)]="Foto_Principal" [src]="img" width="150" height="300" />
     </ion-item>
-    <ion-item> -->
     <ion-item>
       <ion-grid>
         <ion-row>
-          <ion-col *ngFor="let photo of photos" col-6 no-padding> 
+          <ion-col *ngFor="let photo of photos" col-6 no-padding>
             <ion-card>
               <img [src]="photo" (click)="eliminarFoto(photo)" />
               <!-- {{photo}} imageViewer -->

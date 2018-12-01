@@ -29,12 +29,15 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <img [src]="item.Foto_Principal" width="150px">
+            <img [src]="item.Foto_Principal" width="70px" height="auto">
           </ion-col>
           <ion-col>
             <h1>BUSCO -> {{item.Titulo | uppercase}}</h1><br>
-            <p style="font-size: 18px;">{{item.Descripcion}}</p>
-
+            <p style="font-size: 18px;">{{item.Descripcion}}<br>
+              Marca -> {{item.Marca}}<br>
+              Modelo -> {{item.Modelo}}<br>
+              Fecha -> {{item.Fecha_Modificacion}}
+            </p>
           </ion-col>
         </ion-row>
       </ion-grid>
