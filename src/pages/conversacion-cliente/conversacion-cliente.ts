@@ -33,7 +33,6 @@ export class ConversacionClientePage {
   ) {
     this.Cliente = navParams.get("idCli");
     this.idArticulo = navParams.get("idArt");
-    this.loadChat();
   }
 
   ionViewCanEnter() {

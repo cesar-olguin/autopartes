@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
-import { EscribirPedidosPage } from '../escribir-pedidos/escribir-pedidos';
-import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { Storage } from '@ionic/storage';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
+//import { EscribirPedidosPage } from '../escribir-pedidos/escribir-pedidos';
+import { UserServiceProvider } from "../../providers/user-service/user-service";
+import { Storage } from "@ionic/storage";
 
 /**
  * Generated class for the ChatRespuestaPage page.
@@ -13,16 +13,16 @@ import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
-  selector: 'page-chat-respuesta',
-  templateUrl: 'chat-respuesta.html',
+  selector: "page-chat-respuesta",
+  templateUrl: "chat-respuesta.html"
 })
 export class ChatRespuestaPage {
-
   idUsuario;
-  idArticulo;
+  idPedido;
   conversacion: any;
-  User;
+  chat;
   className: string = "";
+  Escrito = null;
 
   constructor(
     public navCtrl: NavController,
@@ -30,14 +30,14 @@ export class ChatRespuestaPage {
     public restService: UserServiceProvider,
     public events: Events,
     public storage: Storage
-  ) {
-    this.storage.get('idUser').then((idval) => {
+  ) {}
+
+  ionViewCanEnter() {
+    this.storage.get("idUser").then(idval => {
       this.idUsuario = idval;
-      this.idArticulo = navParams.get("PedidoSeleccionado");
-      console.log(this.idUsuario);
-      console.log(this.idArticulo);
+      this.idPedido = this.navParams.get("PedidoSeleccionado");
       this.loadChat();
-    }); 
+    });
   }
 
   ionViewDidLoad() {
@@ -48,19 +48,44 @@ export class ChatRespuestaPage {
 
   loadChat() {
     this.restService
-      .getChatDePedidos(this.idArticulo, this.idUsuario)
+      .getChatDePedidos(this.idPedido, this.idUsuario)
       .then(data => {
         let obj = JSON.parse(JSON.stringify(data));
-        this.User = obj[0];
+        this.chat = obj[0];
         this.conversacion = data;
       });
   }
 
-  mensaje() {
-    this.navCtrl.push(EscribirPedidosPage, {
-      QuienPide: this.User.QuienPregunta,
-      QuienTiene: this.User.QuienResponde,
-      Pedido: this.User.idPedido,
+  enviarMensaje() {
+    if (
+      this.Escrito == null ||
+      this.Escrito == "" ||
+      this.Escrito == undefined
+    ) {
+      this.events.publish("reload");
+      this.cargarMensajeNuevo();
+    } else {
+      this.storage.get("idUser").then(idLog => {
+        let body = {
+          idPedido: this.idPedido,
+          idUsuario: idLog,
+          QuienPregunta: this.chat.idUsuario,
+          QuienResponde: idLog,
+          Chat: this.Escrito,
+          Fecha: new Date().toLocaleString()
+        };
+        this.restService.postPedidoChat(body);
+        console.log(body);
+        this.events.publish("reload");
+        this.cargarMensajeNuevo();
+        this.Escrito = "";
+      });
+    }
+  }
+
+  cargarMensajeNuevo() {
+    this.events.subscribe("reload", () => {
+      this.loadChat();
     });
   }
 }

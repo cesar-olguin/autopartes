@@ -4,7 +4,7 @@ import { UserServiceProvider } from './../../providers/user-service/user-service
 import { empty } from 'rxjs/Observer';
 import { Storage } from '@ionic/storage';
 import { Md5 } from 'ts-md5';
-import { UsuarioPage } from '../usuario/usuario';
+//import { UsuarioPage } from '../usuario/usuario';
 import { RegistrarsePage } from '../registrarse/registrarse';
 import { HomePage } from '../home/home';
 /**

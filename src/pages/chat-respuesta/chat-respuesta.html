@@ -9,7 +9,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title></ion-title>
+    <ion-title>Mensajes</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -26,9 +26,9 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-item (click)="mensaje()">
-      <ion-input type="text" placeholder="Escribir..." disabled></ion-input>
-      <button ion-button clear icon-only item-right>
+    <ion-item>
+      <ion-input [(ngModel)]="Escrito" type="text" placeholder="Escribir..."></ion-input>
+      <button ion-button clear icon-only item-right (click)="enviarMensaje()">
         <ion-icon name="send"> </ion-icon>
       </button>
     </ion-item>

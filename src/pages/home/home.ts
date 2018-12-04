@@ -34,7 +34,7 @@ export class HomePage {
     public loadingCtrl: LoadingController
   ) {}
 
-  ionViewDidLoad() {
+  ionViewCanEnter() {
     if (
       window.localStorage.getItem("user") != null &&
       window.localStorage.getItem("pass") != null
@@ -84,6 +84,8 @@ export class HomePage {
       }
     );
   }
+
+  ionViewDidLoad() {}
 
   itemTapped(artId) {
     this.navCtrl.push(VentaPage, {

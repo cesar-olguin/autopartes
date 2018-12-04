@@ -10,8 +10,8 @@ import { Storage } from "@ionic/storage";
 import {
   PayPal,
   PayPalPayment,
-  PayPalConfiguration,
-  PayPalPaymentDetails
+  PayPalConfiguration
+  //PayPalPaymentDetails
 } from "@ionic-native/paypal";
 import { HomePage } from "../home/home";
 import { ConversacionClientePage } from "../conversacion-cliente/conversacion-cliente";
@@ -53,7 +53,7 @@ export class VentaPage {
     this.idArticulo = this.idSelected;
     this.storage.set("idArt", this.idArticulo);
   }
-  ionViewCanEnter(){
+  ionViewCanEnter() {
     this.loadArt();
     this.loadChat();
     this.cargarFotos();
@@ -64,7 +64,7 @@ export class VentaPage {
     this.cargarFotos();
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.loadArt();
     this.loadChat();
     this.cargarFotos();
@@ -92,17 +92,15 @@ export class VentaPage {
           if (this.comparar == "[]") {
             if (this.Escrito != undefined) {
               this.escribir();
+              this.verChat();
             }
           }
           if (this.comparar != "[]") {
             if (this.Escrito != undefined && this.Escrito != "") {
               this.escribir();
-            }
-            if (this.Escrito != undefined || this.Escrito == "") {
-              this.navCtrl.push(ConversacionClientePage, {
-                idArt: this.vendedor.idArticulo,
-                idCli: idLog
-              });
+              this.verChat();
+            } else {
+              this.verChat();
             }
           }
         });
@@ -122,6 +120,11 @@ export class VentaPage {
       this.restService.postConversacion(body);
       console.log(body);
       this.Escrito = "";
+    });
+  }
+
+  verChat() {
+    this.storage.get("idUser").then(idLog => {
       this.navCtrl.push(ConversacionClientePage, {
         idArt: this.vendedor.idArticulo,
         idCli: idLog
