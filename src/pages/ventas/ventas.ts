@@ -1,8 +1,13 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { VentaPage } from '../venta/venta';
-import { Storage } from '@ionic/storage';
+import { Component } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  LoadingController
+} from "ionic-angular";
+import { UserServiceProvider } from "../../providers/user-service/user-service";
+import { VentaPage } from "../venta/venta";
+import { Storage } from "@ionic/storage";
 
 /**
  * Generated class for the VentasPage page.
@@ -13,69 +18,69 @@ import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
-  selector: 'page-ventas',
-  templateUrl: 'ventas.html',
+  selector: "page-ventas",
+  templateUrl: "ventas.html"
 })
 export class VentasPage {
-
   selectedItem: any;
   articulos: any;
   modelos: any;
   marcas: any[] = [];
   selectModelo: any;
   selectMarca: any;
+  usuarioLogeado;
   public marcaId;
   public modeloId;
   public NombreMarca;
   public NombreModelo;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, public storage: Storage, public loadingCtrl: LoadingController) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public restService: UserServiceProvider,
+    public storage: Storage,
+    public loadingCtrl: LoadingController
+  ) {}
+
+  ionViewCanEnter() {
+    this.storage.get("idUser").then(idval => {
+      this.usuarioLogeado = idval;
+      console.log(idval);
+      this.cargarArticulos();
+    });
+    this.cargarMarcas();
   }
 
-  ionViewDidLoad() {
-    let loader = this.loadingCtrl.create({
-      //spinner: 'hide',
-      //content: `<img src="assets/imgs/llanta1.png" />`,
-    });
-    //loader.present().then(() => {
+  ionViewDidLoad() {}
 
+  cargarMarcas() {
+    this.restService.getMarcas().subscribe(
+      data => {
+        this.marcas = data["records"];
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
-      this.storage.get('idUser').then((idval) => {
-        console.log(idval);
-        if (idval == null) {
-          this.restService.getArticulos()
-            .subscribe(
-              (data) => { // Success
-                this.articulos = data;
-                loader.dismiss();
-              },
-              (error) => {
-                console.error(error);
-              }
-            )
-        }
-        else {
-          this.restService.getArticulosDiferentes(idval).then(data => {
-            this.articulos = data;
-            //loader.dismiss();
-          });
-        }
-      //});
-    });
-
-
-
-
-
-    this.restService.getMarcas()
-      .subscribe(
-        (data) => {
-          this.marcas = data['records'];
+  cargarArticulos() {
+    if (this.usuarioLogeado == null) {
+      this.restService.getArticulos().subscribe(
+        data => {
+          this.articulos = data;
         },
-        (error) => {
-          console.log(error);
+        error => {
+          console.error(error);
         }
-      )
+      );
+    } else {
+      this.restService
+        .getArticulosDiferentes(this.usuarioLogeado)
+        .then(data => {
+          this.articulos = data;
+        });
+    }
   }
 
   itemTapped(artId) {
@@ -84,17 +89,16 @@ export class VentasPage {
     });
   }
 
-
   marcaSeleccionada(idMarca, Marca) {
     this.marcaId = idMarca;
-    this.NombreMarca = Marca;
     this.restService.getModelo(idMarca).then(data => {
       this.modelos = data;
     });
+    return (this.NombreMarca = Marca);
   }
 
   modeloSelccionado(Modelo) {
-    this.NombreModelo = Modelo;
+    return (this.NombreModelo = Modelo);
   }
 
   // buscarModeloMarca(/*marcaId,modeloId*/) {
@@ -106,4 +110,37 @@ export class VentasPage {
   //   });
   // }
 
+
+  buscarModeloMarca() {
+    console.log(this.NombreMarca);
+    console.log(this.NombreModelo);
+    if (this.NombreMarca != undefined) {
+      if (this.NombreModelo == undefined) {
+        this.articulos = [];
+        this.restService
+          .getBuscarArticuloMarca(this.NombreMarca, this.usuarioLogeado)
+          .then(data => {
+            this.articulos = data;
+            console.log(data);
+          });
+      } else {
+        this.articulos = [];
+        this.restService
+          .getBuscarArticuloMarcaModelo(
+            this.NombreMarca,
+            this.NombreModelo,
+            this.usuarioLogeado
+          )
+          .then(data => {
+            this.articulos = data;
+            console.log(data);
+          });
+      }
+    }
+  }
+
+  mostrarTodos() {
+    this.articulos = [];
+    this.cargarArticulos();
+  }
 }

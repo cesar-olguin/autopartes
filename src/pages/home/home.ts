@@ -13,7 +13,7 @@ export class HomePage {
   selectedItem: any;
   pedidos;
   items;
-
+  public usuarioLog;
   users;
 
   articulos: any;
@@ -47,42 +47,35 @@ export class HomePage {
       this.events.publish("user:loggedout");
     }
     //this.load();
-
     this.storage.get("idUser").then(idval => {
-      console.log(idval);
-      if (idval != null) {
-        console.log("Usuario");
+      this.usuarioLog = idval;
+      console.log(this.usuarioLog);
+      this.cargarPedidos();
+    });
+    this.cargarMarcasAutos();
+  }
 
-        this.restService.getPedidosDiferentesUsuarios(idval).then(data => {
+  cargarPedidos() {
+    if (this.usuarioLog != null) {
+      console.log("Usuario");
+      this.restService
+        .getPedidosDiferentesUsuarios(this.usuarioLog)
+        .then(data => {
           this.pedidos = data;
           console.log(data);
           this.items = data;
         });
-      } else {
-        console.log("Sin Usuario");
-        this.restService.getPedidos().subscribe(
-          data => {
-            // Success
-            //this.pedidos = data;
-            //this.items = data;
-            // console.log(data);
-            this.items = data;
-          },
-          error => {
-            console.error(error);
-          }
-        );
-      }
-    });
-
-    this.restService.getMarcas().subscribe(
-      data => {
-        this.marcas = data["records"];
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    } else {
+      console.log("Sin Usuario");
+      this.restService.getPedidos().subscribe(
+        data => {
+          this.items = data;
+        },
+        error => {
+          console.error(error);
+        }
+      );
+    }
   }
 
   ionViewDidLoad() {}
@@ -93,17 +86,29 @@ export class HomePage {
     });
   }
 
-  marcaTapped(idMarca, Marca) {
+  cargarMarcasAutos() {
+    this.restService.getMarcas().subscribe(
+      data => {
+        this.marcas = data["records"];
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  marcaSeleccionada(idMarca, Marca) {
     this.marcaId = idMarca;
-    this.marcaName = Marca;
+
     this.restService.getModelo(idMarca).then(data => {
       this.modelos = data;
     });
+    return (this.marcaName = Marca);
   }
 
-  modeloTapped(idMarca, Modelo) {
+  modeloSelccionado(idMarca, Modelo) {
     this.modeloId = idMarca;
-    this.modeloName = Modelo;
+    return (this.modeloName = Modelo);
   }
 
   load() {
@@ -121,5 +126,49 @@ export class HomePage {
     this.navCtrl.push(PedidoPage, {
       idPed: item.idPedido
     });
+  }
+
+  buscarModeloMarca() {
+    console.log(this.marcaName);
+    console.log(this.modeloName);
+    if (this.modeloName != undefined) {
+      this.pedidos = [];
+      this.items = [];
+      if (this.modeloName != undefined) {
+        this.pedidos = [];
+        this.items = [];
+        this.restService
+          .getBuscarPedidoMarcaModelo(
+            this.marcaName,
+            this.modeloName,
+            this.usuarioLog
+          )
+          .then(data => {
+            this.pedidos = [];
+            this.items = [];
+            this.pedidos = data;
+            console.log(data);
+            this.items = data;
+          });
+      } else {
+        this.pedidos = [];
+        this.items = [];
+        this.restService
+          .getBuscarPedidoMarca(this.marcaName, this.usuarioLog)
+          .then(data => {
+            this.pedidos = [];
+            this.items = [];
+            this.pedidos = data;
+            console.log(data);
+            this.items = data;
+          });
+      }
+    }
+  }
+
+  mostrarTodos() {
+    this.pedidos = [];
+    this.items = [];
+    this.cargarPedidos();
   }
 }
