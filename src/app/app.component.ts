@@ -45,12 +45,12 @@ export class MyApp {
 
     events.subscribe("user:loggedin", () => {
       this.pages = [
-        { title: "Home", component: HomePage, icon: "home" },
+        { title: "Inicio", component: HomePage, icon: "home" }, 
         //{ title: 'Favoritos', component: FavoritosPage, icon: 'star' },
-        { title: "Articulos en Venta", component: VentasPage, icon: "cart" },
-        { title: "Usuario", component: UsuarioPage, icon: "person" },
         { title: "Mis Pedidos", component: MisPedidosPage, icon: "search" },
-        { title: "Mis Ventas", component: MisVentasPage, icon: "cart" }
+        { title: "Articulos en Venta", component: VentasPage, icon: "cart" },
+        { title: "Mis Ventas", component: MisVentasPage, icon: "cart" },
+        { title: "Usuario", component: UsuarioPage, icon: "person" }
       ];
     });
 
@@ -95,7 +95,7 @@ export class MyApp {
         sound: "true"
       }
     };
-    
+
     const pushObject: PushObject = this.push.init(options);
 
     pushObject.on("notification").subscribe((notification: any) => {
@@ -113,7 +113,7 @@ export class MyApp {
     });
 
     pushObject.on("error").subscribe(error => {
-      console.error("Error con el Pligin Push", error);
+      console.error("Error con el Plugin Push", error);
     });
   }
 }

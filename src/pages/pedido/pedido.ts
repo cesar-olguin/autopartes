@@ -21,8 +21,9 @@ export class PedidoPage {
   PedidoDatos;
   chat;
   Fecha;
-  Escrito;
+  Escrito = "";
   comparar;
+  public usuarioLogeado;
 
   constructor(
     public navCtrl: NavController,
@@ -33,9 +34,14 @@ export class PedidoPage {
     this.idPedido = navParams.get("idPed");
   }
 
-  ionViewDidLoad() {
+  ionViewCanEnter() {
+    this.storage.get("idUser").then(idLog => {
+      this.usuarioLogeado = idLog;
+    });
     this.loadPedido();
   }
+
+  ionViewDidLoad() {}
 
   loadPedido() {
     this.restService.getPedidoById(this.idPedido).then(data => {
@@ -47,36 +53,39 @@ export class PedidoPage {
   }
 
   escribir() {
-    this.storage.get("idUser").then(idLog => {
-      let body = {
-        idPedido: this.idPedido,
-        idUsuario: idLog,
-        QuienPregunta: this.chat.idUsuario,
-        QuienResponde: idLog,
-        Chat: this.Escrito,
-        Fecha: this.Fecha = new Date().toLocaleDateString("en-GB")
-      };
-      this.restService.postPedidoChat(body);
-      console.log(body);
-      this.navCtrl.push(ChatRespuestaPage, {
-        PedidoSeleccionado: this.chat.idPedido
-      });
-    });
+    let body = {
+      idPedido: this.idPedido,
+      idUsuario: this.usuarioLogeado,
+      QuienPregunta: this.chat.idUsuario,
+      QuienResponde: this.usuarioLogeado,
+      Chat: this.Escrito,
+      Fecha: new Date().toLocaleString()
+    };
+    this.restService.postPedidoChat(body);
+    console.log(body);
   }
 
   hacerPregunta() {
     this.storage.get("idUser").then(idLog => {
       this.restService.getChatDePedidos(this.idPedido, idLog).then(data => {
-        console.log(JSON.stringify(data));
-        this.comparar = JSON.stringify(data);
-        if (this.comparar == "[]") {
+        if (JSON.stringify(data) == "[]" && this.Escrito != "") {
           this.escribir();
+          this.Escrito = "";
+          this.pasarAlChat();
         } else {
-          this.navCtrl.push(ChatRespuestaPage, {
-            PedidoSeleccionado: this.chat.idPedido
-          });
+          if (this.Escrito != "") {
+            this.escribir();
+          }
+          this.Escrito = "";
+          this.pasarAlChat();
         }
       });
+    });
+  }
+
+  pasarAlChat() {
+    this.navCtrl.push(ChatRespuestaPage, {
+      PedidoSeleccionado: this.chat.idPedido
     });
   }
 }

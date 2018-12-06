@@ -17,11 +17,11 @@
 
 <ion-content padding>
 
-    <h5></h5>
-    <ion-list> 
-      <ion-item *ngFor="let coment of comentarios" (click)="verConversacion(coment)">
-        <p>{{coment.Chat}}</p>
-      </ion-item>
-    </ion-list>
+  <h5></h5>
+  <ion-list>
+    <ion-item *ngFor="let coment of comentarios" (click)="verConversacion(coment)">
+      <p>{{coment.Nombre}}</p>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
