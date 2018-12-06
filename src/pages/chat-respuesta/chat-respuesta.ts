@@ -17,12 +17,13 @@ import { Storage } from "@ionic/storage";
   templateUrl: "chat-respuesta.html"
 })
 export class ChatRespuestaPage {
-  idUsuario;
+  public usuarioLogeado;
   idPedido;
   conversacion: any;
   chat;
   className: string = "";
-  Escrito = null;
+  Escrito = "";
+  MensajeNuevo;
 
   constructor(
     public navCtrl: NavController,
@@ -30,62 +31,65 @@ export class ChatRespuestaPage {
     public restService: UserServiceProvider,
     public events: Events,
     public storage: Storage
-  ) {}
+  ) {
+    this.idPedido = this.navParams.get("PedidoSeleccionado");
+  }
 
   ionViewCanEnter() {
     this.storage.get("idUser").then(idval => {
-      this.idUsuario = idval;
-      this.idPedido = this.navParams.get("PedidoSeleccionado");
+      this.usuarioLogeado = idval;
       this.loadChat();
     });
   }
 
   ionViewDidLoad() {
-    this.events.subscribe("reload", () => {
-      this.loadChat();
-    });
+    // this.events.subscribe("reload", () => {
+    //   this.loadChat();
+    // });
   }
 
   loadChat() {
     this.restService
-      .getChatDePedidos(this.idPedido, this.idUsuario)
+      .getChatDePedidos(this.idPedido, this.usuarioLogeado)
       .then(data => {
         let obj = JSON.parse(JSON.stringify(data));
         this.chat = obj[0];
         this.conversacion = data;
+        console.log(data);
       });
   }
 
   enviarMensaje() {
-    if (
-      this.Escrito == null ||
-      this.Escrito == "" ||
-      this.Escrito == undefined
-    ) {
-      this.events.publish("reload");
-      this.cargarMensajeNuevo();
+    if (this.Escrito == "") {
     } else {
-      this.storage.get("idUser").then(idLog => {
-        let body = {
-          idPedido: this.idPedido,
-          idUsuario: idLog,
-          QuienPregunta: this.chat.idUsuario,
-          QuienResponde: idLog,
-          Chat: this.Escrito,
-          Fecha: new Date().toLocaleString()
-        };
-        this.restService.postPedidoChat(body);
-        console.log(body);
-        this.events.publish("reload");
-        this.cargarMensajeNuevo();
-        this.Escrito = "";
-      });
+      let body = {
+        idPedido: this.idPedido,
+        idUsuario: this.usuarioLogeado,
+        QuienPregunta: this.chat.QuienPregunta,
+        QuienResponde: this.usuarioLogeado,
+        Chat: this.Escrito,
+        Fecha: new Date().toLocaleString()
+      };
+      this.restService.postPedidoChat(body);
+      console.log(body);
+      this.Escrito = "";
     }
+    this.recargar();
+    //this.events.publish("reload");
+    this.cargarMensajeNuevo();
   }
 
   cargarMensajeNuevo() {
-    this.events.subscribe("reload", () => {
-      this.loadChat();
-    });
+    // this.events.subscribe("reload", () => {
+    //   this.recargar();
+    // });
+  }
+
+  recargar() {
+    this.restService
+      .getChatDePedidos(this.idPedido, this.usuarioLogeado)
+      .then(data => {
+        this.conversacion = data;
+      });
   }
 }
