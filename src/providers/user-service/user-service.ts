@@ -96,29 +96,39 @@ export class UserServiceProvider {
 
   postConversacion(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + "/articulo/conversacion/", data).subscribe(
-        res => {
-          resolve(res);
-          console.log(data);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+      this.http
+        .post(this.baseUrl + "/articulo/conversacion/", data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
     });
   }
 
   postArticulo(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + "/articulo/", data).subscribe(
-        res => {
-          resolve(res);
-          // console.log(data);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+      this.http
+        .post(this.baseUrl + "/articulo/", data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            // console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
     });
   }
 
@@ -138,14 +148,19 @@ export class UserServiceProvider {
 
   postFotos(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + "/articulo/fotos/", data).subscribe(
-        res => {
-          resolve(res);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+      this.http
+        .post(this.baseUrl + "/articulo/fotos/", data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+          },
+          err => {
+            console.log(err);
+          }
+        );
     });
   }
 
@@ -179,15 +194,20 @@ export class UserServiceProvider {
 
   postRegistro(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + "/registro/", data).subscribe(
-        res => {
-          resolve(res);
-          console.log(data);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+      this.http
+        .post(this.baseUrl + "/registro/", data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
     });
   }
 
@@ -221,15 +241,20 @@ export class UserServiceProvider {
 
   postPedido(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + "/pedido/", data).subscribe(
-        res => {
-          resolve(res);
-          console.log(data);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+      this.http
+        .post(this.baseUrl + "/pedido/", data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
     });
   }
 
@@ -252,15 +277,20 @@ export class UserServiceProvider {
 
   postPedidoChat(data) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + "/pedido/chats/", data).subscribe(
-        res => {
-          resolve(res);
-          console.log(data);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+      this.http
+        .post(this.baseUrl + "/pedido/chats/", data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
     });
   }
 
@@ -380,7 +410,13 @@ export class UserServiceProvider {
     return new Promise(resolve => {
       this.http
         .get(
-        this.baseUrl + "/pedidos/buscar/marca/" + marca + "/modelo/" + modelo + "/usuario/" + idUsuario
+          this.baseUrl +
+            "/pedidos/buscar/marca/" +
+            marca +
+            "/modelo/" +
+            modelo +
+            "/usuario/" +
+            idUsuario
         )
         .subscribe(
           data => {
@@ -397,7 +433,13 @@ export class UserServiceProvider {
     return new Promise(resolve => {
       this.http
         .get(
-        this.baseUrl + "/articulos/buscar/marca/" + marca + "/modelo/" + modelo + "/usuario/" + idUsuario
+          this.baseUrl +
+            "/articulos/buscar/marca/" +
+            marca +
+            "/modelo/" +
+            modelo +
+            "/usuario/" +
+            idUsuario
         )
         .subscribe(
           data => {
@@ -412,7 +454,9 @@ export class UserServiceProvider {
 
   getBuscarPedidoMarca(marca, idUsuario) {
     return new Promise(resolve => {
-      this.http.get(this.baseUrl +
+      this.http
+        .get(
+          this.baseUrl +
             "/pedidos/buscar/marca/" +
             marca +
             "/usuario/" +
@@ -431,14 +475,22 @@ export class UserServiceProvider {
 
   getBuscarArticuloMarca(marca, idUsuario) {
     return new Promise(resolve => {
-      this.http.get(this.baseUrl + "/articulos/buscar/marca/" + marca + "/usuario/" + idUsuario).subscribe(
-        data => {
-          resolve(data);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+      this.http
+        .get(
+          this.baseUrl +
+            "/articulos/buscar/marca/" +
+            marca +
+            "/usuario/" +
+            idUsuario
+        )
+        .subscribe(
+          data => {
+            resolve(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
     });
   }
 }
