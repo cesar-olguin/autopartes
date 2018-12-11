@@ -29,7 +29,7 @@ export class PedidoPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public restService: UserServiceProvider,
-    public storage: Storage
+    public storage: Storage,
   ) {
     this.idPedido = navParams.get("idPed");
   }
@@ -68,17 +68,20 @@ export class PedidoPage {
   hacerPregunta() {
     this.storage.get("idUser").then(idLog => {
       this.restService.getChatDePedidos(this.idPedido, idLog).then(data => {
-        if (JSON.stringify(data) == "[]" && this.Escrito != "") {
-          this.escribir();
-          this.Escrito = "";
-          this.pasarAlChat();
+        if (JSON.stringify(data) == "[]") {
+         if(this.Escrito != ""){
+           this.escribir();
+           this.Escrito = "";
+           this.pasarAlChat();
+         }
         } else {
           if (this.Escrito != "") {
             this.escribir();
+            this.Escrito = "";
+            this.pasarAlChat();
           }
-          this.Escrito = "";
-          this.pasarAlChat();
         }
+        console.log(data);
       });
     });
   }

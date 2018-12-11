@@ -46,6 +46,8 @@ import { ChatRespuestaPage } from '../pages/chat-respuesta/chat-respuesta';
 import { PayPal } from '@ionic-native/paypal'
 import { Push } from '@ionic-native/push';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [
@@ -84,10 +86,44 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp, {
-      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-      monthShortNames: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
-      dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
-      dayShortNames: ['dom', 'lun', 'mar', 'mie', 'jue', 'vie', 'sab'],
+      monthNames: [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre"
+      ],
+      monthShortNames: [
+        "ene",
+        "feb",
+        "mar",
+        "abr",
+        "may",
+        "jun",
+        "jul",
+        "ago",
+        "sep",
+        "oct",
+        "nov",
+        "dic"
+      ],
+      dayNames: [
+        "Domingo",
+        "Lunes",
+        "Martes",
+        "Miercoles",
+        "Jueves",
+        "Viernes",
+        "Sabado"
+      ],
+      dayShortNames: ["dom", "lun", "mar", "mie", "jue", "vie", "sab"]
     }),
     IonicStorageModule.forRoot(),
     IonicImageViewerModule
@@ -136,7 +172,9 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     Base64,
     PayPal,
     Push,
-    LocalNotifications
+    LocalNotifications,
+    FileTransfer,
+    File
   ]
 })
-export class AppModule { }
+export class AppModule {}

@@ -131,7 +131,7 @@ export class HomePage {
   buscarModeloMarca() {
     console.log(this.marcaName);
     console.log(this.modeloName);
-    if (this.modeloName != undefined) {
+    if (this.marcaName != undefined) {
       this.pedidos = [];
       this.items = [];
       if (this.modeloName != undefined) {

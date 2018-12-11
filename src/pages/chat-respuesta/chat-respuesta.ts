@@ -43,9 +43,10 @@ export class ChatRespuestaPage {
   }
 
   ionViewDidLoad() {
-    // this.events.subscribe("reload", () => {
-    //   this.loadChat();
-    // });
+    this.storage.get("idUser").then(idval => {
+      this.usuarioLogeado = idval;
+      this.loadChat();
+    });
   }
 
   loadChat() {
@@ -70,19 +71,29 @@ export class ChatRespuestaPage {
         Chat: this.Escrito,
         Fecha: new Date().toLocaleString()
       };
-      this.restService.postPedidoChat(body);
+      this.restService.postPedidoChat(body).then(result => {
+        console.log(result);
+        this.recargar();
+        this.events.publish("reload");
+        this.cargarMensajeNuevo();
+        this.restService
+          .getChatDePedidos(this.idPedido, this.usuarioLogeado)
+          .then(data => {
+            this.conversacion = data;
+          });
+      });
       console.log(body);
       this.Escrito = "";
     }
     this.recargar();
-    //this.events.publish("reload");
+    this.events.publish("reload");
     this.cargarMensajeNuevo();
   }
 
   cargarMensajeNuevo() {
-    // this.events.subscribe("reload", () => {
-    //   this.recargar();
-    // });
+    this.events.subscribe("reload", () => {
+      this.recargar();
+    });
   }
 
   recargar() {
