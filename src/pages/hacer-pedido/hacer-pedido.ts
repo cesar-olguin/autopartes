@@ -42,6 +42,8 @@ export class HacerPedidoPage {
   NombreModelo;
   marcas;
   imagenSubida: any;
+  base64;
+  ImagenesGaleria;
 
   constructor(
     public navCtrl: NavController,
@@ -86,27 +88,30 @@ export class HacerPedidoPage {
   }
 
   abrirGaleria() {
-    // let options = {
-    //   outputType: 1,
-    //   maximumImagesCount: 5,
-    // }
-    // this.photos = new Array<string>();
-    // this.imagePicker.getPictures(options).then((results) => {
-    //   for (var i = 0; i < results.length; i++) {
-    //     this.photos.push(results[i]);
-    //     this.base64.encodeFile(results[i]).then((base64File: string) => {
-    //      // this.photos.push(base64File[i]);
-    //     }, (err) => {
-    //       console.log(err);
-    //     });
+    // let options = { outputType: 1, maximumImagesCount: 1 };
+    // this.ImagenesGaleria = new Array<string>();
+    // this.imagenSubida.getPictures(options).then(
+    //   results => {
+    //     for (var i = 0; i < results.length; i++) {
+    //       this.ImagenesGaleria.push(results[i]);
+    //       this.base64.encodeFile(results[i]).then(
+    //         (base64File: string) => {
+    //           this.ImagenesGaleria.push(base64File[i]);
+    //         },
+    //         err => {
+    //           console.log(err);
+    //         }
+    //       );
+    //     }
+    //   },
+    //   err => {
+    //     console.log(err);
     //   }
-    // }, (err) => {
-    //   console.log(err);
-    // });
+    // );
 
     let options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.NATIVE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -118,8 +123,8 @@ export class HacerPedidoPage {
     this.camera
       .getPicture(options)
       .then(imageData => {
-        //this.image = `data:image/jpeg;base64,${imageData}`;
-        this.imagenDireccion = imageData;
+        this.imagenDireccion = `data:image/jpeg;base64,${imageData}`;
+        //this.imagenDireccion = imageData;
         this.foto = this.imagenDireccion;
       })
       .catch(error => {
