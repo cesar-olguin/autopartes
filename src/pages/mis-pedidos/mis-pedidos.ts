@@ -37,7 +37,9 @@ export class MisPedidosPage {
   ) {}
 
   ionViewDidLoad() {
-    this.load();
+    this.events.subscribe("reload", () => {
+      this.load();
+    });
   }
 
   ionViewCanEnter() {
@@ -55,7 +57,7 @@ export class MisPedidosPage {
   load() {
     this.storage.get("idUser").then(idval => {
       console.log(idval);
-      
+
       this.restService.getPedidosUsuario(idval).then(data => {
         this.pedidos = data;
         this.items = data;

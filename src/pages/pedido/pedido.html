@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title></ion-title>
+    <ion-title>PEDIDO</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,8 +11,37 @@
   <div *ngFor="let datos of PedidoDatos">
     <img src="{{datos.Foto_Principal}}" imageViewer>
     <div padding>
-      <h2>Busco -> {{datos.Titulo}}</h2>
-      <h5>{{datos.Descripcion}}</h5>
+      <h1 uppercase>{{datos.Titulo}}</h1>
+      <hr>
+      <h4>Características</h4><br>
+      <ion-grid>
+        <ion-row>
+          <ion-col style="font-size: 18px;">
+            Marca:
+          </ion-col>
+          <ion-col style="font-size: 18px;">
+            Modelo:
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="font-size: 18px;">
+            {{datos.Marca}}
+          </ion-col>
+          <ion-col style="font-size: 18px;">
+            {{datos.Modelo}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <hr>
+      <h4>Descripcion</h4>
+      <p style="font-size: 24px;">
+        {{datos.Descripcion}}<br>
+      </p>
+      <button ion-button icon-start small>
+        <ion-icon name="calendar"></ion-icon>
+        {{datos.Fecha_Modificacion}}
+      </button>
+
     </div>
   </div>
 
@@ -21,8 +50,8 @@
 <ion-footer>
   <ion-toolbar>
     <ion-item>
-      <ion-input [(ngModel)]="Escrito" type="text" placeholder="Escribe tu Pregunta..."></ion-input>
-      <button ion-button clear icon-only item-right (click)="hacerPregunta()">
+      <ion-input [(ngModel)]="Escrito" type="text" placeholder="Escribe..."></ion-input>
+      <button ion-button clear round icon-only item-right (click)="hacerPregunta()">
         <ion-icon name="send"> </ion-icon>
       </button>
     </ion-item>

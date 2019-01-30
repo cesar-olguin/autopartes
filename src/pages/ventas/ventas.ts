@@ -28,11 +28,14 @@ export class VentasPage {
   marcas: any[] = [];
   selectModelo: any;
   selectMarca: any;
-  usuarioLogeado;
-  public marcaId;
-  public modeloId;
-  public NombreMarca;
-  public NombreModelo;
+  usuarioLogeado: any;
+  public marcaId: any;
+  public modeloId: any;
+  public NombreMarca: any;
+  public NombreModelo: any;
+  busqueda: any;
+  ArticuloBuscado: string = "";
+  ArticulosFiltrados;
 
   constructor(
     public navCtrl: NavController,
@@ -65,7 +68,17 @@ export class VentasPage {
   }
 
   cargarArticulos() {
-    if (this.usuarioLogeado == null) {
+    if(this.usuarioLogeado != null) {
+      this.restService
+        .getArticulosDiferentes(this.usuarioLogeado)
+        .then(data => {
+          this.articulos = data;
+          console.log(this.articulos);
+        });
+    }
+    else {
+      console.log("Sin usuario");
+      
       this.restService.getArticulos().subscribe(
         data => {
           this.articulos = data;
@@ -74,12 +87,45 @@ export class VentasPage {
           console.error(error);
         }
       );
-    } else {
-      this.restService
-        .getArticulosDiferentes(this.usuarioLogeado)
-        .then(data => {
-          this.articulos = data;
-        });
+    } 
+  }
+
+  // filtrar() {
+  //   console.log("Todos -> " + JSON.stringify(this.articulos));
+  //   let item = JSON.parse(JSON.stringify(this.articulos));
+  //   for (var i = 0; i < this.articulos.length; i++) {
+  //     this.busqueda = item[i];
+  //     console.log(this.busqueda.Titulo.toLowerCase());
+  //     console.log(this.ArticuloBuscado.toLocaleLowerCase());
+  //     console.log(
+  //       this.busqueda.Titulo.toLowerCase().indexOf(
+  //         this.ArticuloBuscado.toLowerCase()
+  //       ) > -1
+  //     );
+  //     this.ArticulosFiltrados =
+  //       this.busqueda.Titulo.toLowerCase().indexOf(
+  //         this.ArticuloBuscado.toLowerCase()
+  //       ) > -1;
+  //     if (this.ArticulosFiltrados == true) {
+  //       //this.articulos = JSON.parse(JSON.stringify(this.busqueda));
+  //       console.log("Filtrado-> " + JSON.parse(JSON.stringify(this.busqueda)));
+  //       Object.keys(JSON.parse(JSON.stringify(this.busqueda))).forEach(function(key){
+  //         this.articulos.push(this.busqueda[key]);
+  //       });
+  //     }
+  //     //console.log(this.articulos);
+  //   }
+  // }
+
+  filtrar() {
+    var item = JSON.parse(this.articulos);
+    for (var i = 0; i < item.length; i++) {
+      this.articulos = item.Titulo[i];
+      this.ArticulosFiltrados = item.Titulo.toLowerCase().indexOf(this.ArticuloBuscado.toLowerCase()) > -1;
+      if (this.ArticulosFiltrados == true) {
+        this.articulos = item[i];
+        console.log(JSON.parse(JSON.stringify(this.busqueda)));
+      }
     }
   }
 
@@ -109,7 +155,6 @@ export class VentasPage {
   //     modName: this.modeloName
   //   });
   // }
-
 
   buscarModeloMarca() {
     console.log(this.NombreMarca);

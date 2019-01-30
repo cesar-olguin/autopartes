@@ -3,7 +3,9 @@ import {
   IonicPage,
   NavController,
   NavParams,
-  LoadingController
+  LoadingController,
+  AlertController,
+  Events
 } from "ionic-angular";
 import { CameraOptions, Camera } from "@ionic-native/camera";
 import { UserServiceProvider } from "../../providers/user-service/user-service";
@@ -29,21 +31,22 @@ import { File } from "@ionic-native/file";
 })
 export class HacerPedidoPage {
   imagenDireccion: string = null;
-  date: string;
-  Titulo: string;
-  Descripcion: string;
-  Fecha_alta: string;
-  Foto_Principal: string;
-  foto;
+  date: string = "";
+  Titulo: string = "";
+  Descripcion: string = "";
+  Fecha_alta: string = "";
+  Foto_Principal: string = "";
+  foto: string = "";
   IdUser;
   marcaId;
   modelos;
-  NombreMarca;
-  NombreModelo;
+  NombreMarca: string = "";
+  NombreModelo: string = "";
   marcas;
   imagenSubida: any;
   base64;
   ImagenesGaleria;
+  faltante: string = "";
 
   constructor(
     public navCtrl: NavController,
@@ -53,8 +56,14 @@ export class HacerPedidoPage {
     public storage: Storage,
     public transfer: FileTransfer,
     public file: File,
-    private loadingCtrl: LoadingController
-  ) {}
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
+    private events: Events
+  ) {
+    this.storage.get("idUser").then(val => {
+      return (this.IdUser = val);
+    });
+  }
 
   ionViewCanEnter() {
     this.restService.getMarcas().subscribe(
@@ -133,64 +142,97 @@ export class HacerPedidoPage {
   }
 
   addAsk() {
-    let loader = this.loadingCtrl.create({
-      content: "Guardando pedido..."
-    });
-    loader.present();
-    const fileTransfer: FileTransferObject = this.transfer.create();
-    var random = Math.floor(Math.random() * 100);
-    let options: FileUploadOptions = {
-      fileKey: "foto",
-      fileName: "foto_" + random + ".jpg",
-      chunkedMode: false,
-      httpMethod: "post",
-      mimeType: "image/jpeg",
-      headers: {}
-    };
-
-    fileTransfer
-      .upload(
-        this.imagenDireccion,
-        "http://solucionesgp.com/autopartes/subirImagenes.php",
-        options
-      )
-      .then(data => {
-        console.log(data);
-        // this.imagenSubida =
-        //   "http://192.168.0.7:8080/static/images/ionicfile.jpg";
-
-        this.storage.get("idUser").then(val => {
-          this.IdUser = val;
-          if (this.foto == null) {
-            this.foto = "../../assets/imgs/sin-foto.png";
-          }
-
-          let body = {
-            idUsuario: this.IdUser,
-            Titulo: this.Titulo,
-            Descripcion: this.Descripcion,
-            Fecha_alta: new Date().toLocaleString(),
-            Fecha_modificacion: new Date().toLocaleString(),
-            Foto_Principal: this.foto,
-            Marca: this.NombreMarca,
-            Modelo: this.NombreModelo
-          };
-
-          console.log(body);
-
-          this.restService.postPedido(body).then(
-            result => {
-              console.log(result);
-            },
-            err => {
-              console.log(err);
-            }
-          );
-          loader.dismiss();
-          this.navCtrl.pop();
-        });
+    if (
+      this.Titulo == "" ||
+      this.Descripcion == "" ||
+      this.NombreMarca == "" ||
+      this.NombreModelo == ""
+    ) {
+      let alert = this.alertCtrl.create({
+        title: "Faltan Datos!",
+        subTitle: "Revisa los datos.",
+        buttons: ["OK"]
       });
+      alert.present();
+    } else {
+      if (this.foto == "") {
+        let alert = this.alertCtrl.create({
+          title: "Falta una Imagen!",
+          subTitle: "Selcciona una Imagen o toma una Foto.",
+          buttons: ["OK"]
+        });
+        alert.present();
+      } else {
+        const fileTransfer: FileTransferObject = this.transfer.create();
+        var random = Math.floor(Math.random() * 100);
+        var nombre_foto = "Foto" + random + "-Usuario" + this.IdUser + ".jpg";
+        let options: FileUploadOptions = {
+          fileKey: "foto",
+          fileName: nombre_foto,
+          chunkedMode: false,
+          httpMethod: "post",
+          mimeType: "image/jpeg",
+          headers: {}
+        };
+
+        let alert = this.alertCtrl.create({
+          title: "Faltan Datos!",
+          subTitle: nombre_foto,
+          buttons: ["OK"]
+        });
+        //alert.present();
+
+        let loader = this.loadingCtrl.create({
+          content: "Guardando pedido..."
+        });
+        loader.present();
+
+        fileTransfer
+          .upload(
+            this.imagenDireccion,
+            "http://solucionesgp.com/autopartes/SubirImagenesPEDIDOS.php",
+            options
+          )
+          .then(data => {
+            console.log(data);
+
+            this.storage.get("idUser").then(val => {
+              this.IdUser = val;
+              if (this.foto == null) {
+                this.foto = "../../assets/imgs/sin-foto.png";
+              }
+
+              let body = {
+                idUsuario: this.IdUser,
+                Titulo: this.Titulo,
+                Descripcion: this.Descripcion,
+                Fecha_alta: new Date().toLocaleString(),
+                Fecha_modificacion: new Date().toLocaleString(),
+                Foto_Principal:
+                  "http://solucionesgp.com/autopartes/imagenes-app/ImagenesPedidos/" +
+                  nombre_foto,
+                Marca: this.NombreMarca,
+                Modelo: this.NombreModelo
+              };
+              console.log(body);
+
+              this.restService.postPedido(body).then(
+                result => {
+                  console.log(result);
+                },
+                err => {
+                  console.log(err);
+                }
+              );
+              loader.dismiss();
+              this.events.publish("reload");
+              this.navCtrl.pop();
+            });
+          });
+      }
+    }
   }
+
   marcaSeleccionada(idMarca, Marca) {
     this.marcaId = idMarca;
     this.NombreMarca = Marca;

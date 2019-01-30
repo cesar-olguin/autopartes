@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title></ion-title>
+    <ion-title>HACER PEDIDO</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -20,37 +20,37 @@
     </ion-item>
     <ion-item>
       <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Marca del Auto</ion-label>
-      <ion-select ngModel="marcas" interface="action-sheet">
+      <ion-select ngModel="marcas" interface="alert" cancelText="CANCELAR">
         <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaSeleccionada(mar.idMarca,mar.Marca);" [value]="mar.idMarca">{{
           mar.Marca }}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Modelo del Auto</ion-label>
-      <ion-select ngModel="modelos" interface="action-sheet">
+      <ion-select ngModel="modelos" interface="alert" cancelText="CANCELAR">
         <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idMarca">
           {{mod.Marca }}
         </ion-option>
       </ion-select>
-    </ion-item>
-    <ion-item-divider>
+    </ion-item><br>
+    <ion-item-divider color="primary">
       Adjuntar Foto
     </ion-item-divider>
     <ion-item>
       <ion-grid>
         <ion-row>
           <ion-col col-6>
-            <button ion-button block (click)="abrirGaleria()">Subir Foto</button>
+            <button ion-button block round color="dark" (click)="abrirGaleria()">Subir Foto</button>
           </ion-col>
           <ion-col col-6>
-            <button ion-button block (click)="getPicture()">Toma una foto</button>
+            <button ion-button block round color="dark" (click)="getPicture()">Toma una foto</button>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>
     <ion-item>
-      <img [(ngModel)]="Foto_Principal" [src]="imagenDireccion" *ngIf="imagenDireccion" />
+      <img [(ngModel)]="Foto_Principal" [src]="imagenDireccion" *ngIf="imagenDireccion" imageViewer />
     </ion-item>
   </ion-list>
-  <button ion-button block (click)="addAsk()">Hacer Pedido</button>
+  <button ion-button block round color="dark" (click)="addAsk()">Hacer Pedido</button>
 </ion-content>

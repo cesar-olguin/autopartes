@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title></ion-title>
+    <ion-title>PERFIL</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="close();" color="danger">
         <ion-icon name="power"></ion-icon>
@@ -22,9 +22,9 @@
       <ion-label>{{user.Nombre}}</ion-label>
     </ion-item>
     <ion-item>
-        <ion-label color="primary" stacked># de Usuario</ion-label>
-        <ion-label>{{user.idUsuario}}</ion-label>
-      </ion-item>
+      <ion-label color="primary" stacked># de Usuario</ion-label>
+      <ion-label>{{user.idUsuario}}</ion-label>
+    </ion-item>
     <ion-item>
       <ion-label color="primary" stacked>E-mail</ion-label>
       <ion-label>{{user.Correo}}</ion-label>
@@ -59,10 +59,10 @@
       </ion-item-options>
     </ion-item-sliding> -->
   </ion-list>
-
-  <button ion-button detail-none block (click)="close()">
-    <ion-icon item-start name="power"></ion-icon>
-    Cerrar Sesión
-  </button>
-
+  <div padding>
+    <button ion-button detail-none block round color="dark" (click)="close()">
+      <ion-icon item-start name="power"></ion-icon>
+      Cerrar Sesión
+    </button>
+  </div>
 </ion-content>

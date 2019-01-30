@@ -1,33 +1,32 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-title></ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content>
-    <img src="../../assets/imgs/slide1.jpg">
-  
-    <button ion-button block (click)="pushPage();">Pedir AutoParte</button>
-  
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>MIS PEDIDOS</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <img src="../../assets/imgs/slide1.jpg">
+  <div padding>
+
+    <button ion-button block round color="dark" (click)="pushPage();">Pedir AutoParte</button>
+
     <ion-list [virtualScroll]="items">
-      <ion-card *virtualItem="let item" (click)="pedidoN(item)">
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <img [src]="item.Foto_Principal" width="100px">
-            </ion-col>
-            <ion-col>
-              <h1>BUSCO -> {{item.Titulo | uppercase}}</h1><br>
-              <p style="font-size: 18px;">{{item.Descripcion}}</p>
-  
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+      <ion-card padding *virtualItem="let item" (click)="pedidoN(item)">
+        <h1>{{item.Titulo | uppercase}}</h1><br>
+        <p style="font-size: 18px;">
+          <!-- {{item.Descripcion}}<br> -->
+          <!-- Marca -> {{item.Marca}}<br>
+          Modelo -> {{item.Modelo}}<br> -->
+          <button ion-button icon-start small>
+            <ion-icon name="calendar"></ion-icon>
+            {{item.Fecha_Modificacion}}
+          </button>
+        </p>
       </ion-card>
     </ion-list>
-  
-  </ion-content>
-  
+  </div>
+
+</ion-content>

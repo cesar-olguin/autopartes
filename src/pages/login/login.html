@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Login</ion-title>
+    <ion-title>INGRESA</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -31,14 +31,14 @@
       <ion-input type="password" [(ngModel)]="Password" id="input"></ion-input>
     </ion-item>
 
-    <button ion-button block (click)="login()">
-      <ion-icon item-start name="person"></ion-icon>
-      Iniciar Sesión
+    <button ion-button color="dark" block (click)="login()">
+      <ion-icon round item-start name="person"></ion-icon>
+       Entrar
     </button>
 
   </ion-list>
 
-  <button ion-button round outline color="cavaliers-secondary" (click)="registrate()">
+  <button ion-button round color="primary" (click)="registrate()">
     <ion-icon></ion-icon>
     No tienes Cuenta?<br>
     ¡REGISTRATE!

@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Preguntar al Vendedor</ion-title>
+    <ion-title>MENSAJE AL VENDEDOR</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -13,11 +13,15 @@
 
   <h5></h5>
   <ion-list *ngFor="let conver of conversacion">
-    <div *ngIf="conver.Cliente == conver.idUsuario" class="box3 sb13">
+    <div *ngIf="conver.Cliente == conver.idUsuario" class="container darker">
+      <img src="../../assets/imgs/llanta1.png" class="right">
       <p>{{conver.Conversacion}}</p>
+      <span class="time-left">{{conver.Fecha}}</span>
     </div>
-    <div *ngIf="conver.Vendedor == conver.idUsuario" class="box3 sb14">
+    <div *ngIf="conver.Vendedor == conver.idUsuario" class="container">
+      <img src="../../assets/imgs/llanta2.png">
       <p>{{conver.Conversacion}}</p>
+      <span class="time-left">{{conver.Fecha}}</span>
     </div>
   </ion-list>
 

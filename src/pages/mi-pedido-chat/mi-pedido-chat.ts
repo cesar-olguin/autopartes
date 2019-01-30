@@ -24,7 +24,7 @@ export class MiPedidoChatPage {
     public navParams: NavParams,
     public restService: UserServiceProvider
   ) {
-    this.idPedido = navParams.get("idPed");
+    this.idPedido = navParams.get("mensajesPedido");
     console.log(this.idPedido);
   }
 

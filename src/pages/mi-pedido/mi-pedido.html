@@ -1,18 +1,54 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title></ion-title>
+    <ion-title>MI PEDIDO</ion-title>
+    <ion-buttons end *ngFor="let datos of PedidoDatos">
+      <button ion-button icon-only (click)="modificarPedido(datos.idPedido,datos.idUsuario);">
+        <!--button ion-button icon-only (click)="openModal()"></button-->
+        <ion-icon name="build"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content *ngFor="let datos of PedidoDatos">
-  <img src="{{datos.Foto_Principal}}">
-  <div padding>
-    <h2>Busco -> {{datos.Titulo}}</h2>
-    <h5>{{datos.Descripcion}}</h5>
-    {{datos.idPedido}}
+<ion-content>
+  <div *ngFor="let datos of PedidoDatos">
+    <img src="{{datos.Foto_Principal}}" imageViewer>
+    <div padding>
+      <h1 uppercase>{{datos.Titulo}}</h1>
+      <hr>
+      <h4>Características</h4><br>
+      <ion-grid>
+        <ion-row>
+          <ion-col style="font-size: 18px;">
+            Marca:
+          </ion-col>
+          <ion-col style="font-size: 18px;">
+            Modelo:
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="font-size: 18px;">
+            {{datos.Marca}}
+          </ion-col>
+          <ion-col style="font-size: 18px;">
+            {{datos.Modelo}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <hr>
+      <h4>Descripcion</h4>
+      <p style="font-size: 24px;">
+        {{datos.Descripcion}}<br>
+      </p>
+      <button ion-button icon-start small>
+        <ion-icon name="calendar"></ion-icon>
+        {{datos.Fecha_Modificacion}}
+      </button>
+
+      <button ion-button block round (click)="verChatsPedido(datos.idPedido);">Ver Comentarios</button>
+    </div>
   </div>
-  <button ion-button block (click)="verChatsPedido(datos);">Ver Comentarios</button>
 </ion-content>

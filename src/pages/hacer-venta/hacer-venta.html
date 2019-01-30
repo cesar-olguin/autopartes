@@ -1,53 +1,55 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title></ion-title>
+    <ion-title>HACER VENTA</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-list>
     <ion-item>
+      <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Titulo</ion-label>
+      <ion-input [(ngModel)]="Titulo" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Descripcion</ion-label>
+      <ion-textarea [(ngModel)]="Descripcion"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Precio</ion-label>
+      <ion-input type="number" [(ngModel)]="Precio"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Marca del Auto</ion-label>
-      <ion-select ngModel="marcas" interface="action-sheet">
+      <ion-select ngModel="marcas" interface="alert" cancelText="CANCELAR">
         <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaSeleccionada(mar.idMarca,mar.Marca);" [value]="mar.idMarca">{{
           mar.Marca }}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Modelo del Auto</ion-label>
-      <ion-select ngModel="modelos" interface="action-sheet">
+      <ion-select ngModel="modelos" interface="alert" cancelText="CANCELAR">
         <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idMarca">
           {{mod.Marca }}
         </ion-option>
       </ion-select>
     </ion-item>
-    <ion-item>
-      <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Titulo</ion-label>
-      <ion-input [(ngModel)]="Titulo" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Descripcion</ion-label>
-      <ion-textarea [(ngModel)]="Descripcion"></ion-textarea>
-    </ion-item>
-
-    <ion-item>
-      <ion-label color="primary" stacked>Precio</ion-label>
-      <ion-input type="number" [(ngModel)]="Precio"></ion-input>
-    </ion-item>
-    <ion-item-divider>
+    <ion-item-divider color="primary">
       Adjuntar Foto
     </ion-item-divider>
     <ion-item>
-      <!-- <ion-col col-6>
-        <button ion-button block (click)="abrirGaleria()">Subir Foto</button>
-      </ion-col> -->
-      <ion-col col-6>
-        <button ion-button block (click)="tomarFoto()">Tomar Fotos</button>
-      </ion-col>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button block round color="dark" (click)="abrirGaleria()">Subir Foto</button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button block round color="dark" (click)="tomarFoto()">Tomar Foto</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-item>
     <ion-item *ngFor="let img of arrayImagenes">
       <img [(ngModel)]="Foto_Principal" [src]="img" width="150" height="300" />
@@ -55,7 +57,7 @@
     <ion-item>
       <ion-grid>
         <ion-row>
-          <ion-col *ngFor="let photo of photos" col-6 no-padding>
+          <ion-col *ngFor="let photo of arrayFotos" col-6 no-padding>
             <ion-card>
               <img [src]="photo" (click)="eliminarFoto(photo)" />
               <!-- {{photo}} imageViewer -->
@@ -65,6 +67,6 @@
       </ion-grid>
     </ion-item>
 
-    <button ion-button block (click)="addArticle()">Agregar Articulo</button>
+    <button ion-button block round color="dark" (click)="addArticle()">Agregar Articulo</button>
   </ion-list>
 </ion-content>

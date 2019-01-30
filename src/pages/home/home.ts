@@ -70,6 +70,8 @@ export class HomePage {
       this.restService.getPedidos().subscribe(
         data => {
           this.items = data;
+          this.pedidos = data;
+          console.log(data);
         },
         error => {
           console.error(error);

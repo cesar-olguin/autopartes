@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title></ion-title>
+    <ion-title>MI VENTA</ion-title>
     <ion-buttons end *ngFor="let artId of articuloId">
       <button ion-button icon-only (click)="editArt(artId);">
         <!--button ion-button icon-only (click)="openModal()"></button-->
@@ -20,7 +20,7 @@
   <div>
     <ion-slides pager style="background-color: black">
       <ion-slide *ngFor="let f of fotosArt">
-        <img src="{{f.Foto}}" imageViewer/>
+        <img src="{{f.Foto}}" imageViewer height="200px"/>
       </ion-slide>
     </ion-slides>
     <div *ngFor="let artId of articuloId" padding>
@@ -28,7 +28,7 @@
       <h3>$ {{ artId.Precio }}</h3>
 
       <!--button ion-button clear item-end>View</button-->
-<!-- 
+      <!-- 
       <button ion-button block>Comprar</button>
       <button ion-button block outline>agregar al carrito </button>
       <ion-grid>
@@ -45,7 +45,7 @@
       <p>{{ artId.Descripcion }}</p>
 
 
-      <button ion-button (click)="hacerPregunta(articuloId)">Preguntas</button>
+      <button ion-button round color="dark" (click)="hacerPregunta(articuloId)">Preguntas</button>
 
       <!-- <h5>Preguntas</h5>
     <ion-list> 

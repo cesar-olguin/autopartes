@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title></ion-title>
+    <ion-title>ARTICULO</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,13 +11,13 @@
 
 
 <ion-content>
+  <ion-slides pager style="background-color: black">
+    <ion-slide *ngFor="let f of fotosArt">
+      <img src="{{f.Foto}}" imageViewer height="20px" />
+    </ion-slide>
+  </ion-slides>
   <div>
     <!-- <img src="{{artId.Foto_Principal}}" imageViewer> -->
-    <ion-slides pager style="background-color: black">
-      <ion-slide *ngFor="let f of fotosArt">
-        <img src="{{f.Foto}}" imageViewer />
-      </ion-slide>
-    </ion-slides>
     <div *ngFor="let artId of articuloId" padding>
       <h1>{{ artId.Titulo }}</h1>
       <h3>$ {{ artId.Precio }}</h3>

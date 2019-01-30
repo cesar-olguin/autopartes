@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { UserServiceProvider } from "../../providers/user-service/user-service";
 import { MiPedidoChatPage } from "../mi-pedido-chat/mi-pedido-chat";
+import { ModificarPedidoPage } from "../modificar-pedido/modificar-pedido";
 
 /**
  * Generated class for the MiPedidoPage page.
@@ -12,8 +13,8 @@ import { MiPedidoChatPage } from "../mi-pedido-chat/mi-pedido-chat";
 
 @IonicPage()
 @Component({
-  selector: 'page-mi-pedido',
-  templateUrl: 'mi-pedido.html',
+  selector: "page-mi-pedido",
+  templateUrl: "mi-pedido.html"
 })
 export class MiPedidoPage {
   idPedido;
@@ -27,9 +28,11 @@ export class MiPedidoPage {
     this.idPedido = navParams.get("idPed");
   }
 
-  ionViewDidLoad() {
+  ionViewCanEnter() {
     this.loadPedido();
   }
+
+  ionViewDidLoad() {}
 
   loadPedido() {
     this.restService.getPedidoById(this.idPedido).then(data => {
@@ -37,10 +40,14 @@ export class MiPedidoPage {
       console.log(JSON.stringify(data));
     });
   }
-  verChatsPedido(datos){
-    this.navCtrl.push(MiPedidoChatPage, {
-      idPed: datos.idPedido
-    });
+  verChatsPedido(idPedido) {
+    this.navCtrl.push(MiPedidoChatPage, { mensajesPedido: idPedido });
   }
 
+  modificarPedido(idPedido,idUsuario) {
+    this.navCtrl.push(ModificarPedidoPage, {
+      PedidoEditar: idPedido,
+      PedidoModificadoUsuario: idUsuario
+    });
+  }
 }

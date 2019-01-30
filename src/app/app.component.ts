@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { Nav, Platform, Events } from "ionic-angular";
+import { Nav, Platform, Events, App } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
@@ -13,6 +13,7 @@ import { MisVentasPage } from "../pages/mis-ventas/mis-ventas";
 import { MisPedidosPage } from "../pages/mis-pedidos/mis-pedidos";
 import { Push, PushObject, PushOptions } from "@ionic-native/push";
 import { LocalNotifications } from "@ionic-native/local-notifications";
+import { Storage } from "@ionic/storage";
 
 @Component({
   templateUrl: "app.html"
@@ -23,6 +24,15 @@ export class MyApp {
   rootPage: any = HomePage;
 
   pages: Array<{ title: string; component: any; icon: string }>;
+  usuario: Array<{
+    component: any;
+    img: string;
+    usuario: string;
+    correo: string;
+  }>;
+  nombreUsuario: string;
+  correoUsuario: string;
+  salir: Array<{titulo: string}>;
 
   constructor(
     public platform: Platform,
@@ -30,38 +40,78 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public events: Events,
     public push: Push,
-    public localNotifications: LocalNotifications
+    public localNotifications: LocalNotifications,
+    public storage: Storage,
+    public appCtrl: App
   ) {
     this.initializeApp();
     this.pushNotificacion();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: "Login", component: LoginPage, icon: "log-in" },
-      { title: "Inicio", component: HomePage, icon: "home" },
-      //{ title: "Pedidos", component: PedidosPage, icon: "search" },
-      { title: "Articulos", component: VentasPage, icon: "cart" }
+    this.usuario = [
+      {
+        component: LoginPage,
+        img: "../assets/imgs/profile.jpg",
+        usuario: "¡Iniciar Sesión!",
+        correo: ""
+      }
     ];
 
+    this.pages = [
+      { title: "INGRESA", component: LoginPage, icon: "log-in" },
+      { title: "INICIO", component: HomePage, icon: "home" },
+      { title: "VENTAS", component: VentasPage, icon: "cart" }
+    ];
+
+    this.salir = [{ titulo: "" }];
+
     events.subscribe("user:loggedin", () => {
-      this.pages = [
-        { title: "Inicio", component: HomePage, icon: "home" }, 
-        //{ title: 'Favoritos', component: FavoritosPage, icon: 'star' },
-        { title: "Mis Pedidos", component: MisPedidosPage, icon: "search" },
-        { title: "Articulos en Venta", component: VentasPage, icon: "cart" },
-        { title: "Mis Ventas", component: MisVentasPage, icon: "cart" },
-        { title: "Usuario", component: UsuarioPage, icon: "person" }
-      ];
+      this.storage.get("user").then(idval => {
+        this.correoUsuario = idval;
+        console.log(this.correoUsuario);
+
+        this.storage.get("name").then(nombre => {
+          this.nombreUsuario = nombre;
+
+          this.pages = [
+            { title: "INICIO", component: HomePage, icon: "home" },
+            { title: "MIS PEDIDOS", component: MisPedidosPage, icon: "search" },
+            { title: "VENTAS", component: VentasPage, icon: "cart" },
+            { title: "MIS VENTAS", component: MisVentasPage, icon: "cart" },
+            { title: "USUARIO", component: UsuarioPage, icon: "person" }
+          ];
+
+          this.usuario = [
+            {
+              component: UsuarioPage,
+              img: "../assets/imgs/profile.jpg",
+              usuario: "Hola " + this.nombreUsuario,
+              correo: this.correoUsuario
+            }
+          ];
+
+          this.salir = [{ titulo: "Cerrar Sesion" }];
+
+        });
+      });
     });
 
     events.subscribe("user:loggedout", () => {
+      this.storage.clear();
       this.pages = [
-        { title: "Login", component: LoginPage, icon: "log-in" },
-        { title: "Inicio", component: HomePage, icon: "home" },
-        //{ title: "Pedidos", component: PedidosPage, icon: "search" },
-        { title: "Articulos", component: VentasPage, icon: "cart" }
+        { title: "INGRESA", component: LoginPage, icon: "log-in" },
+        { title: "INICIO", component: HomePage, icon: "home" }, //{ title: "Pedidos", component: PedidosPage, icon: "search" },
+        { title: "ARTICULOS", component: VentasPage, icon: "cart" }
       ];
     });
+    this.usuario = [
+      {
+        component: UsuarioPage,
+        img: "../assets/imgs/profile.jpg",
+        usuario: "¡Iniciar Sesión!",
+        correo: ""
+      }
+    ];
+    this.salir = [{ titulo: "" }];
   }
 
   initializeApp() {
@@ -73,15 +123,26 @@ export class MyApp {
       this.statusBar.overlaysWebView(false);
 
       // set status bar to white
-      //this.statusBar.backgroundColorByHexString('#000');
+      this.statusBar.backgroundColorByHexString("#000");
       this.splashScreen.hide();
     });
+  }
+
+  close() {
+    window.localStorage.clear();
+    this.storage.clear();
+    this.events.publish('user:loggedout');
+    this.appCtrl.getRootNav().setRoot(HomePage);
   }
 
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  usuarioNombre(usuario) {
+    this.nav.setRoot(usuario.component);
   }
 
   pushNotificacion() {

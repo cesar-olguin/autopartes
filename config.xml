@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.lionstudio.autopartes" version="0.9.9" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>PartesMx</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="develop@solucionesgp.com" href="http://solucionesgp.com">Ionic Framework Team</author>
+<widget id="com.lionstudio.autopartes" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>PartesMX</name>
+    <description>Compra de autopartes.</description>
+    <author email="olgcesar@gmail.com" href="http://solucionesgp.com">Desarrollador</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

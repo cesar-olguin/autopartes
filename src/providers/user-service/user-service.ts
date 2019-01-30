@@ -493,4 +493,23 @@ export class UserServiceProvider {
         );
     });
   }
+
+  putPedido(id, data) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .put(this.baseUrl + "/pedido/" + id, data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            // console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
 }

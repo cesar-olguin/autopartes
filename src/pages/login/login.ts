@@ -55,11 +55,13 @@ export class LoginPage {
 
             this.storage.set("user", this.Usuario);
             this.storage.set("pass", this.Password);
+          
 
             let obj = JSON.parse(JSON.stringify(data));
             this.IdUsuario = obj[0];
 
             this.storage.set("idUser", this.IdUsuario.idUsuario);
+            this.storage.set("name", this.IdUsuario.Nombre);
 
             this.events.publish("user:loggedin");
             this.appCtrl.getRootNav().setRoot(HomePage);

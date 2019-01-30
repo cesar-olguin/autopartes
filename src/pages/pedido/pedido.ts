@@ -21,7 +21,7 @@ export class PedidoPage {
   PedidoDatos;
   chat;
   Fecha;
-  Escrito = "";
+  Escrito: string = "";
   comparar;
   public usuarioLogeado;
 
@@ -29,7 +29,7 @@ export class PedidoPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public restService: UserServiceProvider,
-    public storage: Storage,
+    public storage: Storage
   ) {
     this.idPedido = navParams.get("idPed");
   }
@@ -69,15 +69,17 @@ export class PedidoPage {
     this.storage.get("idUser").then(idLog => {
       this.restService.getChatDePedidos(this.idPedido, idLog).then(data => {
         if (JSON.stringify(data) == "[]") {
-         if(this.Escrito != ""){
-           this.escribir();
-           this.Escrito = "";
-           this.pasarAlChat();
-         }
+          if (this.Escrito != "") {
+            this.escribir();
+            this.Escrito = "";
+            this.pasarAlChat();
+          }
         } else {
           if (this.Escrito != "") {
             this.escribir();
             this.Escrito = "";
+            this.pasarAlChat();
+          } else {
             this.pasarAlChat();
           }
         }

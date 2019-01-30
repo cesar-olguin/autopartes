@@ -43,7 +43,7 @@ export class ConversacionClientePage {
     this.loadChat();
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.events.subscribe("reload", () => {
       this.loadChat();
     });
@@ -67,7 +67,7 @@ export class ConversacionClientePage {
         Vendedor: this.User.Vendedor,
         Cliente: idLog,
         Conversacion: this.Escrito,
-        Fecha: this.Fecha = new Date().toLocaleDateString("en-GB")
+        Fecha: new Date().toLocaleString()
       };
       this.restService.postConversacion(body);
       console.log(body);

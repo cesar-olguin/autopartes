@@ -4,7 +4,8 @@ import {
   NavController,
   NavParams,
   Events,
-  AlertController
+  AlertController,
+  LoadingController
 } from "ionic-angular";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { UserServiceProvider } from "../../providers/user-service/user-service";
@@ -12,6 +13,12 @@ import { Storage } from "@ionic/storage";
 import { CamaraVentasPage } from "../camara-ventas/camara-ventas";
 import { ImagePicker } from "@ionic-native/image-picker";
 import { Base64 } from "@ionic-native/base64";
+import {
+  FileTransfer,
+  FileTransferObject,
+  FileUploadOptions
+} from "@ionic-native/file-transfer";
+import { File } from "@ionic-native/file";
 
 /**
  * Generated class for the HacerVentaPage page.
@@ -26,24 +33,24 @@ import { Base64 } from "@ionic-native/base64";
   templateUrl: "hacer-venta.html"
 })
 export class HacerVentaPage {
-  image: string = null;
-  date: string;
-  Titulo: string;
-  Descripcion: string;
-  Precio: string;
-  Fecha_alta: string;
-  Foto_Principal: string;
+  imagenDireccion: string = "";
+  date: string = "";
+  Titulo: string = "";
+  Descripcion: string = "";
+  Precio: string = "";
+  Fecha_alta: string = "";
+  Foto_Principal: string = "";
   foto;
   Usuario;
   marcas: any[] = [];
   marcaId;
   modelos;
-  NombreMarca;
-  NombreModelo;
+  NombreMarca: string = "";
+  NombreModelo: string = "";
   idArticuloAgregado;
 
   arrayImagenes;
-  photos: any[];
+  arrayFotos: any[];
   cropService;
 
   constructor(
@@ -55,8 +62,13 @@ export class HacerVentaPage {
     public events: Events,
     public imagePicker: ImagePicker,
     public base64: Base64,
-    public alertCtrl: AlertController
-  ) {
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController,
+    private transfer: FileTransfer,
+    public file: File
+  ) {}
+
+  ionViewCanEnter() {
     this.restService.getMarcas().subscribe(
       data => {
         this.marcas = data["records"];
@@ -65,10 +77,10 @@ export class HacerVentaPage {
         console.log(error);
       }
     );
-    this.photos = new Array<string>();
+    this.arrayFotos = new Array<string>();
     this.camera.cleanup();
   }
-
+  
   abrirGaleria() {
     // let options = {
     //   outputType: 1,
@@ -98,9 +110,9 @@ export class HacerVentaPage {
     this.camera
       .getPicture(options)
       .then(imageData => {
-        this.image = `data:image/jpeg;base64,${imageData}`;
-        this.photos.push(this.image);
-        this.foto = this.photos;
+        this.imagenDireccion = `data:image/jpeg;base64,${imageData}`;
+        this.arrayFotos.push(this.imagenDireccion);
+        this.foto = this.arrayFotos;
       })
       .catch(error => {
         console.error(error);
@@ -123,9 +135,9 @@ export class HacerVentaPage {
     this.camera
       .getPicture(options)
       .then(imageData => {
-        this.image = `data:image/jpeg;base64,${imageData}`;
-        this.photos.push(this.image);
-        this.foto = this.photos;
+        this.imagenDireccion = `data:image/jpeg;base64,${imageData}`;
+        this.arrayFotos.push(this.imagenDireccion);
+        this.foto = this.arrayFotos;
       })
       .catch(error => {
         console.error(error);
@@ -157,7 +169,30 @@ export class HacerVentaPage {
   // }
 
   addArticle() {
+    if (
+      this.Titulo == "" ||
+      this.Descripcion == "" ||
+      this.NombreMarca == "" ||
+      this.NombreModelo == ""
+    ) {
+      let alert = this.alertCtrl.create({
+        title: "Faltan Datos!",
+        subTitle: "Revisa los datos.",
+        buttons: ["OK"]
+      });
+      alert.present();
+    } else {
+      if (this.foto == "") {
+        let alert = this.alertCtrl.create({
+          title: "Falta una Imagen!",
+          subTitle: "Selcciona una Imagen o toma una Foto.",
+          buttons: ["OK"]
+        });
+        alert.present();
+      } else {
     this.storage.get("idUser").then(val => {
+      const fileTransfer: FileTransferObject = this.transfer.create();
+
       this.Usuario = val;
       if (this.foto == null) {
         this.foto = "../../assets/imgs/sin-foto.png";
@@ -172,29 +207,58 @@ export class HacerVentaPage {
         Ubicacion: "Manzanillo,Colima,Mexico",
         Fecha_alta: new Date().toLocaleString(),
         Fecha_modificacion: new Date().toLocaleString(),
-        Foto_Principal: this.foto[0],
+        Foto_Principal: "",
         Marca: this.NombreMarca,
         Modelo: this.NombreModelo
       };
 
+      console.log(body);
+      // let alert = this.alertCtrl.create({
+      //   title: "Foto Principal",
+      //   subTitle: JSON.stringify(body.Foto_Principal),
+      //   buttons: ["OK"]
+      // });
+      // alert.present();
+
       this.restService.postArticulo(body).then(
         result => {
           console.log("ID Articulo -> " + result);
-
-          // let array = ['https://developer.android.com/guide/practices/ui_guidelines/images/NB_Icon_Mask_Shapes_Ext_02.gif',
-          // 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6XWZyRXNLb8t5_cp9aBpp_Z5jlL1rhfNC1zSv5YjhjFnETY-1',
-          // 'https://is3-ssl.mzstatic.com/image/thumb/Purple128/v4/c8/a2/1f/c8a21ffb-301d-92e7-de0d-ce1eb580e1e5/Icon.png/246x0w.png'];
-
           this.idArticuloAgregado = result;
-
-          for (var i = 0; i < this.photos.length; i++) {
+          for (var i = 0; i < this.foto.length; i++) {
             this.foto.slice(0, 5);
+            var random = Math.floor(Math.random() * 1000000);
+            var nombre_foto = "Foto" + random + "-Venta" + result + "-Usuario"+ val +".jpg";
+            let options: FileUploadOptions = {
+              fileKey: "foto",
+              fileName: nombre_foto,
+              chunkedMode: false,
+              httpMethod: "post",
+              mimeType: "image/jpeg",
+              headers: {}
+            };
+            fileTransfer
+              .upload(
+                this.foto[i],
+                "http://solucionesgp.com/autopartes/SubirImagenesVENTAS.php",
+                options
+              )
+              .then(data => {
+                console.log(data);
+              });
+            // let alert = this.alertCtrl.create({
+            //   title: "Foto " + i,
+            //   subTitle: nombre_foto,
+            //   buttons: ["OK"]
+            // });
+            // alert.present();
             let foto = {
               idArticulo: this.idArticuloAgregado,
-              photos: this.Usuario,
-              Foto: this.foto[i]
+              idUsuario: this.Usuario,
+              NumeroFoto: i,
+              Foto:
+                "http://solucionesgp.com/autopartes/imagenes-app/ImagenesVentas/" +
+                nombre_foto
             };
-
             this.restService.postFotos(foto);
           }
         },
@@ -202,12 +266,11 @@ export class HacerVentaPage {
           console.log(err);
         }
       );
-      // this.navCtrl.push(CamaraVentasPage, {
-      //   art: this.idArticuloAgregado
-      // });
       this.events.publish("reload");
       this.navCtrl.pop();
     });
+      }
+    }
   }
 
   marcaSeleccionada(idMarca, Marca) {
@@ -231,15 +294,15 @@ export class HacerVentaPage {
           text: "Cancelar",
           role: "cancel",
           handler: () => {
-            console.log("Cancel clicked");
+            console.log("Borrada de la app");
           }
         },
         {
           text: "Borrar Foto",
           handler: () => {
-            for (var i = 0; i < this.photos.length; i++) {
-              if (foto == this.photos[i]) {
-                this.photos.splice(i, 1); // i = foto a eliminar -------- 1 = cantidad de elementos a borrar desde la posicion de la foto
+            for (var i = 0; i < this.arrayFotos.length; i++) {
+              if (foto == this.arrayFotos[i]) {
+                this.arrayFotos.splice(i, 1); // i = foto a eliminar -------- 1 = cantidad de elementos a borrar desde la posicion de la foto
               }
             }
           }

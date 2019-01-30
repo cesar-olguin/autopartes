@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title></ion-title>
+    <ion-title>MODIFICAR VENTA</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -32,25 +32,24 @@
       <ion-input type="file" accept="image/*" multiple></ion-input>
     </ion-item> -->
     <ion-item>
-      <!-- <ion-grid>
+      <ion-grid>
         <ion-row>
           <ion-col col-6>
-            <button ion-button block (click)="abrirGaleria()">Subir Foto</button>
+            <button ion-button block round color="dark" (click)="abrirGaleria()">Subir Foto</button>
           </ion-col>
           <ion-col col-6>
-
+            <button ion-button block round color="dark" (click)="tomarFoto()">Tomar Foto</button>
           </ion-col>
         </ion-row>
-      </ion-grid> -->
-      <button ion-button block (click)="tomarFoto()">Tomar Fotos</button>
+      </ion-grid>
     </ion-item>
     <ion-item>
       <ion-label color="primary" stacked>Fotos Nuevas</ion-label>
       <ion-grid>
         <ion-row>
-          <ion-col *ngFor="let photo of photos" col-6 no-padding>
+          <ion-col *ngFor="let foto of arrayFotos" col-6 no-padding>
             <ion-card>
-              <img [src]="photo" (click)="borrarFoto(photo)" />
+              <img [src]="foto" (click)="borrarFoto(photo)" width="200px" />
               <!-- {{photo}} imageViewer -->
             </ion-card>
           </ion-col>
@@ -62,7 +61,7 @@
     </ion-item>
     <ion-item-sliding *ngFor="let f of fotosArt">
       <ion-item>
-        <img [src]="f.Foto" imageViewer>
+        <img [src]="f.Foto" imageViewer width="200px">
       </ion-item>
       <ion-item-options side="right">
         <button ion-button color="danger" (click)="eliminarFoto(f.NumeroFoto)">
@@ -72,9 +71,9 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <button ion-button color="cavaliers-primary" round icon-start (click)="modificarArticulo()">
+
+  <button ion-button color="primary" round icon-start (click)="modificarArticulo()">
     <ion-icon name="star"></ion-icon>
     Modificar Articulo
   </button>
-
 </ion-content>

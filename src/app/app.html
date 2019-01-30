@@ -2,7 +2,13 @@
   <ion-header>
     <ion-toolbar>
       <ion-title>
-        ¡Bienvenido!
+        <ion-item detail-none block menuClose *ngFor="let u of usuario" (click)="usuarioNombre(u)">
+          <ion-avatar item-start>
+            <img [src]="u.img">
+          </ion-avatar>
+          <h3>{{u.usuario}}</h3>
+          <p>{{u.correo}}</p>
+        </ion-item>
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -15,6 +21,14 @@
       </button>
     </ion-list>
   </ion-content>
+
+  <ion-footer>
+    <ion-toolbar>
+      <button ion-item detail-none block menuClose *ngFor="let s of salir" (click)="close()">
+        {{s.titulo}}
+      </button>
+    </ion-toolbar>
+  </ion-footer>
 
 </ion-menu>
 
