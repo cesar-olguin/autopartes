@@ -43,7 +43,8 @@ export class UsuarioPage {
           let obj = JSON.parse(JSON.stringify(data));
           this.user = obj[0];
           //alert("JSON Parse -> " + this.user.idUsuario);
-          this.storage.set('idUser', this.user.idUsuario);          
+          this.storage.set('idUser', this.user.idUsuario);  
+          this.imagen = this.user.ImagenPerfil;        
         });
       });
     });
@@ -60,16 +61,15 @@ export class UsuarioPage {
     this.appCtrl.getRootNav().setRoot(HomePage);
   }
 
-  abrirGaleria() {
+  fotoPerfil() {
      let options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      targetWidth: 720,
-      targetHeight: 1280,
-      correctOrientation: true
+       quality:70,
+       destinationType: this.camera.DestinationType.DATA_URL,
+       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+       saveToPhotoAlbum: false,
+       allowEdit: true,
+       targetHeight: 300,
+       targetWidth: 300
     };
     //this.photos = new Array<string>();
     this.camera

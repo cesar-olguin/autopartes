@@ -18,12 +18,10 @@
       Mis Datos
     </ion-list-header>
     <ion-item padding style="height: 200px; width: 200px; vertical-align: middle;">
-      <img [src]="user.ImagenPerfil" imageViewer style="border-radius:100%;">
-      <ion-fab>
-        <button ion-fab mini>
-          <ion-icon name="camera"></ion-icon>
-        </button>
-      </ion-fab>
+      <img [src]="imagen" imageViewer style="border-radius:100%;">
+      <button ion-fab mini (click)="fotoPerfil()">
+        <ion-icon name="camera"></ion-icon>
+      </button>
     </ion-item>
     <ion-item>
       <ion-label color="primary" stacked>Nombre y Apellidos</ion-label>
