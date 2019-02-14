@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-navbar color="dark">
+    <ion-title>AJUSTES</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-label>Marca las marcas de las que deseas que llegen notificaciones.</ion-label>
+    <ion-item *ngFor="let mar of marcas">
+      <ion-label> {{ mar.Marca }}</ion-label>
+      <ion-toggle [(ngModel)]="mar.idMarca"></ion-toggle>
+    </ion-item>
+  </ion-list>
+</ion-content>

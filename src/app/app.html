@@ -4,7 +4,7 @@
       <ion-title>
         <ion-item detail-none block menuClose *ngFor="let u of usuario" (click)="usuarioNombre(u)">
           <ion-avatar item-start>
-            <img [src]="u.img">
+            <img [src]="u.img" imageViewer>
           </ion-avatar>
           <h3>{{u.usuario}}</h3>
           <p>{{u.correo}}</p>

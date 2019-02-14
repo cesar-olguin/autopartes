@@ -4,6 +4,11 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>PEDIDOS</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="ajustes()">
+        <ion-icon name="cog"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -23,7 +28,8 @@
         <ion-label color="orange" autocomplete="on" autocorrect="on" stacked>MARCA</ion-label>
         <ion-select ngModel="marcas" interface="alert" cancelText="CANCELAR">
           <!-- <ion-option (ionSelect)="modeloSelccionado(undefined,undefined);"></ion-option> -->
-          <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaSeleccionada(mar.idMarca,mar.Marca);" [value]="mar.idMarca">{{mar.Marca
+          <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaSeleccionada(mar.idMarca,mar.Marca);"
+            [value]="mar.idMarca">{{mar.Marca
             }}</ion-option>
         </ion-select>
       </ion-item>
@@ -31,7 +37,8 @@
         <ion-label color="orange" autocomplete="on" autocorrect="on" stacked>MODELO</ion-label>
         <ion-select ngModel="modelos" interface="alert" cancelText="CANCELAR">
           <!-- <ion-option (ionSelect)="modeloSelccionado(undefined,undefined);"></ion-option> -->
-          <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.idMarca,mod.Marca);" [value]="mod.idMarca">
+          <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.idMarca,mod.Marca);"
+            [value]="mod.idMarca">
             {{mod.Marca }}
           </ion-option>
         </ion-select>
@@ -47,20 +54,41 @@
         </ion-row>
       </ion-grid>
     </ion-list>
-    <ion-list [virtualScroll]="items">
+
+    <!-- <ion-list [virtualScroll]="items">
       <ion-card *virtualItem="let item" (click)="pedidoN(item)" padding>
         <h1>{{item.Titulo | uppercase}}</h1><br>
         <p style="font-size: 18px;">
-          <!-- {{item.Descripcion}}<br> -->
-          <!-- Marca -> {{item.Marca}}<br>
-          Modelo -> {{item.Modelo}}<br> -->
           <button ion-button icon-start small>
             <ion-icon name="calendar"></ion-icon>
             {{item.Fecha_Modificacion}}
           </button>
         </p>
       </ion-card>
+    </ion-list> -->
+    <!-- (click)="pedidoN(item)" -->
+    <ion-list no-lines [virtualScroll]="items">
+      <button ion-item *virtualItem="let item" ion-long-press [interval]="400"
+        (onPressStart)="presentPopover($event,item.idUsuario,item.idPedido)" (click)="pedidoN(item)">
+        <!--         
+        <h5>{{item.Titulo | uppercase}}</h5>
+        <button ion-button icon-start small>
+          <ion-icon name="calendar"></ion-icon>
+          {{item.Fecha_Modificacion}}
+        </button> -->
+        <ion-thumbnail item-start>
+          <!-- <img src="../../assets/imgs/profile.jpg"> -->
+          <img [src]="item.ImagenPerfil">
+        </ion-thumbnail>
+        <h2>{{ item.Titulo | uppercase }}</h2>
+        <p><button ion-button icon-start small>
+            <ion-icon name="calendar"></ion-icon>
+            {{item.Fecha_Modificacion}}
+          </button> </p>
+        <!-- <button ion-button clear item-end>View</button> -->
+      </button>
     </ion-list>
+
   </div>
 </ion-content>
 <!-- <ion-grid>

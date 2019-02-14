@@ -32,7 +32,8 @@ export class MyApp {
   }>;
   nombreUsuario: string;
   correoUsuario: string;
-  salir: Array<{titulo: string}>;
+  fotoUsuario: string;
+  salir: Array<{ titulo: string }>;
 
   constructor(
     public platform: Platform,
@@ -71,26 +72,32 @@ export class MyApp {
 
         this.storage.get("name").then(nombre => {
           this.nombreUsuario = nombre;
+          this.storage.get("foto").then(foto => {
+            this.fotoUsuario = foto;
 
-          this.pages = [
-            { title: "INICIO", component: HomePage, icon: "home" },
-            { title: "MIS PEDIDOS", component: MisPedidosPage, icon: "search" },
-            { title: "VENTAS", component: VentasPage, icon: "cart" },
-            { title: "MIS VENTAS", component: MisVentasPage, icon: "cart" },
-            { title: "USUARIO", component: UsuarioPage, icon: "person" }
-          ];
+            this.pages = [
+              { title: "INICIO", component: HomePage, icon: "home" },
+              {
+                title: "MIS PEDIDOS",
+                component: MisPedidosPage,
+                icon: "search"
+              },
+              { title: "VENTAS", component: VentasPage, icon: "cart" },
+              { title: "MIS VENTAS", component: MisVentasPage, icon: "cart" },
+              { title: "USUARIO", component: UsuarioPage, icon: "person" }
+            ];
 
-          this.usuario = [
-            {
-              component: UsuarioPage,
-              img: "../assets/imgs/profile.jpg",
-              usuario: "Hola " + this.nombreUsuario,
-              correo: this.correoUsuario
-            }
-          ];
+            this.usuario = [
+              {
+                component: UsuarioPage,
+                img: this.fotoUsuario,
+                usuario: "Hola " + this.nombreUsuario,
+                correo: this.correoUsuario
+              }
+            ];
 
-          this.salir = [{ titulo: "Cerrar Sesion" }];
-
+            this.salir = [{ titulo: "Cerrar Sesion" }];
+          });
         });
       });
     });
@@ -99,19 +106,22 @@ export class MyApp {
       this.storage.clear();
       this.pages = [
         { title: "INGRESA", component: LoginPage, icon: "log-in" },
-        { title: "INICIO", component: HomePage, icon: "home" }, //{ title: "Pedidos", component: PedidosPage, icon: "search" },
+        { title: "INICIO", component: HomePage, icon: "home" },
         { title: "ARTICULOS", component: VentasPage, icon: "cart" }
       ];
+
+      this.usuario = [
+        {
+          component: LoginPage,
+          img: "../assets/imgs/profile.jpg",
+          usuario: "¡Iniciar Sesión!",
+          correo: ""
+        }
+      ];
+
+      this.salir = [{ titulo: "" }];
     });
-    this.usuario = [
-      {
-        component: UsuarioPage,
-        img: "../assets/imgs/profile.jpg",
-        usuario: "¡Iniciar Sesión!",
-        correo: ""
-      }
-    ];
-    this.salir = [{ titulo: "" }];
+
   }
 
   initializeApp() {
@@ -131,7 +141,7 @@ export class MyApp {
   close() {
     window.localStorage.clear();
     this.storage.clear();
-    this.events.publish('user:loggedout');
+    this.events.publish("user:loggedout");
     this.appCtrl.getRootNav().setRoot(HomePage);
   }
 

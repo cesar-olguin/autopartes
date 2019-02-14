@@ -62,6 +62,7 @@ export class LoginPage {
 
             this.storage.set("idUser", this.IdUsuario.idUsuario);
             this.storage.set("name", this.IdUsuario.Nombre);
+            this.storage.set("foto", this.IdUsuario.ImagenPerfil);
 
             this.events.publish("user:loggedin");
             this.appCtrl.getRootNav().setRoot(HomePage);

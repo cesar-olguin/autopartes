@@ -1,9 +1,13 @@
 import { Component } from "@angular/core";
-import { NavController, Events, LoadingController } from "ionic-angular";
+import { NavController, Events, LoadingController, PopoverController } from "ionic-angular";
 import { UserServiceProvider } from "../../providers/user-service/user-service";
 import { Storage } from "@ionic/storage";
 import { VentaPage } from "../venta/venta";
 import { PedidoPage } from "../pedido/pedido";
+import { NavParams } from "ionic-angular/navigation/nav-params";
+import { LoginPage } from "../login/login";
+import { ChatPopoverComponent } from "../../components/chat-popover/chat-popover";
+import { AjustesNotificacionesPage } from "../ajustes-notificaciones/ajustes-notificaciones";
 
 @Component({
   selector: "page-home",
@@ -26,13 +30,22 @@ export class HomePage {
   public marcaName;
   public modeloName;
 
+  Escrito: string = "";
+  idPedido: any;
+  PedidoDatos: any;
+  chat: any;
+
   constructor(
     public navCtrl: NavController,
     public restService: UserServiceProvider,
     public events: Events,
     public storage: Storage,
-    public loadingCtrl: LoadingController
-  ) {}
+    public loadingCtrl: LoadingController,
+    public popoverCtrl: PopoverController,
+    public navParams: NavParams
+  ) {
+    this.idPedido = navParams.get("idPed");
+  }
 
   ionViewCanEnter() {
     if (
@@ -80,7 +93,7 @@ export class HomePage {
     }
   }
 
-  ionViewDidLoad() {}
+  ionViewDidLoad() { }
 
   itemTapped(artId) {
     this.navCtrl.push(VentaPage, {
@@ -173,4 +186,48 @@ export class HomePage {
     this.items = [];
     this.cargarPedidos();
   }
+
+  presentPopover(myEvent, idUsuario, idPedido) {
+    let popover = this.popoverCtrl.create(ChatPopoverComponent);
+    console.log(idUsuario);
+    console.log(idPedido);
+
+    popover.present({
+      ev: myEvent
+    });
+
+    popover.onDidDismiss(popoverData => {
+      console.log(popoverData);
+      if (popoverData != undefined){
+    let body = {
+        idPedido: idPedido,
+        idUsuario: this.usuarioLog,
+        QuienPregunta: idUsuario,
+        QuienResponde: this.usuarioLog,
+        Chat: popoverData,
+        Fecha: new Date().toLocaleString()
+      };
+      // this.restService.postPedidoChat(body);
+      console.log(body);
+      }
+    });
+  }
+
+  ajustes() {
+    this.navCtrl.push(AjustesNotificacionesPage);
+  }
+
+  escribir() {
+    let body = {
+      idPedido: this.idPedido,
+      idUsuario: this.usuarioLog,
+      QuienPregunta: this.chat.idUsuario,
+      QuienResponde: this.usuarioLog,
+      Chat: this.Escrito,
+      Fecha: new Date().toLocaleString()
+    };
+    this.restService.postPedidoChat(body);
+    console.log(body);
+  }
+
 }
