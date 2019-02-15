@@ -28,8 +28,7 @@
         <ion-label color="orange" autocomplete="on" autocorrect="on" stacked>MARCA</ion-label>
         <ion-select ngModel="marcas" interface="alert" cancelText="CANCELAR">
           <!-- <ion-option (ionSelect)="modeloSelccionado(undefined,undefined);"></ion-option> -->
-          <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaSeleccionada(mar.idMarca,mar.Marca);"
-            [value]="mar.idMarca">{{mar.Marca
+          <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaSeleccionada(mar.idMarca,mar.Marca);" [value]="mar.idMarca">{{mar.Marca
             }}</ion-option>
         </ion-select>
       </ion-item>
@@ -37,8 +36,7 @@
         <ion-label color="orange" autocomplete="on" autocorrect="on" stacked>MODELO</ion-label>
         <ion-select ngModel="modelos" interface="alert" cancelText="CANCELAR">
           <!-- <ion-option (ionSelect)="modeloSelccionado(undefined,undefined);"></ion-option> -->
-          <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.idMarca,mod.Marca);"
-            [value]="mod.idMarca">
+          <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.idMarca,mod.Marca);" [value]="mod.idMarca">
             {{mod.Marca }}
           </ion-option>
         </ion-select>
@@ -68,8 +66,8 @@
     </ion-list> -->
     <!-- (click)="pedidoN(item)" -->
     <ion-list no-lines [virtualScroll]="items">
-      <button ion-item *virtualItem="let item" ion-long-press [interval]="400"
-        (onPressStart)="presentPopover($event,item.idUsuario,item.idPedido)" (click)="pedidoN(item)">
+      <button ion-item *virtualItem="let item" ion-long-press [interval]="400" (onPressStart)="presentPopover($event,item.idUsuario,item.idPedido)"
+        (click)="pedidoN(item)">
         <!--         
         <h5>{{item.Titulo | uppercase}}</h5>
         <button ion-button icon-start small>
@@ -78,7 +76,7 @@
         </button> -->
         <ion-thumbnail item-start>
           <!-- <img src="../../assets/imgs/profile.jpg"> -->
-          <img [src]="item.ImagenPerfil">
+          <img [src]="item.ImagenPerfil" style="border-radius:100%;">
         </ion-thumbnail>
         <h2>{{ item.Titulo | uppercase }}</h2>
         <p><button ion-button icon-start small>

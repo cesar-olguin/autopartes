@@ -17,9 +17,9 @@
     <ion-list-header color="cavaliers-tertiary">
       Mis Datos
     </ion-list-header>
-    <ion-item padding style="height: 200px; width: 200px; vertical-align: middle;">
-      <img [src]="imagen" imageViewer style="border-radius:100%;">
-      <button ion-fab mini (click)="fotoPerfil()">
+    <ion-item padding>
+      <img [src]="imagen" imageViewer style="height: 200px; width: 200px; vertical-align: middle; border-radius:100%;">
+      <button ion-fab mini (click)="cropImage()">
         <ion-icon name="camera"></ion-icon>
       </button>
     </ion-item>

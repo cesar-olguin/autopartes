@@ -5,7 +5,6 @@ import { Storage } from "@ionic/storage";
 import { VentaPage } from "../venta/venta";
 import { PedidoPage } from "../pedido/pedido";
 import { NavParams } from "ionic-angular/navigation/nav-params";
-import { LoginPage } from "../login/login";
 import { ChatPopoverComponent } from "../../components/chat-popover/chat-popover";
 import { AjustesNotificacionesPage } from "../ajustes-notificaciones/ajustes-notificaciones";
 
