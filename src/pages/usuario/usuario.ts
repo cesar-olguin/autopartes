@@ -7,6 +7,7 @@ import { Md5 } from 'ts-md5';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop';
 import { Base64 } from '@ionic-native/base64';
+import { AjustesNotificacionesPage } from '../ajustes-notificaciones/ajustes-notificaciones';
 
 /**
  * Generated class for the UsuarioPage page.
@@ -125,6 +126,10 @@ export class UsuarioPage {
     }, (err) => {
       // Handle error
     });
+  }
+
+  ajustes() {
+    this.navCtrl.push(AjustesNotificacionesPage);
   }
 
 }

@@ -512,4 +512,88 @@ export class UserServiceProvider {
         );
     });
   }
+
+  postNotificacionesMarcas(data) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(this.baseUrl + "/notificaciones/marcas/", data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  getNotificacionesMarcas(idUsuario) {
+    return new Promise(resolve => {
+      this.http
+        .get(this.baseUrl + "/notificaciones/marcas/" + idUsuario)
+        .subscribe(
+          data => {
+            resolve(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  getNotificacionesUsuario(idUsuario, idMarca) {
+    return new Promise(resolve => {
+      this.http
+        .get(this.baseUrl + "/notificaciones/marcas/" + idUsuario + "/" + idMarca)
+        .subscribe(
+          data => {
+            resolve(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  putNotificaciones(id, data) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .put(this.baseUrl + "/notificacion/modificar/" + id, data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            // console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  getNotificacionesdelUsuario(id) {
+    return new Promise(resolve => {
+      this.http
+        .get(this.baseUrl + "/notificaciones/" + id + "/")
+        .subscribe(
+          data => {
+            resolve(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
 }
