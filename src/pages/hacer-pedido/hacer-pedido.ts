@@ -219,6 +219,22 @@ export class HacerPedidoPage {
               this.restService.postPedido(body).then(
                 result => {
                   console.log(result);
+                  this.restService.getNotificacioneEnviarPedido(this.IdUser, this.NombreMarca).then(resultado =>{
+                    let marcasNotificadas = JSON.parse(JSON.stringify(resultado));
+                    for (let index = 0; index < marcasNotificadas.length; index++) {
+                      this.restService.tokenDiferenteUsuario(this.IdUser).then(data => {
+                        let obj = JSON.parse(JSON.stringify(data));
+                        for (let index = 0; index < obj.length; index++) {
+                          let mensaje = {
+                            token: obj[index].token,
+                            mensaje: this.Titulo,
+                            usuario: "Nuevo Pedido de la marca: " + this.NombreMarca
+                          }
+                          this.restService.enviarNotificacionPedidos(mensaje);
+                        }
+                      }); 
+                    }
+                  });
                 },
                 err => {
                   console.log(err);

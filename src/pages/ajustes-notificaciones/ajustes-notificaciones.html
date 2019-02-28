@@ -9,11 +9,9 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-label>
-      <p>
-        Marca las marcas de las que deseas que llegen notificaciones.
-      </p>
-    </ion-label>
+    <ion-list-header>
+      Marca las marcas de las que deseas que llegen notificaciones.
+    </ion-list-header>
     <ion-item *ngFor="let mar of marcas">
       <ion-label> {{ mar.Marca }}</ion-label>
       <ion-toggle [(ngModel)]="mar.Checked" (ionChange)="guardarNotificaciones(mar.Checked,mar)">

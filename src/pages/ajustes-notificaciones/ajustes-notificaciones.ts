@@ -17,7 +17,6 @@ import { Storage } from '@ionic/storage';
 export class AjustesNotificacionesPage {
   marcas: any;
   arrayNotificacionesMarcas: any;
-  modificarNotificacion: any;
 
   constructor(
     public navCtrl: NavController, 
@@ -45,7 +44,6 @@ export class AjustesNotificacionesPage {
               this.marcas = data["records"];
               let obj = JSON.parse(JSON.stringify(this.marcas));
               for (let index = 0; index < obj.length; index++) {
-                const element = obj[index];
                 let body = {
                   idUsuario: idUsuario,
                   idMarca: obj[index].idMarca,
@@ -54,7 +52,6 @@ export class AjustesNotificacionesPage {
                 };
                 this.restService.postNotificacionesMarcas(body);
               }
-
             },
             error => {
               console.log(error);
@@ -70,27 +67,17 @@ export class AjustesNotificacionesPage {
     this.storage.get("idUser").then(idUsuario => {
       this.restService.getNotificacionesUsuario(idUsuario, marcaSeleccionada.idMarca).then(datos => {
         console.log(datos);
-        let resultados = JSON.parse(JSON.stringify(datos));
-        this.modificarNotificacion = resultados[0];
+
         if (valorToggle == true) {
-          if (JSON.stringify(datos) == "[]") {
-            let body = {
-              idUsuario: idUsuario,
-              idMarca: marcaSeleccionada.idMarca,
-              Marca: marcaSeleccionada.Marca,
-              Checked: "true"
-            };
-            this.restService.postNotificacionesMarcas(body);
+          let body = {
+            idUsuario: idUsuario,
+            idMarca: marcaSeleccionada.idMarca,
+            Marca: marcaSeleccionada.Marca,
+            Checked: "true"
           }
-          else{
-            let body = {
-              idUsuario: idUsuario,
-              idMarca: marcaSeleccionada.idMarca,
-              Marca: marcaSeleccionada.Marca,
-              Checked: "true"
-            };
-            this.restService.putNotificaciones(this.modificarNotificacion.idNotificacion, body);
-          }
+          this.restService.putNotificaciones(marcaSeleccionada.idNotificacion, body).then(resultado => {
+            console.log(resultado);
+          });
         }
 
         if (valorToggle == false) {
@@ -100,7 +87,10 @@ export class AjustesNotificacionesPage {
             Marca: marcaSeleccionada.Marca,
             Checked: "false"
           };
-          this.restService.putNotificaciones(this.modificarNotificacion.idNotificacion, body);
+          this.restService.putNotificaciones(marcaSeleccionada.idNotificacion, body).then(resultado => {
+            console.log(resultado);
+            
+          });
         }
         
       });

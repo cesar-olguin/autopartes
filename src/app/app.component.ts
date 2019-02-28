@@ -14,6 +14,7 @@ import { MisPedidosPage } from "../pages/mis-pedidos/mis-pedidos";
 import { Push, PushObject, PushOptions } from "@ionic-native/push";
 import { LocalNotifications } from "@ionic-native/local-notifications";
 import { Storage } from "@ionic/storage";
+import { UserServiceProvider } from "../providers/user-service/user-service";
 
 @Component({
   templateUrl: "app.html"
@@ -43,7 +44,8 @@ export class MyApp {
     public push: Push,
     public localNotifications: LocalNotifications,
     public storage: Storage,
-    public appCtrl: App
+    public appCtrl: App,
+    public restService: UserServiceProvider
   ) {
     this.initializeApp();
     this.pushNotificacion();
@@ -156,6 +158,8 @@ export class MyApp {
   }
 
   pushNotificacion() {
+    // // to initialize push notifications
+
     const options: PushOptions = {
       android: {
         senderID: "398680118616"
@@ -170,7 +174,7 @@ export class MyApp {
     const pushObject: PushObject = this.push.init(options);
 
     pushObject.on("notification").subscribe((notification: any) => {
-      console.log("Notificaciones Consola", notification);
+      console.log("Notificaciones Consola -> ", notification);
       this.localNotifications.schedule({
         // id: 1,
         // text: "Notificacion Simple",
@@ -180,11 +184,19 @@ export class MyApp {
     });
 
     pushObject.on("registration").subscribe((registration: any) => {
-      console.log("Dispositivo Registrado", registration);
+      console.log("Dispositivo Registrado -> ", registration);      
+      this.storage.get("idUser").then(idval => {
+        let body = {
+          token: registration.registrationId
+        }
+        this.restService.putTokenDevice(idval, body).then(resultado => {
+          console.log(resultado);
+        });
+      });
     });
 
     pushObject.on("error").subscribe(error => {
-      console.error("Error con el Plugin Push", error);
+      console.error("Error con el Plugin Push -> ", error);
     });
   }
 }
