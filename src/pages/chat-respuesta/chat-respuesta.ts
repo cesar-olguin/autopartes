@@ -24,6 +24,8 @@ export class ChatRespuestaPage {
   className: string = "";
   Escrito = "";
   MensajeNuevo;
+  fotoUsuario;
+  fotoResponde;
 
   constructor(
     public navCtrl: NavController,
@@ -39,6 +41,9 @@ export class ChatRespuestaPage {
     this.storage.get("idUser").then(idval => {
       this.usuarioLogeado = idval;
       this.loadChat();
+    });
+    this.storage.get("foto").then(foto => {
+      this.fotoUsuario = foto;
     });
   }
 
@@ -57,6 +62,12 @@ export class ChatRespuestaPage {
         this.chat = obj[0];
         this.conversacion = data;
         console.log(data);
+
+        this.restService.imagenUsuario(this.chat.QuienPregunta).then(data => {
+          let img = JSON.parse(JSON.stringify(data));
+          let perfil = img[0];
+          this.fotoResponde = perfil.ImagenPerfil;
+        });
       });
   }
 
@@ -81,6 +92,16 @@ export class ChatRespuestaPage {
           .then(data => {
             this.conversacion = data;
           });
+        this.restService.tokenUsuario(this.chat.QuienPregunta).then(data => {
+          let json = JSON.parse(JSON.stringify(data));
+          let device = json[0];
+          let mensaje = {
+            token: device.token,
+            mensaje: body.Chat,
+            usuario: "Te respondieron en " + this.chat.Titulo
+          };
+          this.restService.enviarNotificacionMensaje(mensaje);
+        });
       });
       console.log(body);
       this.Escrito = "";

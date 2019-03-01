@@ -18,6 +18,7 @@ import { ChatPreguntaPage } from "../chat-pregunta/chat-pregunta";
 export class MiPedidoChatPage {
   idPedido;
   comentarios: any;
+  titulo: any;
 
   constructor(
     public navCtrl: NavController,
@@ -25,6 +26,7 @@ export class MiPedidoChatPage {
     public restService: UserServiceProvider
   ) {
     this.idPedido = navParams.get("mensajesPedido");
+    this.titulo = navParams.get("tituloPedido");
     console.log(this.idPedido);
   }
 
@@ -43,7 +45,8 @@ export class MiPedidoChatPage {
   verConversacion(coment){
     this.navCtrl.push(ChatPreguntaPage, {
       ChatSeleccionado: coment.idPedido,
-      QuienResponde: coment.QuienResponde
+      QuienResponde: coment.QuienResponde,
+      TituloPedido: this.titulo
     });
   }
 }

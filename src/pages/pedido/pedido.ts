@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { UserServiceProvider } from "../../providers/user-service/user-service";
 import { ChatRespuestaPage } from "../chat-respuesta/chat-respuesta";
 import { Storage } from "@ionic/storage";
+import { PushOptions, PushObject, Push } from "@ionic-native/push";
+import { LocalNotifications } from "@ionic-native/local-notifications";
 
 /**
  * Generated class for the PedidoPage page.
@@ -29,7 +31,9 @@ export class PedidoPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public restService: UserServiceProvider,
-    public storage: Storage
+    public storage: Storage,
+    public push: Push,
+    public localNotifications: LocalNotifications
   ) {
     this.idPedido = navParams.get("idPed");
   }
@@ -53,6 +57,30 @@ export class PedidoPage {
   }
 
   escribir() {
+
+    const options: PushOptions = {
+      android: {
+        senderID: "398680118616"
+      },
+      ios: {
+        alert: "true",
+        badge: "true",
+        sound: "true"
+      }
+    };
+
+    const pushObject: PushObject = this.push.init(options);
+
+    pushObject.on("notification").subscribe((notification: any) => {
+      console.log("Notificaciones Consola -> ", notification);
+      this.localNotifications.schedule({
+        // id: 1,
+        // text: "Notificacion Simple",
+        data: { secret: pushObject },
+        icon: "res://assets/icon/favicon.icon"
+      });
+    });
+
     let body = {
       idPedido: this.idPedido,
       idUsuario: this.usuarioLogeado,
@@ -61,8 +89,19 @@ export class PedidoPage {
       Chat: this.Escrito,
       Fecha: new Date().toLocaleString()
     };
-    this.restService.postPedidoChat(body);
     console.log(body);
+    
+      this.restService.tokenUsuario(this.chat.idUsuario).then(data => {
+        let json = JSON.parse(JSON.stringify(data));
+        let device = json[0];
+        let mensaje = {
+          token: device.token,
+          mensaje: body.Chat,
+          usuario: "Te respondieron en " + this.chat.Titulo
+        };
+        this.restService.postPedidoChat(body);
+        this.restService.enviarNotificacionMensaje(mensaje);
+      });
   }
 
   hacerPregunta() {

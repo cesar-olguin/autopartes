@@ -512,4 +512,225 @@ export class UserServiceProvider {
         );
     });
   }
+
+  postNotificacionesMarcas(data) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(this.baseUrl + "/notificaciones/marcas/", data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  getNotificacionesMarcas(idUsuario) {
+    return new Promise(resolve => {
+      this.http
+        .get(this.baseUrl + "/notificaciones/marcas/" + idUsuario)
+        .subscribe(
+          data => {
+            resolve(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  getNotificacionesUsuario(idUsuario, idMarca) {
+    return new Promise(resolve => {
+      this.http
+        .get(this.baseUrl + "/notificaciones/marcas/" + idUsuario + "/" + idMarca)
+        .subscribe(
+          data => {
+            resolve(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  putNotificaciones(id, data) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .put(this.baseUrl + "/notificacion/modificar/" + id, data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            // console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  getNotificacionesdelUsuario(id) {
+    return new Promise(resolve => {
+      this.http
+        .get(this.baseUrl + "/notificaciones/" + id + "/")
+        .subscribe(
+          data => {
+            resolve(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  getNotificacioneEnviarPedido(id,marca) {
+    return new Promise(resolve => {
+      this.http
+        .get(this.baseUrl + "/notificaciones/pedido/" + id + "/" + marca)
+        .subscribe(
+          data => {
+            resolve(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  putImagenPerfil(id, data){
+    return new Promise((resolve, reject) => {
+      this.http
+        .put(this.baseUrl + "/usuario/imagen/" + id, data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            // console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+
+  putTokenDevice(id, data){
+    return new Promise((resolve, reject) => {
+      this.http
+        .put(this.baseUrl + "/usuario/token/" + id, data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            // console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  enviarNotificacionMensaje(data) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(this.baseUrl + "/fcm/mensajes/", data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  enviarNotificacionPedidos(data) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(this.baseUrl + "/fcm/notificaciones/pedidos/", data, {
+          headers: { "Content-Type": "application/json;charset=utf-8" },
+          responseType: "text"
+        })
+        .subscribe(
+          res => {
+            resolve(res);
+            console.log(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  tokenUsuario(id){
+    return new Promise(resolve => {
+      this.http
+        .get(this.baseUrl + "/token/" + id)
+        .subscribe(
+          data => {
+            resolve(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  imagenUsuario(id) {
+    return new Promise(resolve => {
+      this.http
+        .get(this.baseUrl + "/imagen/" + id)
+        .subscribe(
+          data => {
+            resolve(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
+  tokenDiferenteUsuario(id) {
+    return new Promise(resolve => {
+      this.http
+        .get(this.baseUrl + "/token/diferente/" + id)
+        .subscribe(
+          data => {
+            resolve(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+    });
+  }
+
 }
