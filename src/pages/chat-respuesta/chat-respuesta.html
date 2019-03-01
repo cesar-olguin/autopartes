@@ -19,12 +19,12 @@
 <ion-content padding>
   <ion-list *ngFor="let conver of conversacion">
     <div *ngIf="conver.QuienResponde==conver.idUsuario" class="container darker">
-      <img src="../../assets/imgs/llanta1.png" class="right">
+      <img [src]="fotoUsuario" class="right">
       <p>{{conver.Chat}}</p>
       <span class="time-left">{{conver.Fecha}}</span>
     </div>
     <div *ngIf="conver.QuienPregunta == conver.idUsuario" class="container">
-      <img src="../../assets/imgs/llanta2.png">
+      <img [src]="fotoResponde">
       <p>{{conver.Chat}}</p>
       <span class="time-right">{{conver.Fecha}}</span>
     </div>

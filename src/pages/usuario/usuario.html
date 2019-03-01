@@ -5,8 +5,11 @@
     </button>
     <ion-title>PERFIL</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="close();" color="danger">
+      <!-- <button ion-button icon-only (click)="close()" color="danger">
         <ion-icon name="power"></ion-icon>
+      </button> -->
+      <button ion-button icon-only (click)="ajustes()">
+        <ion-icon name="cog"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -17,25 +20,31 @@
     <ion-list-header color="cavaliers-tertiary">
       Mis Datos
     </ion-list-header>
+    <ion-item padding>
+      <img [src]="imagen" imageViewer style="height: 200px; width: 200px; vertical-align: middle; border-radius:100%;">
+      <button ion-fab mini (click)="cropImage()">
+        <ion-icon name="camera"></ion-icon>
+      </button>
+    </ion-item>
     <ion-item>
       <ion-label color="primary" stacked>Nombre y Apellidos</ion-label>
-      <ion-label>{{user.Nombre}}</ion-label>
+      <ion-label>{{ user.Nombre }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label color="primary" stacked># de Usuario</ion-label>
-      <ion-label>{{user.idUsuario}}</ion-label>
+      <ion-label>{{ user.idUsuario }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label color="primary" stacked>E-mail</ion-label>
-      <ion-label>{{user.Correo}}</ion-label>
+      <ion-label>{{ user.Correo }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label color="primary" stacked>Telefono</ion-label>
-      <ion-label>{{user.Cell}}</ion-label>
+      <ion-label>{{ user.Cell }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label color="primary" stacked>Miembro desde</ion-label>
-      <ion-label>{{user.Fecha_alta}}</ion-label>
+      <ion-label>{{ user.Fecha_alta }}</ion-label>
     </ion-item>
     <!-- <ion-list-header color='primary'>
       Referencias:

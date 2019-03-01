@@ -3,6 +3,7 @@ import { UserServiceProvider } from './../../providers/user-service/user-service
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ViewController, App } from 'ionic-angular';
 import { LoginPage } from '../login/login';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 /**
  * Generated class for the RegistrarsePage page.
@@ -31,7 +32,7 @@ export class RegistrarsePage {
   Usuario;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restService: UserServiceProvider, public alertCtrl: AlertController, public viewCtrl: ViewController,
-      public appCtrl: App) {
+      public appCtrl: App, public push: Push) {
   }
 
   ionViewDidLoad() {
@@ -49,6 +50,25 @@ export class RegistrarsePage {
           if (this.Genero != 'H') {
               this.Genero = 'M';
           }
+
+          const options: PushOptions = {
+              android: {
+                  senderID: "398680118616"
+              },
+              ios: {
+                  alert: "true",
+                  badge: "true",
+                  sound: "true"
+              }
+          };
+
+          const pushObject: PushObject = this.push.init(options);
+
+          pushObject.on("registration").subscribe((registration: any) => {
+              console.log("Dispositivo Registrado -> ", registration);
+        
+         
+
           let body = {
               Nombre: this.Nombre,
               ApellidoP: this.ApellidoP,
@@ -59,7 +79,9 @@ export class RegistrarsePage {
               Confirmar: Md5.hashStr(this.Confirmar),
               Fecha_nac: this.Fecha_nac = new Date().toLocaleDateString('en-GB'),
               Genero: this.Genero,
-              Fecha_alta: this.date = new Date().toLocaleDateString('en-GB')
+              Fecha_alta: this.date = new Date().toLocaleDateString('en-GB'),
+              ImagenPerfil: "http://www.solucionesgp.com/autopartes/imagenes-app/FotosPerfiles/profile.jpg",
+              token: registration.registrationId
           }
           this.restService.checkEmail(this.Correo).then(data => {
               this.Usuario = JSON.stringify(data);
@@ -77,6 +99,7 @@ export class RegistrarsePage {
               else {
                   this.userCheck();
               }
+          });
           });
       }
   }

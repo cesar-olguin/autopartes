@@ -4,6 +4,11 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>PEDIDOS</ion-title>
+    <ion-buttons end>
+      <!-- <button ion-button icon-only (click)="ajustes()">
+        <ion-icon name="cog"></ion-icon>
+      </button> -->
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -47,20 +52,41 @@
         </ion-row>
       </ion-grid>
     </ion-list>
-    <ion-list [virtualScroll]="items">
+
+    <!-- <ion-list [virtualScroll]="items">
       <ion-card *virtualItem="let item" (click)="pedidoN(item)" padding>
         <h1>{{item.Titulo | uppercase}}</h1><br>
         <p style="font-size: 18px;">
-          <!-- {{item.Descripcion}}<br> -->
-          <!-- Marca -> {{item.Marca}}<br>
-          Modelo -> {{item.Modelo}}<br> -->
           <button ion-button icon-start small>
             <ion-icon name="calendar"></ion-icon>
             {{item.Fecha_Modificacion}}
           </button>
         </p>
       </ion-card>
+    </ion-list> -->
+    <!-- (click)="pedidoN(item)" -->
+    <ion-list no-lines [virtualScroll]="items">
+      <button ion-item *virtualItem="let item" ion-long-press [interval]="400" (onPressStart)="presentPopover($event,item.idUsuario,item.idPedido,item.token,item.Titulo)"
+        (click)="pedidoN(item)">
+        <!--         
+        <h5>{{item.Titulo | uppercase}}</h5>
+        <button ion-button icon-start small>
+          <ion-icon name="calendar"></ion-icon>
+          {{item.Fecha_Modificacion}}
+        </button> -->
+        <ion-thumbnail item-start>
+          <!-- <img src="../../assets/imgs/profile.jpg"> -->
+          <img [src]="item.ImagenPerfil" style="border-radius:100%;">
+        </ion-thumbnail>
+        <h2>{{ item.Titulo | uppercase }}</h2>
+        <p><button ion-button icon-start small>
+            <ion-icon name="calendar"></ion-icon>
+            {{item.Fecha_Modificacion}}
+          </button> </p>
+        <!-- <button ion-button clear item-end>View</button> -->
+      </button>
     </ion-list>
+
   </div>
 </ion-content>
 <!-- <ion-grid>

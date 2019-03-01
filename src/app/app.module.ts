@@ -40,7 +40,9 @@ import { Push } from '@ionic-native/push';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
-
+import { LongPressModule } from 'ionic-long-press';
+import { AjustesNotificacionesPage } from '../pages/ajustes-notificaciones/ajustes-notificaciones';
+import { ChatPopoverComponent } from '../components/chat-popover/chat-popover';
 @NgModule({
   declarations: [
     MyApp,
@@ -64,7 +66,9 @@ import { File } from '@ionic-native/file';
     VentaPage,
     VentasPage,
     ChatPreguntaPage,
-    ChatRespuestaPage
+    ChatRespuestaPage,
+    AjustesNotificacionesPage,
+    ChatPopoverComponent
   ],
   imports: [
     BrowserModule,
@@ -110,7 +114,8 @@ import { File } from '@ionic-native/file';
       dayShortNames: ["dom", "lun", "mar", "mie", "jue", "vie", "sab"]
     }),
     IonicStorageModule.forRoot(),
-    IonicImageViewerModule
+    IonicImageViewerModule,
+    LongPressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -135,7 +140,9 @@ import { File } from '@ionic-native/file';
     VentaPage,
     VentasPage,
     ChatPreguntaPage,
-    ChatRespuestaPage
+    ChatRespuestaPage,
+    AjustesNotificacionesPage,
+    ChatPopoverComponent
   ],
   providers: [
     StatusBar,

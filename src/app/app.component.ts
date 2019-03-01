@@ -14,6 +14,7 @@ import { MisPedidosPage } from "../pages/mis-pedidos/mis-pedidos";
 import { Push, PushObject, PushOptions } from "@ionic-native/push";
 import { LocalNotifications } from "@ionic-native/local-notifications";
 import { Storage } from "@ionic/storage";
+import { UserServiceProvider } from "../providers/user-service/user-service";
 
 @Component({
   templateUrl: "app.html"
@@ -32,7 +33,8 @@ export class MyApp {
   }>;
   nombreUsuario: string;
   correoUsuario: string;
-  salir: Array<{titulo: string}>;
+  fotoUsuario: string;
+  salir: Array<{ titulo: string }>;
 
   constructor(
     public platform: Platform,
@@ -42,7 +44,8 @@ export class MyApp {
     public push: Push,
     public localNotifications: LocalNotifications,
     public storage: Storage,
-    public appCtrl: App
+    public appCtrl: App,
+    public restService: UserServiceProvider
   ) {
     this.initializeApp();
     this.pushNotificacion();
@@ -71,26 +74,32 @@ export class MyApp {
 
         this.storage.get("name").then(nombre => {
           this.nombreUsuario = nombre;
+          this.storage.get("foto").then(foto => {
+            this.fotoUsuario = foto;
 
-          this.pages = [
-            { title: "INICIO", component: HomePage, icon: "home" },
-            { title: "MIS PEDIDOS", component: MisPedidosPage, icon: "search" },
-            { title: "VENTAS", component: VentasPage, icon: "cart" },
-            { title: "MIS VENTAS", component: MisVentasPage, icon: "cart" },
-            { title: "USUARIO", component: UsuarioPage, icon: "person" }
-          ];
+            this.pages = [
+              { title: "INICIO", component: HomePage, icon: "home" },
+              {
+                title: "MIS PEDIDOS",
+                component: MisPedidosPage,
+                icon: "search"
+              },
+              { title: "VENTAS", component: VentasPage, icon: "cart" },
+              { title: "MIS VENTAS", component: MisVentasPage, icon: "cart" },
+              { title: "USUARIO", component: UsuarioPage, icon: "person" }
+            ];
 
-          this.usuario = [
-            {
-              component: UsuarioPage,
-              img: "../assets/imgs/profile.jpg",
-              usuario: "Hola " + this.nombreUsuario,
-              correo: this.correoUsuario
-            }
-          ];
+            this.usuario = [
+              {
+                component: UsuarioPage,
+                img: this.fotoUsuario,
+                usuario: "Hola " + this.nombreUsuario,
+                correo: this.correoUsuario
+              }
+            ];
 
-          this.salir = [{ titulo: "Cerrar Sesion" }];
-
+            this.salir = [{ titulo: "Cerrar Sesion" }];
+          });
         });
       });
     });
@@ -99,19 +108,22 @@ export class MyApp {
       this.storage.clear();
       this.pages = [
         { title: "INGRESA", component: LoginPage, icon: "log-in" },
-        { title: "INICIO", component: HomePage, icon: "home" }, //{ title: "Pedidos", component: PedidosPage, icon: "search" },
+        { title: "INICIO", component: HomePage, icon: "home" },
         { title: "ARTICULOS", component: VentasPage, icon: "cart" }
       ];
+
+      this.usuario = [
+        {
+          component: LoginPage,
+          img: "../assets/imgs/profile.jpg",
+          usuario: "¡Iniciar Sesión!",
+          correo: ""
+        }
+      ];
+
+      this.salir = [{ titulo: "" }];
     });
-    this.usuario = [
-      {
-        component: UsuarioPage,
-        img: "../assets/imgs/profile.jpg",
-        usuario: "¡Iniciar Sesión!",
-        correo: ""
-      }
-    ];
-    this.salir = [{ titulo: "" }];
+
   }
 
   initializeApp() {
@@ -131,7 +143,7 @@ export class MyApp {
   close() {
     window.localStorage.clear();
     this.storage.clear();
-    this.events.publish('user:loggedout');
+    this.events.publish("user:loggedout");
     this.appCtrl.getRootNav().setRoot(HomePage);
   }
 
@@ -146,6 +158,8 @@ export class MyApp {
   }
 
   pushNotificacion() {
+    // // to initialize push notifications
+
     const options: PushOptions = {
       android: {
         senderID: "398680118616"
@@ -160,7 +174,7 @@ export class MyApp {
     const pushObject: PushObject = this.push.init(options);
 
     pushObject.on("notification").subscribe((notification: any) => {
-      console.log("Notificaciones Consola", notification);
+      console.log("Notificaciones Consola -> ", notification);
       this.localNotifications.schedule({
         // id: 1,
         // text: "Notificacion Simple",
@@ -170,11 +184,19 @@ export class MyApp {
     });
 
     pushObject.on("registration").subscribe((registration: any) => {
-      console.log("Dispositivo Registrado", registration);
+      console.log("Dispositivo Registrado -> ", registration);      
+      this.storage.get("idUser").then(idval => {
+        let body = {
+          token: registration.registrationId
+        }
+        this.restService.putTokenDevice(idval, body).then(resultado => {
+          console.log(resultado);
+        });
+      });
     });
 
     pushObject.on("error").subscribe(error => {
-      console.error("Error con el Plugin Push", error);
+      console.error("Error con el Plugin Push -> ", error);
     });
   }
 }
