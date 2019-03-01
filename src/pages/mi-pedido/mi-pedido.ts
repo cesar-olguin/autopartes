@@ -40,8 +40,9 @@ export class MiPedidoPage {
       console.log(JSON.stringify(data));
     });
   }
-  verChatsPedido(idPedido) {
-    this.navCtrl.push(MiPedidoChatPage, { mensajesPedido: idPedido });
+  verChatsPedido(idPedido, titulo) {
+    this.navCtrl.push(MiPedidoChatPage, { mensajesPedido: idPedido,
+    tituloPedido: titulo });
   }
 
   modificarPedido(idPedido,idUsuario) {

@@ -24,6 +24,9 @@ export class ChatPreguntaPage {
   Escrito: string = "";
   idPedido;
   usuarioLogeado;
+  Titulo: any;
+  fotoUsuario;
+  fotoResponde;
 
   constructor(
     public navCtrl: NavController,
@@ -34,14 +37,22 @@ export class ChatPreguntaPage {
   ) {
     this.idUsuario = navParams.get("QuienResponde");
     this.idPedido = navParams.get("ChatSeleccionado");
+    this.Titulo = navParams.get("TituloPedido");
   }
 
   ionViewCanEnter() {
     this.storage.get("idUser").then(idval => {
       this.usuarioLogeado = idval;
       console.log(idval);
-      
       this.loadChat();
+    });
+    this.storage.get("foto").then(foto => {
+      this.fotoUsuario = foto;
+    });
+    this.restService.imagenUsuario(this.idUsuario).then(data => {
+      let img = JSON.parse(JSON.stringify(data));
+      let perfil = img[0];
+      this.fotoResponde = perfil.ImagenPerfil;
     });
   }
 
@@ -76,17 +87,27 @@ export class ChatPreguntaPage {
         Chat: this.Escrito,
         Fecha: new Date().toLocaleString()
       };
-      // this.restService.postPedidoChat(body).then(result => {
-      //   console.log(result);
-      //   this.recargar();
-      //   this.events.publish("reload");
-      //   this.cargarMensajeNuevo();
-      //   this.restService
-      //     .getChatDePedidos(this.idPedido, this.usuarioLogeado)
-      //     .then(data => {
-      //       this.conversacion = data;
-      //     });
-      // });
+      this.restService.postPedidoChat(body).then(result => {
+        console.log(result);
+        this.recargar();
+        this.events.publish("reload");
+        this.cargarMensajeNuevo();
+        this.restService
+          .getChatDePedidos(this.idPedido, this.usuarioLogeado)
+          .then(data => {
+            this.conversacion = data;
+          });
+      });
+      this.restService.tokenUsuario(this.User.QuienResponde).then(data => {
+        let json = JSON.parse(JSON.stringify(data));
+        let device = json[0];
+        let mensaje = {
+          token: device.token,
+          mensaje: body.Chat,
+          usuario: "Te respondieron en " + this.Titulo 
+        };
+        this.restService.enviarNotificacionMensaje(mensaje);
+      });
       console.log(body);
       this.Escrito = "";
     }

@@ -7,6 +7,8 @@ import { Md5 } from 'ts-md5';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop';
 import { Base64 } from '@ionic-native/base64';
+import { AjustesNotificacionesPage } from '../ajustes-notificaciones/ajustes-notificaciones';
+import { FileTransferObject, FileUploadOptions, FileTransfer } from '@ionic-native/file-transfer';
 
 /**
  * Generated class for the UsuarioPage page.
@@ -42,7 +44,7 @@ export class UsuarioPage {
     targetWidth: 300
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public appCtrl: App, public restService: UserServiceProvider, public events: Events, private camera: Camera, private crop: Crop, public platform: Platform, private base64: Base64) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public appCtrl: App, public restService: UserServiceProvider, public events: Events, private camera: Camera, private crop: Crop, public platform: Platform, private base64: Base64, private transfer: FileTransfer) {
     this.storage.get('user').then((uval) => {
       this.storage.get('pass').then((pval) => {
         this.Correo = uval;
@@ -122,9 +124,50 @@ export class UsuarioPage {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
       this.imagen = 'data:image/jpeg;base64,' + imageData;
+
+      this.storage.get("idUser").then(idUsuario => {
+        const fileTransfer: FileTransferObject = this.transfer.create();
+        var random = Math.floor(Math.random() * 100);
+        var nombre_foto = "Foto" + random + "-Usuario" + idUsuario + ".jpg";
+        let options: FileUploadOptions = {
+          fileKey: "foto",
+          fileName: nombre_foto,
+          chunkedMode: false,
+          httpMethod: "post",
+          mimeType: "image/jpeg",
+          headers: {}
+        };
+
+        fileTransfer
+          .upload(
+            this.imagen,
+            "http://solucionesgp.com/autopartes/SubirFotosPERFIL.php",
+            options
+          )
+          .then(data => {
+            console.log(data);
+          });
+
+        let body = {
+          ImagenPerfil: "http://solucionesgp.com/autopartes/imagenes-app/FotosPerfiles/" +
+            nombre_foto
+        };
+        console.log(body);
+
+        this.restService.putImagenPerfil(idUsuario, body).then(data => {
+          this.storage.set("foto", "http://solucionesgp.com/autopartes/imagenes-app/FotosPerfiles/" + nombre_foto);
+          this.events.publish('user:loggedin');
+        });
+      });
+
+
     }, (err) => {
       // Handle error
     });
+  }
+
+  ajustes() {
+    this.navCtrl.push(AjustesNotificacionesPage);
   }
 
 }

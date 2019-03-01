@@ -7,6 +7,7 @@ import { Md5 } from 'ts-md5';
 //import { UsuarioPage } from '../usuario/usuario';
 import { RegistrarsePage } from '../registrarse/registrarse';
 import { HomePage } from '../home/home';
+import { Push, PushOptions, PushObject } from '@ionic-native/push';
 /**
  * Generated class for the LoginPage page.
  *
@@ -27,7 +28,8 @@ export class LoginPage {
     public alertCtrl: AlertController,
     private appCtrl: App,
     private storage: Storage,
-    public events: Events
+    public events: Events,
+    public push: Push
   ) {}
 
   public Usuario;
@@ -63,6 +65,33 @@ export class LoginPage {
             this.storage.set("idUser", this.IdUsuario.idUsuario);
             this.storage.set("name", this.IdUsuario.Nombre);
             this.storage.set("foto", this.IdUsuario.ImagenPerfil);
+       
+            //////////////////////////
+
+            const options: PushOptions = {
+              android: {
+                senderID: "398680118616"
+              },
+              ios: {
+                alert: "true",
+                badge: "true",
+                sound: "true"
+              }
+            };
+
+            const pushObject: PushObject = this.push.init(options);
+
+            pushObject.on("registration").subscribe((registration: any) => {
+              console.log("Dispositivo Registrado -> ", registration);
+                let body = {
+                  token: registration.registrationId
+                }
+                this.restService.putTokenDevice(this.IdUsuario.idUsuario, body).then(resultado => {
+                  console.log(resultado);
+                });
+            });
+
+            //////////////////////////
 
             this.events.publish("user:loggedin");
             this.appCtrl.getRootNav().setRoot(HomePage);
@@ -92,4 +121,6 @@ export class LoginPage {
     });
     alert.present();
   }
+
+
 }

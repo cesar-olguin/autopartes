@@ -186,7 +186,7 @@ export class HomePage {
     this.cargarPedidos();
   }
 
-  presentPopover(myEvent, idUsuario, idPedido) {
+  presentPopover(myEvent, idUsuario, idPedido, token, Titulo) {
     let popover = this.popoverCtrl.create(ChatPopoverComponent);
     console.log(idUsuario);
     console.log(idPedido);
@@ -206,7 +206,14 @@ export class HomePage {
         Chat: popoverData,
         Fecha: new Date().toLocaleString()
       };
-      // this.restService.postPedidoChat(body);
+      this.restService.postPedidoChat(body).then(resultado => {
+        let mensaje = {
+          token: token,
+          mensaje: popoverData,
+          usuario: "Te respondieron en " + Titulo
+        };
+        this.restService.enviarNotificacionMensaje(mensaje);
+      });
       console.log(body);
       }
     });
