@@ -43,14 +43,15 @@ export class RegistrarsePage {
       if (this.Contrasena != this.Confirmar) {
           this.noCoinciden();
       }
-      else if (this.Nombre == null || this.ApellidoP == null || this.ApellidoM == null || this.Correo == null || this.Cell == null || this.Fecha_nac == null) {
+      else if (this.Nombre == null || this.ApellidoP == null || this.ApellidoM == null || this.Cell == null || this.Fecha_nac == null) {
           this.camposVacios();
       }
       else {
-          if (this.Genero != 'H') {
-              this.Genero = 'M';
-          }
+        //   if (this.Genero != 'H') {
+        //       this.Genero = 'M';
+        //   }
 
+          
           const options: PushOptions = {
               android: {
                   senderID: "398680118616"
@@ -77,8 +78,8 @@ export class RegistrarsePage {
               Cell: this.Cell,
               Contrasena: Md5.hashStr(this.Contrasena),
               Confirmar: Md5.hashStr(this.Confirmar),
-              Fecha_nac: this.Fecha_nac = new Date().toLocaleDateString('en-GB'),
-              Genero: this.Genero,
+              Fecha_nac: "", //this.Fecha_nac = new Date().toLocaleDateString('en-GB'),
+              Genero: "", // this.Genero,
               Fecha_alta: this.date = new Date().toLocaleDateString('en-GB'),
               ImagenPerfil: "http://www.solucionesgp.com/autopartes/imagenes-app/FotosPerfiles/profile.jpg",
               token: registration.registrationId
