@@ -43,66 +43,82 @@ export class RegistrarsePage {
       if (this.Contrasena != this.Confirmar) {
           this.noCoinciden();
       }
-      else if (this.Nombre == null || this.ApellidoP == null || this.ApellidoM == null || this.Cell == null || this.Fecha_nac == null) {
-          this.camposVacios();
-      }
-      else {
-        //   if (this.Genero != 'H') {
-        //       this.Genero = 'M';
-        //   }
+      else if (
+          this.Nombre == undefined ||
+          this.ApellidoP == undefined ||
+          this.ApellidoM == undefined ||
+          this.Cell == undefined ||
+          this.Correo == undefined ||
+          this.Correo == ""
+           ) {
+             console.log(this.Correo);
 
-          
-          const options: PushOptions = {
-              android: {
-                  senderID: "398680118616"
-              },
-              ios: {
-                  alert: "true",
-                  badge: "true",
-                  sound: "true"
-              }
-          };
+             this.camposVacios();
+           } else {
+             //   if (this.Genero != 'H') {
+             //       this.Genero = 'M';
+             //   }
 
-          const pushObject: PushObject = this.push.init(options);
+             const options: PushOptions = {
+               android: {
+                 senderID: "398680118616"
+               },
+               ios: {
+                 alert: "true",
+                 badge: "true",
+                 sound: "true"
+               }
+             };
 
-          pushObject.on("registration").subscribe((registration: any) => {
-              console.log("Dispositivo Registrado -> ", registration);
-        
-         
+             const pushObject: PushObject = this.push.init(options);
 
-          let body = {
-              Nombre: this.Nombre,
-              ApellidoP: this.ApellidoP,
-              ApellidoM: this.ApellidoM,
-              Correo: this.Correo,
-              Cell: this.Cell,
-              Contrasena: Md5.hashStr(this.Contrasena),
-              Confirmar: Md5.hashStr(this.Confirmar),
-              Fecha_nac: "", //this.Fecha_nac = new Date().toLocaleDateString('en-GB'),
-              Genero: "", // this.Genero,
-              Fecha_alta: this.date = new Date().toLocaleDateString('en-GB'),
-              ImagenPerfil: "http://www.solucionesgp.com/autopartes/imagenes-app/FotosPerfiles/profile.jpg",
-              token: registration.registrationId
-          }
-          this.restService.checkEmail(this.Correo).then(data => {
-              this.Usuario = JSON.stringify(data);
-              if (this.Usuario == "[]") {
-                  console.log(JSON.stringify(body));
-                  this.restService.postRegistro(body)
-                      .then((result) => {
-                          console.log(result);
-                      }, (err) => {
-                          console.log(err);
-                      });
-                  this.userAdded();
-                  this.navCtrl.push(LoginPage);
-              }
-              else {
-                  this.userCheck();
-              }
-          });
-          });
-      }
+             pushObject
+               .on("registration")
+               .subscribe((registration: any) => {
+                 console.log(
+                   "Dispositivo Registrado -> ",
+                   registration
+                 );
+
+                 let body = {
+                   Nombre: this.Nombre,
+                   ApellidoP: this.ApellidoP,
+                   ApellidoM: this.ApellidoM,
+                   Correo: this.Correo,
+                   Cell: this.Cell,
+                   Contrasena: Md5.hashStr(this.Contrasena),
+                   Confirmar: Md5.hashStr(this.Confirmar),
+                   Fecha_nac: "", //this.Fecha_nac = new Date().toLocaleDateString('en-GB'),
+                   Genero: "", // this.Genero,
+                   Fecha_alta: this.date = new Date().toLocaleDateString(
+                     "en-GB"
+                   ),
+                   ImagenPerfil:
+                     "http://www.solucionesgp.com/autopartes/imagenes-app/FotosPerfiles/profile.jpg",
+                   token: registration.registrationId
+                 };
+                 this.restService
+                   .checkEmail(this.Correo)
+                   .then(data => {
+                     this.Usuario = JSON.stringify(data);
+                     if (this.Usuario == "[]") {
+                       console.log(JSON.stringify(body));
+                       this.restService.postRegistro(body).then(
+                         result => {
+                           console.log(result);
+                         },
+                         err => {
+                           console.log(err);
+                         }
+                       );
+                       this.userAdded();
+                       this.navCtrl.push(LoginPage);
+                     } else {
+                       this.userCheck();
+                     }
+                   });
+               });
+           }
   }
 
   noCoinciden() {
