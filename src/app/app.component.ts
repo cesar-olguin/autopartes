@@ -15,6 +15,7 @@ import { Push, PushObject, PushOptions } from "@ionic-native/push";
 import { LocalNotifications } from "@ionic-native/local-notifications";
 import { Storage } from "@ionic/storage";
 import { UserServiceProvider } from "../providers/user-service/user-service";
+import { OfertasPage } from "../pages/ofertas/ofertas";
 
 @Component({
   templateUrl: "app.html"
@@ -86,6 +87,7 @@ export class MyApp {
               },
               { title: "VENTAS", component: VentasPage, icon: "cart" },
               { title: "MIS VENTAS", component: MisVentasPage, icon: "cart" },
+              { title: "OFERTAS", component: OfertasPage, icon: "pricetag" },
               { title: "USUARIO", component: UsuarioPage, icon: "person" }
             ];
 

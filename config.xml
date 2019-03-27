@@ -99,6 +99,10 @@
     <plugin name="cordova-plugin-file-transfer" spec="1.7.1" />
     <plugin name="cordova-plugin-crop" spec="0.4.0" />
     <plugin name="com-badrit-base64" spec="0.2.0" />
+    <plugin name="cordova-plugin-facebook4" spec="4.2.1">
+        <variable name="APP_ID" value="329713881017287" />
+        <variable name="APP_NAME" value="PartesMX" />
+    </plugin>
+    <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="7.1.4" />
-    <engine name="ios" spec="~4.5.5" />
 </widget>

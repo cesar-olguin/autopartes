@@ -239,7 +239,7 @@ export class HacerVentaPage {
             fileTransfer
               .upload(
                 this.foto[i],
-                "http://solucionesgp.com/autopartes/SubirImagenesVENTAS.php",
+                "http://partesmx.com/autopartes/SubirImagenesVENTAS.php",
                 options
               )
               .then(data => {
@@ -256,7 +256,7 @@ export class HacerVentaPage {
               idUsuario: this.Usuario,
               NumeroFoto: i,
               Foto:
-                "http://solucionesgp.com/autopartes/imagenes-app/ImagenesVentas/" +
+                "http://partesmx.com/autopartes/imagenes-app/ImagenesVentas/" +
                 nombre_foto
             };
             this.restService.postFotos(foto);

@@ -130,7 +130,7 @@ export class ModificarVentaPage {
       fileTransfer
         .upload(
           this.foto[i],
-          "http://solucionesgp.com/autopartes/SubirImagenesVENTAS.php",
+          "http://partesmx.com/autopartes/SubirImagenesVENTAS.php",
           options
         )
         .then(data => {

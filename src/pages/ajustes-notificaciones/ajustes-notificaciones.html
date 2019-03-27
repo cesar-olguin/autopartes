@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar color="dark">
-    <ion-title>AJUSTES</ion-title>
+    <ion-title>NOTIFICACIONES MARCAS</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,13 +9,13 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-list-header>
+    <p>
       Marca las marcas de las que deseas que llegen notificaciones.
-    </ion-list-header>
-    <ion-item *ngFor="let mar of marcas">
+    </p>
+    <ion-item *ngFor="let mar of marcas" (click)="seleccionarMarca(mar.idMarca)">
       <ion-label> {{ mar.Marca }}</ion-label>
-      <ion-toggle [(ngModel)]="mar.Checked" (ionChange)="guardarNotificaciones(mar.Checked,mar)">
-      </ion-toggle>
+      <!-- <ion-toggle [(ngModel)]="mar.Checked" (ionChange)="guardarNotificaciones(mar.Checked,mar)">
+      </ion-toggle> -->
     </ion-item>
   </ion-list>
 </ion-content>

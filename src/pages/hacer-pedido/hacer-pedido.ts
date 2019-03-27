@@ -190,7 +190,7 @@ export class HacerPedidoPage {
         fileTransfer
           .upload(
             this.imagenDireccion,
-            "http://solucionesgp.com/autopartes/SubirImagenesPEDIDOS.php",
+            "http://partesmx.com/autopartes/SubirImagenesPEDIDOS.php",
             options
           )
           .then(data => {
@@ -209,7 +209,7 @@ export class HacerPedidoPage {
                 Fecha_alta: new Date().toLocaleString(),
                 Fecha_modificacion: new Date().toLocaleString(),
                 Foto_Principal:
-                  "http://solucionesgp.com/autopartes/imagenes-app/ImagenesPedidos/" +
+                  "http://partesmx.com/autopartes/imagenes-app/ImagenesPedidos/" +
                   nombre_foto,
                 Marca: this.NombreMarca,
                 Modelo: this.NombreModelo
@@ -219,22 +219,43 @@ export class HacerPedidoPage {
               this.restService.postPedido(body).then(
                 result => {
                   console.log(result);
-                  this.restService.getNotificacioneEnviarPedido(this.IdUser, this.NombreMarca).then(resultado =>{
-                    let marcasNotificadas = JSON.parse(JSON.stringify(resultado));
-                    for (let index = 0; index < marcasNotificadas.length; index++) {
-                      this.restService.tokenDiferenteUsuario(this.IdUser).then(data => {
-                        let obj = JSON.parse(JSON.stringify(data));
-                        for (let index = 0; index < obj.length; index++) {
-                          let mensaje = {
-                            token: obj[index].token,
-                            mensaje: this.Titulo,
-                            usuario: "Nuevo Pedido de la marca: " + this.NombreMarca
-                          }
-                          this.restService.enviarNotificacionPedidos(mensaje);
-                        }
-                      }); 
-                    }
-                  });
+                  this.restService
+                    .getNotificacioneEnviarPedido(
+                      this.IdUser,
+                      this.NombreMarca
+                    )
+                    .then(resultado => {
+                      let marcasNotificadas = JSON.parse(
+                        JSON.stringify(resultado)
+                      );
+                      for (
+                        let index = 0;
+                        index < marcasNotificadas.length;
+                        index++
+                      ) {
+                        this.restService
+                          .tokenDiferenteUsuario(this.IdUser)
+                          .then(data => {
+                            let obj = JSON.parse(JSON.stringify(data));
+                            for (
+                              let index = 0;
+                              index < obj.length;
+                              index++
+                            ) {
+                              let mensaje = {
+                                token: obj[index].token,
+                                mensaje: this.Titulo,
+                                usuario:
+                                  "Nuevo Pedido de la marca: " +
+                                  this.NombreMarca
+                              };
+                              this.restService.enviarNotificacionPedidos(
+                                mensaje
+                              );
+                            }
+                          });
+                      }
+                    });
                 },
                 err => {
                   console.log(err);

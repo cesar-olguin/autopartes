@@ -188,7 +188,7 @@ export class ModificarPedidoPage {
     fileTransfer
       .upload(
         this.imagenDireccion,
-        "http://solucionesgp.com/autopartes/SubirImagenesPEDIDOS.php",
+        "http://partesmx.com/autopartes/SubirImagenesPEDIDOS.php",
         options
       )
       .then(data => {
@@ -200,7 +200,7 @@ export class ModificarPedidoPage {
       Descripcion: this.Descripcion,
       Fecha_modificacion: new Date().toLocaleString(),
       Foto_Principal:
-        "http://solucionesgp.com/autopartes/imagenes-app/ImagenesPedidos/" +
+        "http://partesmx.com/autopartes/imagenes-app/ImagenesPedidos/" +
         nombre_foto,
       Marca: this.NombreMarca,
       Modelo: this.NombreModelo

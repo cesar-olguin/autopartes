@@ -94,7 +94,7 @@ export class RegistrarsePage {
                      "en-GB"
                    ),
                    ImagenPerfil:
-                     "http://www.solucionesgp.com/autopartes/imagenes-app/FotosPerfiles/profile.jpg",
+                     "http://www.partesmx.com/autopartes/imagenes-app/FotosPerfiles/profile.jpg",
                    token: registration.registrationId
                  };
                  this.restService

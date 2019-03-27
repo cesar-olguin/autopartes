@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>OFERTAS</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-toolbar color="dark">
+    <ion-searchbar placeholder="Buscar en AutoPartes..." (ionInput)="filtrar()" [(ngModel)]="ArticuloBuscado"></ion-searchbar>
+  </ion-toolbar> -->
+  <img src="../../assets/imgs/slide1.jpg">
+  <div padding>
+    <ion-list>
+      <ion-item>
+        <ion-label color="" autocomplete="on" autocorrect="on" stacked>MARCA</ion-label>
+        <ion-select ngModel="marcas" interface="alert" cancelText="CANCELAR">
+          <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaSeleccionada(mar.idMarca,mar.Marca);"
+            [value]="mar.idMarca">{{
+            mar.Marca }}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label color="" autocomplete="on" autocorrect="on" stacked>MODELO</ion-label>
+        <ion-select ngModel="modelos" interface="alert" cancelText="CANCELAR">
+          <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idMarca">
+            {{mod.Marca }}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button block round color="primary" (click)="buscarModeloMarca()">Buscar</button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button block round color="dark" (click)="mostrarTodos()">Mostrar todos</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let art of articulos" col-6 no-padding>
+          <ion-card (click)="itemTapped(art);">
+            <img [src]="art.Foto" width="50%" height="100px">
+            <ion-card-content>
+              <h1>${{ art.Precio }}</h1>
+              <p>{{ art.Titulo }}</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- <ion-grid>
+  <ion-row>
+    <ion-col [virtualScroll]="articulos" approxItemHeight="200px" col-6-xs no-padding>
+      <ion-card *virtualItem="let art" (click)="itemTapped(art);">
+        <ion-card-header>
+          <img [src]="art.Foto_Principal" />
+        </ion-card-header>
+        <ion-card-content>
+          <h1>${{ art.Precio }}</h1>
+          <p>{{ art.Titulo }}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid> -->
+  </div>
+</ion-content>
