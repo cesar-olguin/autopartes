@@ -16,45 +16,11 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-list *ngFor="let mod of modelos; let i = index" no-lines no-padding>
-      <button ion-item (click)="seleccionarModelo(i)" detail-none [ngClass]="{'section: active': mod.open, 'section': !mod.open}">
-        <ion-icon item-left name="arrow-forward" *ngIf="!mod.open"></ion-icon>
-        <ion-icon item-left name="arrow-down" *ngIf="mod.open"></ion-icon>
-        {{ mod.Marca }}
-      </button>
-   
-        <ion-list *ngIf="mod.open" no-line>
-          <p>
-            Marca las marcas de las que deseas que llegen notificaciones.
-          </p>
-          <ion-item>
-            <ion-label>Mecánica</ion-label>
-            <ion-toggle [(ngModel)]="mod.idMarca[i]" (ionChange)="guardarNotificaciones()"></ion-toggle>
-          </ion-item>
-          <ion-item>
-            <ion-label>Electronica</ion-label>
-            <ion-toggle [(ngModel)]="mod.idMarca[i]" (ionChange)="guardarNotificaciones()"></ion-toggle>
-          </ion-item>
-          <ion-item>
-            <ion-label>Suspensión</ion-label>
-            <ion-toggle [(ngModel)]="mod.idMarca[i]" (ionChange)="guardarNotificaciones()"></ion-toggle>
-          </ion-item>
-          <ion-item>
-            <ion-label>Intediores</ion-label>
-            <ion-toggle [(ngModel)]="mod.idMarca[i]" (ionChange)="guardarNotificaciones()"></ion-toggle>
-          </ion-item>
-        </ion-list>
-
-
-    </ion-list>
+    <ion-list-header>
+      Marca las marcas de las que deseas que llegen notificaciones.
+    </ion-list-header>
+    <ion-item *ngFor="let mod of modelos" (click)="seleccionarModelo(mod.idMarca)">
+      <ion-label> {{ mod.Marca }}</ion-label>
+    </ion-item>
   </ion-list>
-
-    <!-- <ion-list>
-      <p>
-        Marca las marcas de las que deseas que llegen notificaciones.
-      </p>
-      <ion-item *ngFor="let mod of modelos;" (click)="seleccionarModelo(mod.idMarca)">
-        <ion-label> {{ mod.Marca }}</ion-label>
-      </ion-item>
-    </ion-list> -->
 </ion-content>

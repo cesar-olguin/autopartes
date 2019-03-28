@@ -37,7 +37,7 @@
       </ion-row>
     </ion-grid> -->
 
-    <ion-grid>
+    <!-- <ion-grid>
       <ion-row>
         <ion-col *ngFor="let art of articulos" col-6 no-padding>
           <ion-card (click)="itemTapped(art);">
@@ -49,6 +49,19 @@
           </ion-card>
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
   </div>
+
+    <ion-list no-lines [virtualScroll]="articulos">
+      <button ion-item *virtualItem="let art" (click)="itemTapped(art)">
+        <ion-thumbnail item-start>
+          <img [src]="art.Foto" style="border-radius:100%;">
+        </ion-thumbnail>
+        <h1>${{ art.Precio }}</h1>
+        <p>{{ art.Titulo }}</p>
+        <ion-thumbnail *ngIf="art.Oferta == 1" no-line item-end>
+          <img src="../../assets/imgs/oferta-icon2.png" alt="">
+        </ion-thumbnail>
+      </button>
+    </ion-list>
 </ion-content>

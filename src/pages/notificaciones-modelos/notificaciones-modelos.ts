@@ -39,10 +39,10 @@ export class NotificacionesModelosPage {
   }
 
   seleccionarModelo(i) {
-    // this.navCtrl.push(NotificacionesPartesPage, {
-    //   ModeloSeleccionado: idModelo
-    // });
-    this.modelos[i].open = !this.modelos[i].open;
+    this.navCtrl.push(NotificacionesPartesPage, {
+      ModeloSeleccionado: i
+    });
+    //this.modelos[i].open = !this.modelos[i].open;
   }
 
 

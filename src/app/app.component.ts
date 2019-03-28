@@ -63,7 +63,8 @@ export class MyApp {
     this.pages = [
       { title: "INGRESA", component: LoginPage, icon: "log-in" },
       { title: "INICIO", component: HomePage, icon: "home" },
-      { title: "VENTAS", component: VentasPage, icon: "cart" }
+      { title: "VENTAS", component: VentasPage, icon: "cart" },
+      { title: "OFERTAS", component: OfertasPage, icon: "pricetag" }
     ];
 
     this.salir = [{ titulo: "" }];
@@ -80,11 +81,7 @@ export class MyApp {
 
             this.pages = [
               { title: "INICIO", component: HomePage, icon: "home" },
-              {
-                title: "MIS PEDIDOS",
-                component: MisPedidosPage,
-                icon: "search"
-              },
+              { title: "MIS PEDIDOS", component: MisPedidosPage, icon: "search" },
               { title: "VENTAS", component: VentasPage, icon: "cart" },
               { title: "MIS VENTAS", component: MisVentasPage, icon: "cart" },
               { title: "OFERTAS", component: OfertasPage, icon: "pricetag" },
@@ -92,11 +89,7 @@ export class MyApp {
             ];
 
             this.usuario = [
-              {
-                component: UsuarioPage,
-                img: this.fotoUsuario,
-                usuario: "Hola " + this.nombreUsuario,
-                correo: this.correoUsuario
+              { component: UsuarioPage, img: this.fotoUsuario, usuario: "Hola " + this.nombreUsuario, correo: this.correoUsuario
               }
             ];
 
@@ -111,7 +104,8 @@ export class MyApp {
       this.pages = [
         { title: "INGRESA", component: LoginPage, icon: "log-in" },
         { title: "INICIO", component: HomePage, icon: "home" },
-        { title: "ARTICULOS", component: VentasPage, icon: "cart" }
+        { title: "VENTAS", component: VentasPage, icon: "cart" },
+        { title: "OFERTAS", component: OfertasPage, icon: "pricetag" }
       ];
 
       this.usuario = [

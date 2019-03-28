@@ -65,7 +65,7 @@ export class OfertasPage {
   cargarArticulos() {
     if (this.usuarioLogeado != null) {
       this.restService
-        .getArticulosDiferentes(this.usuarioLogeado)
+        .getArticulosOfertas(this.usuarioLogeado)
         .then(data => {
           this.articulos = data;
           console.log(this.articulos);

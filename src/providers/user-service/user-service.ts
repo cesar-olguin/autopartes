@@ -66,6 +66,20 @@ export class UserServiceProvider {
     });
   }
 
+
+  getArticulosOfertas(id) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + "/articulo/oferta/" + id).subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    });
+  }
+
   getArticuloByUser(id) {
     return new Promise(resolve => {
       this.http.get(this.baseUrl + "/articulo/usuario/" + id).subscribe(
@@ -550,7 +564,9 @@ export class UserServiceProvider {
   getNotificacionesUsuario(idUsuario, idMarca) {
     return new Promise(resolve => {
       this.http
-        .get(this.baseUrl + "/notificaciones/marcas/" + idUsuario + "/" + idMarca)
+        .get(
+          this.baseUrl + "/notificaciones/marcas/" + idUsuario + "/" + idMarca
+        )
         .subscribe(
           data => {
             resolve(data);
@@ -583,20 +599,18 @@ export class UserServiceProvider {
 
   getNotificacionesdelUsuario(id) {
     return new Promise(resolve => {
-      this.http
-        .get(this.baseUrl + "/notificaciones/" + id + "/")
-        .subscribe(
-          data => {
-            resolve(data);
-          },
-          err => {
-            console.log(err);
-          }
-        );
+      this.http.get(this.baseUrl + "/notificaciones/" + id + "/").subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        }
+      );
     });
   }
 
-  getNotificacioneEnviarPedido(id,marca) {
+  getNotificacioneEnviarPedido(id, marca) {
     return new Promise(resolve => {
       this.http
         .get(this.baseUrl + "/notificaciones/pedido/" + id + "/" + marca)
@@ -611,7 +625,7 @@ export class UserServiceProvider {
     });
   }
 
-  putImagenPerfil(id, data){
+  putImagenPerfil(id, data) {
     return new Promise((resolve, reject) => {
       this.http
         .put(this.baseUrl + "/usuario/imagen/" + id, data, {
@@ -630,8 +644,7 @@ export class UserServiceProvider {
     });
   }
 
-
-  putTokenDevice(id, data){
+  putTokenDevice(id, data) {
     return new Promise((resolve, reject) => {
       this.http
         .put(this.baseUrl + "/usuario/token/" + id, data, {
@@ -688,49 +701,42 @@ export class UserServiceProvider {
     });
   }
 
-  tokenUsuario(id){
+  tokenUsuario(id) {
     return new Promise(resolve => {
-      this.http
-        .get(this.baseUrl + "/token/" + id)
-        .subscribe(
-          data => {
-            resolve(data);
-          },
-          err => {
-            console.log(err);
-          }
-        );
+      this.http.get(this.baseUrl + "/token/" + id).subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        }
+      );
     });
   }
 
   imagenUsuario(id) {
     return new Promise(resolve => {
-      this.http
-        .get(this.baseUrl + "/imagen/" + id)
-        .subscribe(
-          data => {
-            resolve(data);
-          },
-          err => {
-            console.log(err);
-          }
-        );
+      this.http.get(this.baseUrl + "/imagen/" + id).subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        }
+      );
     });
   }
 
   tokenDiferenteUsuario(id) {
     return new Promise(resolve => {
-      this.http
-        .get(this.baseUrl + "/token/diferente/" + id)
-        .subscribe(
-          data => {
-            resolve(data);
-          },
-          err => {
-            console.log(err);
-          }
-        );
+      this.http.get(this.baseUrl + "/token/diferente/" + id).subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        }
+      );
     });
   }
-
 }

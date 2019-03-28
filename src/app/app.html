@@ -1,7 +1,7 @@
 <ion-menu [content]="content">
   <ion-header>
     <ion-toolbar>
-      <ion-item detail-none block menuClose *ngFor="let u of usuario" (click)="usuarioNombre(u)">
+      <ion-item no-lines detail-none block menuClose *ngFor="let u of usuario" (click)="usuarioNombre(u)">
         <ion-avatar item-start>
           <img [src]="u.img" imageViewer>
         </ion-avatar>
@@ -13,7 +13,7 @@
 
   <ion-content>
     <ion-list>
-      <button ion-item detail-none block menuClose *ngFor="let p of pages" (click)="openPage(p)">
+      <button no-lines ion-item detail-none block menuClose *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon item-start [name]="p.icon"></ion-icon>
         {{p.title}}
       </button>
@@ -22,7 +22,7 @@
 
   <ion-footer>
     <ion-toolbar>
-      <button ion-item detail-none block menuClose *ngFor="let s of salir" (click)="close()">
+      <button no-lines ion-item detail-none block menuClose *ngFor="let s of salir" (click)="close()">
         {{s.titulo}}
       </button>
     </ion-toolbar>

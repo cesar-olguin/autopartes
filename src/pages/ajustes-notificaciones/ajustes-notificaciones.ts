@@ -18,6 +18,7 @@ import { NotificacionesModelosPage } from "../notificaciones-modelos/notificacio
 export class AjustesNotificacionesPage {
   marcas: any;
   arrayNotificacionesMarcas: any;
+  modelos: any;
 
   constructor(
     public navCtrl: NavController,
@@ -30,12 +31,19 @@ export class AjustesNotificacionesPage {
     this.cargarMarcasAutos();
   }
 
-  ionViewDidLoad() { }
+  ionViewDidLoad() {}
 
   cargarMarcasAutos() {
     this.storage.get("idUser").then(idUsuario => {
       this.restService.getMarcas().subscribe(data => {
         this.marcas = data["records"];
+        let obj = JSON.parse(JSON.stringify(this.marcas));
+        for (let index = 0; index < obj.length; index++) {
+          //console.log(obj[index].idMarca);
+          this.restService.getModelo(obj[index].idMarca).then(model => {
+            this.modelos = model;
+          });
+        }
       });
       // this.restService.getNotificacionesdelUsuario(idUsuario).then(datos => {
       //   this.marcas = datos;
@@ -63,10 +71,18 @@ export class AjustesNotificacionesPage {
     });
   }
 
-  seleccionarMarca(idModelo) {
-    this.navCtrl.push(NotificacionesModelosPage, {
-      MarcaSeleccionada: idModelo
-    });
+  seleccionarMarca(i,idMarca) {
+    // this.navCtrl.push(NotificacionesModelosPage, {
+    //   MarcaSeleccionada: idModelo
+    // });
+    // this.restService.getModelo(idMarca).then(data => {
+    //   this.modelos = data;
+    // });
+    this.marcas[i].open = !this.marcas[i].open;
+  }
+
+  seleccionarModelo(i) {
+    this.modelos[i].open = !this.modelos[i].open;
   }
 
   guardarNotificaciones(valorToggle, marcaSeleccionada) {
