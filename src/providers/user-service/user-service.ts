@@ -561,12 +561,11 @@ export class UserServiceProvider {
     });
   }
 
-  getNotificacionesUsuario(idUsuario, idMarca) {
+  getNotificacionesUsuario(idUsuario, idMarca, idModelo, oferta) {
     return new Promise(resolve => {
       this.http
         .get(
-          this.baseUrl + "/notificaciones/marcas/" + idUsuario + "/" + idMarca
-        )
+          this.baseUrl + "/notificaciones/" + idUsuario + "/" + idMarca + "/" + idModelo + "/" + oferta)
         .subscribe(
           data => {
             resolve(data);
@@ -600,6 +599,21 @@ export class UserServiceProvider {
   getNotificacionesdelUsuario(id) {
     return new Promise(resolve => {
       this.http.get(this.baseUrl + "/notificaciones/" + id + "/").subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    });
+  }
+
+
+
+  getNotificacionesMarcaModelo(usuario,marca,modelo) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + "/notificaciones/modelo/" + usuario + "/" + marca + "/" + modelo + "/").subscribe(
         data => {
           resolve(data);
         },

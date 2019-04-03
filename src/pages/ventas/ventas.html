@@ -33,7 +33,7 @@
       <ion-item>
         <ion-label color="" autocomplete="on" autocorrect="on" stacked>MODELO</ion-label>
         <ion-select ngModel="modelos" interface="alert" cancelText="CANCELAR">
-          <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idMarca">
+          <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idModelo">
             {{mod.Marca }}
           </ion-option>
         </ion-select>
@@ -58,6 +58,7 @@
       </ion-thumbnail>
       <h1>${{ art.Precio }}</h1>
       <p>{{ art.Titulo }}</p>
+      {{ art.Oferta }}
       <ion-thumbnail *ngIf="art.Oferta == 1" no-line item-end>
         <img src="../../assets/imgs/oferta-icon2.png" alt="">
       </ion-thumbnail>

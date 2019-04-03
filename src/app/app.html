@@ -1,12 +1,13 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar>
-      <ion-item no-lines detail-none block menuClose *ngFor="let u of usuario" (click)="usuarioNombre(u)">
+    <ion-toolbar color="primary">
+      <ion-item color="primary" no-lines detail-none block menuClose *ngFor="let u of usuario"
+        (click)="usuarioNombre(u)" style="padding: 0px">
         <ion-avatar item-start>
-          <img [src]="u.img" imageViewer>
+          <img [src]="u.img" style="height: 65px; width: 65px;">
         </ion-avatar>
-        <h3>{{u.usuario}}</h3>
-        <p>{{u.correo}}</p>
+        <h2>{{u.usuario}}</h2>
+        <h3>{{u.correo}}</h3>
       </ion-item>
     </ion-toolbar>
   </ion-header>
@@ -20,9 +21,10 @@
     </ion-list>
   </ion-content>
 
-  <ion-footer>
-    <ion-toolbar>
-      <button no-lines ion-item detail-none block menuClose *ngFor="let s of salir" (click)="close()">
+  <ion-footer *ngFor="let s of salir">
+    <ion-toolbar [color]="s.color">
+      <button [color]="s.color" text-center no-lines ion-item detail-none block menuClose (click)="close(s)">
+         <ion-icon icon-start [name]="s.icon"></ion-icon>
         {{s.titulo}}
       </button>
     </ion-toolbar>

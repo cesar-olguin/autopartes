@@ -2,18 +2,32 @@ page-ajustes-notificaciones {
     
     .acordion {
         height: 100%;
-        background: #fff;
+        //background: #ddd;
     }
     
     .seccion {
-      height: 100%;
-      background: #e8e7e6;
-      color: #000;
+        height: 100%;
+        background: #e8e7e6;
+        color: #000;
+    }
+
+    .even {
+        background: #e8e7e6;
+        margin: 0px;
+        padding: 5px;
+    }
+
+    .odd{
+        background: #fff;
+        margin: 0px;
+        padding: 5px;
     }
 
     .padre-activo {
         background: color($colors, cavaliers-secondary);
         color: #fff;
+        margin: 0px;
+        padding: 5px;
     }
 
     .hijo-activo {
@@ -35,13 +49,15 @@ page-ajustes-notificaciones {
     .notificaciones {
         height: 100%;
         background: #e8e7e6;
-        margin-left: 50 px;
+        margin-left: 50px;
         color: #000;
         margin-top: 1px;
     }
 
     .ofertas {
         margin-left: 25px;
+        margin: 0px;
+        padding: 5px;
     }
 
     .label{

@@ -247,7 +247,7 @@ export class HacerPedidoPage {
                                 mensaje: this.Titulo,
                                 usuario:
                                   "Nuevo Pedido de la marca: " +
-                                  this.NombreMarca
+                                  this.NombreMarca + " modelo " + this.NombreModelo
                               };
                               this.restService.enviarNotificacionPedidos(
                                 mensaje

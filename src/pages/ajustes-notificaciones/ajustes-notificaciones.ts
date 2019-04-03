@@ -52,22 +52,6 @@ export class AjustesNotificacionesPage {
       this.restService.getMarcas().subscribe(data => {
         this.marcas = data["records"];
       });
-      this.restService.getNotificacionesdelUsuario(idUsuario).then(resultado => {
-        console.log(resultado);
-        this.notificacionesUsuario = resultado;
-
-        // let obj = JSON.parse(JSON.stringify(resultado));
-        // for (let index = 0; index < obj.length; index++) {
-        //   this.notificacionesUsuario = obj[index];
-
-        //   if (this.notificacionesUsuario.Checked == "1") {
-        //     this.Check = true;
-        //   } else {
-        //     this.Check = false;
-        //   }
-        //   console.log(this.Check);
-        // }
-      });
         // let obj = JSON.parse(JSON.stringify(this.marcas));
         // for (let index = 0; index < obj.length; index++) {
         //   this.restService.getModelo(obj[index].idMarca).then(model => {
@@ -77,19 +61,33 @@ export class AjustesNotificacionesPage {
    
       // this.restService.getNotificacionesdelUsuario(idUsuario).then(datos => {
       //   this.marcas = datos;
-      //   if(JSON.stringify(datos)=="[]"){
+      //   if (JSON.stringify(datos) == "[]") {
       //     this.restService.getMarcas().subscribe(
       //       data => {
       //         this.marcas = data["records"];
       //         let obj = JSON.parse(JSON.stringify(this.marcas));
       //         for (let index = 0; index < obj.length; index++) {
-      //           let body = {
-      //             idUsuario: idUsuario,
-      //             idMarca: obj[index].idMarca,
-      //             Marca: obj[index].Marca,
-      //             Checked: "false"
-      //           };
-      //           this.restService.postNotificacionesMarcas(body);
+      //           this.restService.getModelo(obj[index].idMarca).then(modelos => {
+      //             // console.log(modelos);
+
+      //             let objModelos = JSON.parse(JSON.stringify(modelos));
+      //             for (let index2 = 0; index2 < objModelos.length; index2++) {
+      //               for (let index3 = 0; index3 < this.partes.length; index3++) {
+      //                 // console.log(this.partes[index3].Parte);
+      //                 let body = {
+      //                   idUsuario: idUsuario,
+      //                   idMarca: obj[index].idMarca,
+      //                   Marca: obj[index].Marca,
+      //                   idModelo: objModelos[index2].idModelo,
+      //                   Modelo: objModelos[index2].Marca,
+      //                   Oferta: this.partes[index3].Parte,
+      //                   Checked: "false"
+      //                 };
+      //                 this.restService.postNotificacionesMarcas(body);
+      //               }
+      //             }
+
+      //           });
       //         }
       //       },
       //       error => {
@@ -97,11 +95,14 @@ export class AjustesNotificacionesPage {
       //       }
       //     );
       //   }
+      //   else {
+
+      //   }
       // });
     });
   }
 
-  seleccionarMarca(i,idMarca) {
+  seleccionarMarca(i, idMarca) {
     // this.navCtrl.push(NotificacionesModelosPage, {
     //   MarcaSeleccionada: idModelo
     // });
@@ -109,11 +110,23 @@ export class AjustesNotificacionesPage {
       this.marcas[i].open = !this.marcas[i].open;
       this.modelos = data;
     });
+
   }
 
-  seleccionarModelo(i) {
-    this.modelos[i].open = !this.modelos[i].open;
-  }
+  seleccionarModelo(i, idMarca, idModelo) {
+    this.modelos[i].open = this.modelos[i].open;
+    this.storage.get("idUser").then(idUsuario => {
+      this.restService.getNotificacionesMarcaModelo(idUsuario, idMarca, idModelo).then(resultado => {
+        if (JSON.stringify(resultado) == '[]'){
+          this.notificacionesUsuario = null;
+        }
+        else{
+          this.notificacionesUsuario = resultado;
+        }
+        this.modelos[i].open = !this.modelos[i].open;
+      });
+    });
+  }  
 
   guardarNotificaciones(valorToggle, Oferta, idModelo, idMarca, Modelo, Marca, Check) {
     console.log(valorToggle.checked);

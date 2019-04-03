@@ -27,6 +27,10 @@
       <ion-label color="primary" stacked>Precio</ion-label>
       <ion-input type="number" [(ngModel)]="Precio" placeholder="{{artId.Precio}}"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label>Convertir en Oferta?</ion-label>
+      <ion-checkbox color="dark" [(ngModel)]="Oferta"></ion-checkbox>
+    </ion-item>
     <!-- <ion-item>
       <ion-label id="profile_image" color="primary" stacked>Añadir Fotos</ion-label>
       <ion-input type="file" accept="image/*" multiple></ion-input>

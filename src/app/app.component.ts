@@ -35,7 +35,7 @@ export class MyApp {
   nombreUsuario: string;
   correoUsuario: string;
   fotoUsuario: string;
-  salir: Array<{ titulo: string }>;
+  salir: Array<{ titulo: string; color: string; component: any; icon: string }>;
 
   constructor(
     public platform: Platform,
@@ -55,7 +55,7 @@ export class MyApp {
       {
         component: LoginPage,
         img: "../assets/imgs/profile.jpg",
-        usuario: "¡Iniciar Sesión!",
+        usuario: "¡INICIAR SESIÓN!",
         correo: ""
       }
     ];
@@ -67,7 +67,9 @@ export class MyApp {
       { title: "OFERTAS", component: OfertasPage, icon: "pricetag" }
     ];
 
-    this.salir = [{ titulo: "" }];
+    this.salir = [
+      { titulo: "¡INICIAR SESIÓN!", color: "primary-blue", component: HomePage, icon: "person" }
+    ];
 
     events.subscribe("user:loggedin", () => {
       this.storage.get("user").then(idval => {
@@ -81,7 +83,11 @@ export class MyApp {
 
             this.pages = [
               { title: "INICIO", component: HomePage, icon: "home" },
-              { title: "MIS PEDIDOS", component: MisPedidosPage, icon: "search" },
+              {
+                title: "MIS PEDIDOS",
+                component: MisPedidosPage,
+                icon: "search"
+              },
               { title: "VENTAS", component: VentasPage, icon: "cart" },
               { title: "MIS VENTAS", component: MisVentasPage, icon: "cart" },
               { title: "OFERTAS", component: OfertasPage, icon: "pricetag" },
@@ -89,11 +95,22 @@ export class MyApp {
             ];
 
             this.usuario = [
-              { component: UsuarioPage, img: this.fotoUsuario, usuario: "Hola " + this.nombreUsuario, correo: this.correoUsuario
+              {
+                component: UsuarioPage,
+                img: this.fotoUsuario,
+                usuario: "Hola " + this.nombreUsuario,
+                correo: this.correoUsuario
               }
             ];
 
-            this.salir = [{ titulo: "Cerrar Sesion" }];
+            this.salir = [
+              {
+                titulo: "CERRAR SESIÓN",
+                color: "cavaliers-secondary",
+                component: HomePage,
+                icon: "log-out"
+              }
+            ];
           });
         });
       });
@@ -112,14 +129,13 @@ export class MyApp {
         {
           component: LoginPage,
           img: "../assets/imgs/profile.jpg",
-          usuario: "¡Iniciar Sesión!",
+          usuario: "¡INICIAR SESIÓN!",
           correo: ""
         }
       ];
 
-      this.salir = [{ titulo: "" }];
+      this.salir = [{ titulo: "¡INICIAR SESIÓN!", color: "primary-blue", component: LoginPage, icon: "person" }];
     });
-
   }
 
   initializeApp() {
@@ -140,7 +156,7 @@ export class MyApp {
     window.localStorage.clear();
     this.storage.clear();
     this.events.publish("user:loggedout");
-    this.appCtrl.getRootNav().setRoot(HomePage);
+    this.appCtrl.getRootNav().setRoot(LoginPage);
   }
 
   openPage(page) {
@@ -180,11 +196,11 @@ export class MyApp {
     });
 
     pushObject.on("registration").subscribe((registration: any) => {
-      console.log("Dispositivo Registrado -> ", registration);      
+      console.log("Dispositivo Registrado -> ", registration);
       this.storage.get("idUser").then(idval => {
         let body = {
           token: registration.registrationId
-        }
+        };
         this.restService.putTokenDevice(idval, body).then(resultado => {
           console.log(resultado);
         });

@@ -18,7 +18,7 @@
 
 <ion-content>
   <div>
-    <ion-slides pager style="background-color: black">
+    <ion-slides pager style="background-color: whitesmoke">
       <ion-slide *ngFor="let f of fotosArt">
         <img src="{{f.Foto}}" imageViewer height="200px"/>
       </ion-slide>
@@ -27,41 +27,33 @@
       <h1>{{ artId.Titulo }}</h1>
       <h3>$ {{ artId.Precio }}</h3>
 
-      <!--button ion-button clear item-end>View</button-->
-      <!-- 
-      <button ion-button block>Comprar</button>
-      <button ion-button block outline>agregar al carrito </button>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            Icono 1
-          </ion-col>
-          <ion-col>
-            Icono 2
-          </ion-col>
-        </ion-row>
-      </ion-grid> -->
+
       <h5>DESCRIPCION</h5>
       <p>{{ artId.Descripcion }}</p>
+     
+      <h4>Características</h4><br>
+     <ion-grid>
+       <ion-row>
+         <ion-col style="font-size: 18px;">
+           Marca:
+         </ion-col>
+         <ion-col style="font-size: 18px;">
+           Modelo:
+         </ion-col>
+       </ion-row>
+       <ion-row>
+         <ion-col style="font-size: 18px;">
+           {{artId.Marca}}
+         </ion-col>
+         <ion-col style="font-size: 18px;">
+           {{artId.Modelo}}
+         </ion-col>
+       </ion-row>
+     </ion-grid>
+     <hr>
 
+        <button ion-button round color="dark" (click)="hacerPregunta(articuloId)">Preguntas</button>
 
-      <button ion-button round color="dark" (click)="hacerPregunta(articuloId)">Preguntas</button>
-
-      <!-- <h5>Preguntas</h5>
-    <ion-list> 
-      <ion-item *ngFor="let coment of comentarios">
-        <h2>{{coment.Titulo}}</h2>
-        <p>{{coment.Comentario}}</p>
-      </ion-item>
-    </ion-list> -->
-
-      <!-- <h5>Comentarios</h5>
-    <ion-list no-lines [virtualScroll]="comentarios" approxItemHeight="40px">
-      <ion-item *virtualItem="let coment">
-        <h2>{{coment.Titulo}}</h2>
-        <p>{{coment.Comentario}}</p>
-      </ion-item>
-    </ion-list> -->
     </div>
   </div>
 </ion-content>

@@ -46,6 +46,7 @@ export class ModificarVentaPage {
   NombreModelo: any;
   datosModificar: any;
   idUsuario: any;
+  Oferta: any;
 
   constructor(
     public navCtrl: NavController,
@@ -82,6 +83,12 @@ export class ModificarVentaPage {
       this.Descripcion = this.datosModificar.Descripcion;
       this.NombreMarca = this.datosModificar.Marca;
       this.NombreModelo = this.datosModificar.Modelo;
+      if (this.datosModificar.Oferta == "1") {
+        this.Oferta = true;
+      } else {
+        this.Oferta = false;
+      }
+      //this.Oferta = this.datosModificar.Oferta;
     });
   }
 
@@ -105,8 +112,11 @@ export class ModificarVentaPage {
       Ubicacion: "Manzanillo,Colima,Mexico",
       Fecha_modificacion: this.date = new Date().toLocaleString(),
       Marca: this.NombreMarca,
-      Modelo: this.NombreModelo
+      Modelo: this.NombreModelo,
+      Oferta: this.Oferta
     };
+
+    console.log(body);
 
     const fileTransfer: FileTransferObject = this.transfer.create();
     for (var i = 0; i < this.foto.length; i++) {
@@ -137,22 +147,25 @@ export class ModificarVentaPage {
           console.log(data);
         });
     }
-    // this.restService.putArticulo(this.idSelected, body).then(data => {
-    //   this.articuloId = data;
+    this.restService.putArticulo(this.idSelected, body).then(data => {
+      this.articuloId = data;
 
-    //   let obj = JSON.parse(JSON.stringify(this.fotosArt));
-    //   this.arrayFotos = obj[i];
+      let obj = JSON.parse(JSON.stringify(this.fotosArt));
+      this.arrayFotos = obj[i];
 
-    //   for (var i = 0; i < this.photos.length; i++) {
-    //     this.foto.slice(0, 5);
-    // let foto = {
-    //   idArticulo: this.idArticulo,
-    //   idUsuario: this.arrayFotos.idUsuario,
-    //   NumeroFoto: i,
-    //   Foto: this.foto[i]
-    // }
-    //   }
-    // });
+      for (var i = 0; i < this.photos.length; i++) {
+        this.foto.slice(0, 5);
+        let foto = {
+          idArticulo: this.idArticulo,
+          idUsuario: this.idUsuario,
+          NumeroFoto: i,
+          Foto:
+            "http://partesmx.com/autopartes/imagenes-app/ImagenesVentas/" +
+            nombre_foto
+        };
+        this.restService.postFotos(foto);
+      }
+    });
 
     this.events.publish("reload");
     this.navCtrl.pop();
