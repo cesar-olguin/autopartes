@@ -25,14 +25,15 @@
       <ion-item>
         <ion-label color="" autocomplete="on" autocorrect="on" stacked>MARCA</ion-label>
         <ion-select ngModel="marcas" interface="alert" cancelText="CANCELAR">
-          <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaSeleccionada(mar.idMarca,mar.Marca);" [value]="mar.idMarca">{{
+          <ion-option *ngFor="let mar of marcas" (ionSelect)="marcaSeleccionada(mar.idMarca,mar.Marca);"
+            [value]="mar.idMarca">{{
             mar.Marca }}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label color="" autocomplete="on" autocorrect="on" stacked>MODELO</ion-label>
         <ion-select ngModel="modelos" interface="alert" cancelText="CANCELAR">
-          <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idMarca">
+          <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idModelo">
             {{mod.Marca }}
           </ion-option>
         </ion-select>
@@ -48,35 +49,21 @@
         </ion-row>
       </ion-grid>
     </ion-list>
-
-    <ion-grid>
-      <ion-row>
-        <ion-col *ngFor="let art of articulos" col-6 no-padding>
-          <ion-card (click)="itemTapped(art);">
-            <img [src]="art.Foto" width="50%" height="100px">
-            <ion-card-content>
-              <h1>${{ art.Precio }}</h1>
-              <p>{{ art.Titulo }}</p>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-    <!-- <ion-grid>
-  <ion-row>
-    <ion-col [virtualScroll]="articulos" approxItemHeight="200px" col-6-xs no-padding>
-      <ion-card *virtualItem="let art" (click)="itemTapped(art);">
-        <ion-card-header>
-          <img [src]="art.Foto_Principal" />
-        </ion-card-header>
-        <ion-card-content>
-          <h1>${{ art.Precio }}</h1>
-          <p>{{ art.Titulo }}</p>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-</ion-grid> -->
   </div>
+  
+  <ion-list no-lines [virtualScroll]="articulos">
+    <button ion-item *virtualItem="let art" (click)="itemTapped(art)">
+      <ion-thumbnail item-start>
+        <img [src]="art.Foto" style="border-radius:100%;">
+      </ion-thumbnail>
+      <h1>${{ art.Precio }}</h1>
+      <p>{{ art.Titulo }}</p>
+      {{ art.Oferta }}
+      <ion-thumbnail *ngIf="art.Oferta == 1" no-line item-end>
+        <img src="../../assets/imgs/oferta-icon2.png" alt="">
+      </ion-thumbnail>
+    </button>
+  </ion-list>
+
+
 </ion-content>

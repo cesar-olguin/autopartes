@@ -28,7 +28,7 @@
     <ion-item>
       <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Modelo del Auto</ion-label>
       <ion-select ngModel="modelos" interface="alert" cancelText="CANCELAR">
-        <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idMarca">
+        <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idModelo">
           {{mod.Marca }}
         </ion-option>
       </ion-select>

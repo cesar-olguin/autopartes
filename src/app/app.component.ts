@@ -15,6 +15,7 @@ import { Push, PushObject, PushOptions } from "@ionic-native/push";
 import { LocalNotifications } from "@ionic-native/local-notifications";
 import { Storage } from "@ionic/storage";
 import { UserServiceProvider } from "../providers/user-service/user-service";
+import { OfertasPage } from "../pages/ofertas/ofertas";
 
 @Component({
   templateUrl: "app.html"
@@ -34,7 +35,7 @@ export class MyApp {
   nombreUsuario: string;
   correoUsuario: string;
   fotoUsuario: string;
-  salir: Array<{ titulo: string }>;
+  salir: Array<{ titulo: string; color: string; component: any; icon: string }>;
 
   constructor(
     public platform: Platform,
@@ -54,7 +55,7 @@ export class MyApp {
       {
         component: LoginPage,
         img: "../assets/imgs/profile.jpg",
-        usuario: "¡Iniciar Sesión!",
+        usuario: "¡INICIAR SESIÓN!",
         correo: ""
       }
     ];
@@ -62,10 +63,13 @@ export class MyApp {
     this.pages = [
       { title: "INGRESA", component: LoginPage, icon: "log-in" },
       { title: "INICIO", component: HomePage, icon: "home" },
-      { title: "VENTAS", component: VentasPage, icon: "cart" }
+      { title: "VENTAS", component: VentasPage, icon: "cart" },
+      { title: "OFERTAS", component: OfertasPage, icon: "pricetag" }
     ];
 
-    this.salir = [{ titulo: "" }];
+    this.salir = [
+      { titulo: "¡INICIAR SESIÓN!", color: "primary-blue", component: HomePage, icon: "person" }
+    ];
 
     events.subscribe("user:loggedin", () => {
       this.storage.get("user").then(idval => {
@@ -86,6 +90,7 @@ export class MyApp {
               },
               { title: "VENTAS", component: VentasPage, icon: "cart" },
               { title: "MIS VENTAS", component: MisVentasPage, icon: "cart" },
+              { title: "OFERTAS", component: OfertasPage, icon: "pricetag" },
               { title: "USUARIO", component: UsuarioPage, icon: "person" }
             ];
 
@@ -98,7 +103,14 @@ export class MyApp {
               }
             ];
 
-            this.salir = [{ titulo: "Cerrar Sesion" }];
+            this.salir = [
+              {
+                titulo: "CERRAR SESIÓN",
+                color: "cavaliers-secondary",
+                component: HomePage,
+                icon: "log-out"
+              }
+            ];
           });
         });
       });
@@ -109,21 +121,21 @@ export class MyApp {
       this.pages = [
         { title: "INGRESA", component: LoginPage, icon: "log-in" },
         { title: "INICIO", component: HomePage, icon: "home" },
-        { title: "ARTICULOS", component: VentasPage, icon: "cart" }
+        { title: "VENTAS", component: VentasPage, icon: "cart" },
+        { title: "OFERTAS", component: OfertasPage, icon: "pricetag" }
       ];
 
       this.usuario = [
         {
           component: LoginPage,
           img: "../assets/imgs/profile.jpg",
-          usuario: "¡Iniciar Sesión!",
+          usuario: "¡INICIAR SESIÓN!",
           correo: ""
         }
       ];
 
-      this.salir = [{ titulo: "" }];
+      this.salir = [{ titulo: "¡INICIAR SESIÓN!", color: "cavaliers-primary", component: HomePage, icon: "person" }];
     });
-
   }
 
   initializeApp() {
@@ -144,7 +156,7 @@ export class MyApp {
     window.localStorage.clear();
     this.storage.clear();
     this.events.publish("user:loggedout");
-    this.appCtrl.getRootNav().setRoot(HomePage);
+    this.appCtrl.getRootNav().setRoot(LoginPage);
   }
 
   openPage(page) {
@@ -184,11 +196,11 @@ export class MyApp {
     });
 
     pushObject.on("registration").subscribe((registration: any) => {
-      console.log("Dispositivo Registrado -> ", registration);      
+      console.log("Dispositivo Registrado -> ", registration);
       this.storage.get("idUser").then(idval => {
         let body = {
           token: registration.registrationId
-        }
+        };
         this.restService.putTokenDevice(idval, body).then(resultado => {
           console.log(resultado);
         });

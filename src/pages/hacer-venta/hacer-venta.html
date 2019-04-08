@@ -31,11 +31,15 @@
     <ion-item>
       <ion-label color="primary" autocomplete="on" autocorrect="on" stacked>Modelo del Auto</ion-label>
       <ion-select ngModel="modelos" interface="alert" cancelText="CANCELAR">
-        <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idMarca">
+        <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.Marca);" [value]="mod.idModelo">
           {{mod.Marca }}
         </ion-option>
       </ion-select>
     </ion-item>
+      <ion-item>
+        <ion-label>Convertir en Oferta?</ion-label>
+        <ion-checkbox color="dark" checked="false" [(ngModel)]="Oferta"></ion-checkbox>
+      </ion-item><br>
     <ion-item-divider color="primary">
       Adjuntar Foto
     </ion-item-divider>

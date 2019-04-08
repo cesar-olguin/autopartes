@@ -48,6 +48,7 @@ export class HacerVentaPage {
   NombreMarca: string = "";
   NombreModelo: string = "";
   idArticuloAgregado;
+  Oferta: any;
 
   arrayImagenes;
   arrayFotos: any[];
@@ -191,6 +192,10 @@ export class HacerVentaPage {
         alert.present();
       } else {
     this.storage.get("idUser").then(val => {
+      if (this.Oferta != 1){
+        this.Oferta = 0
+      }
+      
       const fileTransfer: FileTransferObject = this.transfer.create();
 
       this.Usuario = val;
@@ -209,7 +214,8 @@ export class HacerVentaPage {
         Fecha_modificacion: new Date().toLocaleString(),
         Foto_Principal: "",
         Marca: this.NombreMarca,
-        Modelo: this.NombreModelo
+        Modelo: this.NombreModelo,
+        Oferta: this.Oferta
       };
 
       console.log(body);
@@ -239,7 +245,7 @@ export class HacerVentaPage {
             fileTransfer
               .upload(
                 this.foto[i],
-                "http://solucionesgp.com/autopartes/SubirImagenesVENTAS.php",
+                "http://partesmx.com/autopartes/SubirImagenesVENTAS.php",
                 options
               )
               .then(data => {
@@ -256,7 +262,7 @@ export class HacerVentaPage {
               idUsuario: this.Usuario,
               NumeroFoto: i,
               Foto:
-                "http://solucionesgp.com/autopartes/imagenes-app/ImagenesVentas/" +
+                "http://partesmx.com/autopartes/imagenes-app/ImagenesVentas/" +
                 nombre_foto
             };
             this.restService.postFotos(foto);

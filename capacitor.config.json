@@ -1,0 +1,6 @@
+{
+  "appId": "com.lionstudio.autopartes",
+  "appName": "partesmx",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}

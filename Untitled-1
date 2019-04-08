@@ -1,0 +1,8 @@
+ionic cordova plugin remove phonegap-plugin-push
+
+
+398680118616
++
+
+
+ionic plugin add phonegap-plugin-push --variable SENDER_ID="398680118616"

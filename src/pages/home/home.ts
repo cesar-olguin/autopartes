@@ -54,6 +54,7 @@ export class HomePage {
       //Hay una sesión iniciada
       //Dirige a la pantalla principal ya logueada.
       this.events.publish("user:loggedin");
+  
     } else {
       //Manda la pantalla de inicio de sesión o autentificación
       this.events.publish("user:loggedout");

@@ -36,7 +36,8 @@
         <ion-label color="orange" autocomplete="on" autocorrect="on" stacked>MODELO</ion-label>
         <ion-select ngModel="modelos" interface="alert" cancelText="CANCELAR">
           <!-- <ion-option (ionSelect)="modeloSelccionado(undefined,undefined);"></ion-option> -->
-          <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.idMarca,mod.Marca);" [value]="mod.idMarca">
+          <ion-option *ngFor="let mod of modelos" (ionSelect)="modeloSelccionado(mod.idMarca,mod.Marca);"
+            [value]="mod.idModelo">
             {{mod.Marca }}
           </ion-option>
         </ion-select>

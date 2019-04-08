@@ -43,6 +43,11 @@ import { File } from '@ionic-native/file';
 import { LongPressModule } from 'ionic-long-press';
 import { AjustesNotificacionesPage } from '../pages/ajustes-notificaciones/ajustes-notificaciones';
 import { ChatPopoverComponent } from '../components/chat-popover/chat-popover';
+import { NotificacionesModelosPage } from '../pages/notificaciones-modelos/notificaciones-modelos';
+import { OfertasPage } from '../pages/ofertas/ofertas';
+import { Facebook } from '@ionic-native/facebook';
+import { NotificacionesPartesPage } from '../pages/notificaciones-partes/notificaciones-partes';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -68,7 +73,10 @@ import { ChatPopoverComponent } from '../components/chat-popover/chat-popover';
     ChatPreguntaPage,
     ChatRespuestaPage,
     AjustesNotificacionesPage,
-    ChatPopoverComponent
+    ChatPopoverComponent,
+    NotificacionesModelosPage,
+    OfertasPage,
+    NotificacionesPartesPage
   ],
   imports: [
     BrowserModule,
@@ -142,7 +150,10 @@ import { ChatPopoverComponent } from '../components/chat-popover/chat-popover';
     ChatPreguntaPage,
     ChatRespuestaPage,
     AjustesNotificacionesPage,
-    ChatPopoverComponent
+    ChatPopoverComponent,
+    NotificacionesModelosPage,
+    OfertasPage,
+    NotificacionesPartesPage
   ],
   providers: [
     StatusBar,
@@ -157,7 +168,8 @@ import { ChatPopoverComponent } from '../components/chat-popover/chat-popover';
     Push,
     LocalNotifications,
     FileTransfer,
-    File
+    File,
+    Facebook
   ]
 })
 export class AppModule {}

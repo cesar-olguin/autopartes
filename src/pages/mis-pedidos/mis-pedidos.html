@@ -14,7 +14,10 @@
     <button ion-button block round color="dark" (click)="pushPage();">Pedir AutoParte</button>
 
     <ion-list [virtualScroll]="items">
-      <ion-card padding *virtualItem="let item" (click)="pedidoN(item)">
+      <button ion-item *virtualItem="let item" (click)="pedidoN(item)">
+        <ion-thumbnail item-start>
+          <img [src]="item.Foto_Principal" style="border-radius:100%;">
+        </ion-thumbnail>
         <h1>{{item.Titulo | uppercase}}</h1><br>
         <p style="font-size: 18px;">
           <!-- {{item.Descripcion}}<br> -->
@@ -24,9 +27,9 @@
             <ion-icon name="calendar"></ion-icon>
             {{item.Fecha_Modificacion}}
           </button>
-        </p>
-      </ion-card>
+      </button>
     </ion-list>
+
   </div>
 
 </ion-content>
