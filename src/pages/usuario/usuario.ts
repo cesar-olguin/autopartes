@@ -50,6 +50,9 @@ export class UsuarioPage {
         this.Correo = uval;
         this.Password = pval;
 
+        console.log(uval);
+        console.log(pval);
+
         this.restService.getLoggin(this.Correo, Md5.hashStr(this.Password)).then(data => {
           this.Usuario = data;
 

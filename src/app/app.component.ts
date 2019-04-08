@@ -134,7 +134,7 @@ export class MyApp {
         }
       ];
 
-      this.salir = [{ titulo: "¡INICIAR SESIÓN!", color: "primary-blue", component: LoginPage, icon: "person" }];
+      this.salir = [{ titulo: "¡INICIAR SESIÓN!", color: "cavaliers-primary", component: HomePage, icon: "person" }];
     });
   }
 

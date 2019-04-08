@@ -1,14 +1,21 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, App, Events } from 'ionic-angular';
-import { UserServiceProvider } from './../../providers/user-service/user-service';
-import { empty } from 'rxjs/Observer';
-import { Storage } from '@ionic/storage';
-import { Md5 } from 'ts-md5';
+import { Component } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController,
+  App,
+  Events
+} from "ionic-angular";
+import { UserServiceProvider } from "./../../providers/user-service/user-service";
+import { empty } from "rxjs/Observer";
+import { Storage } from "@ionic/storage";
+import { Md5 } from "ts-md5";
 //import { UsuarioPage } from '../usuario/usuario';
-import { RegistrarsePage } from '../registrarse/registrarse';
-import { HomePage } from '../home/home';
-import { Push, PushOptions, PushObject } from '@ionic-native/push';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { RegistrarsePage } from "../registrarse/registrarse";
+import { HomePage } from "../home/home";
+import { Push, PushOptions, PushObject } from "@ionic-native/push";
+import { Facebook, FacebookLoginResponse } from "@ionic-native/facebook";
 /**
  * Generated class for the LoginPage page.
  *
@@ -39,6 +46,8 @@ export class LoginPage {
   public IdUsuario;
   userData: any;
   date: any;
+  facebookUser: any;
+  contraseñaF: any;
 
   ionViewDidLoad() {
     //this.Usuario = this.getFromStorageAsyncUser();
@@ -171,40 +180,121 @@ export class LoginPage {
 
           pushObject.on("registration").subscribe((registration: any) => {
             console.log("Dispositivo Registrado -> ", registration);
-
+            this.contraseñaF = Md5.hashStr("123456");
             let body = {
-              Nombre: profile["first_name"],
+              Nombre: profile["name"],
               ApellidoP: "",
               ApellidoM: "",
               Correo: profile["email"],
               Cell: "",
-              Contrasena: "",
-              Confirmar: "",
+              Contrasena: Md5.hashStr("123456"),
+              Confirmar: Md5.hashStr("123456"),
               Fecha_nac: "", //this.Fecha_nac = new Date().toLocaleDateString('en-GB'),
               Genero: "", // this.Genero,
-              Fecha_alta: this.date = new Date().toLocaleDateString("en-GB"),
-              ImagenPerfil: profile["picture_large"]["url"],
+              Fecha_alta: this.date = new Date().toLocaleDateString(
+                "en-GB"
+              ),
+              ImagenPerfil: profile["picture_large"]["data"]["url"],
               token: registration.registrationId
             };
-            this.restService.checkEmail(profile["email"]).then(data => {
-              this.Usuario = JSON.stringify(data);
-              if (this.Usuario == "[]") {
-                console.log(JSON.stringify(body));
+            this.restService.getUserFacebook(profile["email"]).then(data => {
+              this.facebookUser = JSON.stringify(data);
+              let obj = JSON.parse(JSON.stringify(data));
+              this.IdUsuario = obj[0];
+              console.log(data);
+        
+              if (this.facebookUser == "[]") {
+                console.log("Facebook nuevo");
                 this.restService.postRegistro(body).then(
                   result => {
                     console.log(result);
-                  },
-                  err => {
-                    console.log(err);
-                  }
-                );
-                this.navCtrl.push(LoginPage);
+                    window.localStorage.setItem("user", profile["email"]);
+                    window.localStorage.setItem("pass", "123456");
+
+                    this.storage.set("user", profile["email"]);
+                    this.storage.set("pass", "123456");
+                    console.log(profile["email"]);
+                    console.log(this.contraseñaF);
+
+
+                    this.storage.set("idUser", this.IdUsuario.idUsuario);
+                    this.storage.set("name", profile["name"]);
+                    this.storage.set("foto", profile["picture_large"]["data"]["url"]);
+                  });
+                this.events.publish("user:loggedin");
+                this.appCtrl.getRootNav().setRoot(HomePage);
+              } 
+              else {
+                let facebookBody = {
+                  Nombre: profile["name"],
+                  ApellidoP: "",
+                  ApellidoM: "",
+                  Correo: profile["email"],
+                  Cell: "",
+                  Contrasena: Md5.hashStr("123456"),
+                  Confirmar: Md5.hashStr("123456"),
+                  Fecha_alta: this.date = new Date().toLocaleDateString(
+                    "en-GB"
+                  ),
+                  ImagenPerfil: profile["picture_large"]["data"]["url"],
+                  token: registration.registrationId
+                };
+                this.restService.putUserFacebook(profile["email"],facebookBody).then(resultado => {
+                  console.log("Facebook Verificado");
+                  window.localStorage.setItem("user", profile["email"]);
+                  window.localStorage.setItem("pass", "123456");
+
+                  this.storage.set("user", profile["email"]);
+                  this.storage.set("pass", "123456");
+                  console.log(profile["email"]);
+                  console.log(this.contraseñaF);
+
+
+
+                  this.storage.set("idUser", this.IdUsuario.idUsuario);
+                  this.storage.set("name", profile["name"]);
+                  this.storage.set("foto", profile["picture_large"]["data"]["url"]);
+
+                  //////////////////////////
+
+                  const options: PushOptions = {
+                    android: {
+                      senderID: "398680118616"
+                    },
+                    ios: {
+                      alert: "true",
+                      badge: "true",
+                      sound: "true"
+                    }
+                  };
+
+                  const pushObject: PushObject = this.push.init(options);
+
+                  pushObject.on("registration").subscribe((registration: any) => {
+                    console.log("Dispositivo Registrado -> ", registration);
+                    let body = {
+                      token: registration.registrationId
+                    };
+                    this.restService
+                      .putTokenDevice(this.IdUsuario.idUsuario, body)
+                      .then(resultado => {
+                        console.log(resultado);
+                      });
+                  });
+                  this.events.publish("user:loggedin");
+                  this.appCtrl.getRootNav().setRoot(HomePage);
+                });
+                
               }
+              this.events.publish("user:loggedin");
+              this.appCtrl.getRootNav().setRoot(HomePage);
             });
           });
-
-          //
+          this.events.publish("user:loggedin");
+          this.appCtrl.getRootNav().setRoot(HomePage);
         });
+      this.events.publish("user:loggedin");
+      this.appCtrl.getRootNav().setRoot(HomePage);
     });
   }
 }

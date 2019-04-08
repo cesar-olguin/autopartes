@@ -66,7 +66,6 @@ export class UserServiceProvider {
     });
   }
 
-
   getArticulosOfertas(id) {
     return new Promise(resolve => {
       this.http.get(this.baseUrl + "/articulo/oferta/" + id).subscribe(
@@ -237,6 +236,32 @@ export class UserServiceProvider {
             console.log(err);
           }
         );
+    });
+  }
+
+  getUserFacebook(email) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + "/facebook/" + email + "/").subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    });
+  }
+
+  putUserFacebook(email, data) {
+    return new Promise(resolve => {
+      this.http.get(this.baseUrl + "/facebook/" + email + "/", data).subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        }
+      );
     });
   }
 
@@ -565,7 +590,16 @@ export class UserServiceProvider {
     return new Promise(resolve => {
       this.http
         .get(
-          this.baseUrl + "/notificaciones/" + idUsuario + "/" + idMarca + "/" + idModelo + "/" + oferta)
+          this.baseUrl +
+            "/notificaciones/" +
+            idUsuario +
+            "/" +
+            idMarca +
+            "/" +
+            idModelo +
+            "/" +
+            oferta
+        )
         .subscribe(
           data => {
             resolve(data);
@@ -609,18 +643,27 @@ export class UserServiceProvider {
     });
   }
 
-
-
-  getNotificacionesMarcaModelo(usuario,marca,modelo) {
+  getNotificacionesMarcaModelo(usuario, marca, modelo) {
     return new Promise(resolve => {
-      this.http.get(this.baseUrl + "/notificaciones/modelo/" + usuario + "/" + marca + "/" + modelo + "/").subscribe(
-        data => {
-          resolve(data);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+      this.http
+        .get(
+          this.baseUrl +
+            "/notificaciones/modelo/" +
+            usuario +
+            "/" +
+            marca +
+            "/" +
+            modelo +
+            "/"
+        )
+        .subscribe(
+          data => {
+            resolve(data);
+          },
+          err => {
+            console.log(err);
+          }
+        );
     });
   }
 

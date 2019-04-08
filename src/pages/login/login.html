@@ -35,20 +35,29 @@
       <ion-icon round item-start name="person"></ion-icon>
       Entrar
     </button>
-  
+
   </ion-list>
 
-  <button ion-button round color="primary" (click)="registrate()">
-    <ion-icon></ion-icon>
-    No tienes Cuenta?<br>
-    ¡REGISTRATE!
-  </button>
 
-  <button ion-button icon-start round color="facebook" (click)="loginFB()">
-    <ion-icon name="logo-facebook"></ion-icon>
-    Iniciar sesión con Facebook
-  </button>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button full icon-start round color="primary" (click)="registrate()">
+          <ion-icon></ion-icon>
+          No tienes Cuenta?<br> ¡REGISTRATE!
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button full icon-start round color="facebook" (click)="loginFB()">
+          <ion-icon name="logo-facebook"></ion-icon>
+          Iniciar sesión con Facebook
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- 
   <ion-card *ngIf="userData">
     <ion-card-header>{{ userData.username }}</ion-card-header>
     <img [src]="userData.picture" />
@@ -56,7 +65,7 @@
       <p>Email: {{ userData.email }}</p>
       <p>Nombre: {{ userData.first_name }}</p>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
 
   <!-- <button ion-button icon-start round color="google" (click)="facebookLogin()">
     <ion-icon name="logo-googleplus"></ion-icon>
